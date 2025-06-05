@@ -20,38 +20,48 @@ export default {
 		},
 		extend: {
 			colors: {
+				// Brand Color Palette
+				'deep-blue': '#0D3B66',
+				'light-gray': '#E8E9EB',
+				'mid-gray-blue': '#4D5B6B',
+				'dark-charcoal': '#232931',
+				'golden-yellow': '#F4D35E',
+				'terracotta': '#EE964B',
+				'terracotta-hover': '#E4853C',
+				
+				// Shadcn compatibility
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: '#0D3B66',
+					foreground: '#FFFFFF'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: '#4D5B6B',
+					foreground: '#FFFFFF'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
 				},
 				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
+					DEFAULT: '#E8E9EB',
+					foreground: '#4D5B6B'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					DEFAULT: '#F4D35E',
+					foreground: '#232931'
 				},
 				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
+					DEFAULT: '#FFFFFF',
+					foreground: '#232931'
 				},
 				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					DEFAULT: '#FFFFFF',
+					foreground: '#232931'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -63,24 +73,22 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				gold: {
-					'50': '#fbf8f1',
-					'100': '#f5eddc',
-					'200': '#e9d8b8',
-					'300': '#ddc08b',
-					'400': '#d2a862',
-					'500': '#c99244',
-					'600': '#ba7e3b',
-					'700': '#9a6533',
-					'800': '#7d5130',
-					'900': '#654429',
-					'500': '#f59e0b'
-				},
+			},
+			fontFamily: {
+				sans: ['Montserrat', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'card': '0 1px 3px rgba(0, 0, 0, 0.05)',
+				'card-hover': '0 4px 12px rgba(0, 0, 0, 0.1)',
+			},
+			spacing: {
+				'section': '3rem',
+				'section-lg': '4rem',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -99,17 +107,21 @@ export default {
 						height: '0'
 					}
 				},
-				'ping': {
-					'75%, 100%': {
-						transform: 'scale(1.5)',
-						opacity: '0'
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
 					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'ping': 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite'
+				'fade-in': 'fade-in 0.5s ease-out'
 			}
 		}
 	},

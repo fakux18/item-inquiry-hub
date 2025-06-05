@@ -17,23 +17,29 @@ const PublicHeader = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto px-4">
+    <header className="bg-deep-blue shadow-lg sticky top-0 z-50">
+      <div className="container-custom">
         {/* Top Bar */}
-        <div className="flex justify-between items-center py-2 text-sm border-b border-gray-100">
-          <div className="flex items-center space-x-4">
-            <a href="tel:+15551234567" className="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
-              <Phone className="w-4 h-4 mr-1" />
+        <div className="flex justify-between items-center py-3 text-sm border-b border-mid-gray-blue/30">
+          <div className="flex items-center space-x-6">
+            <a 
+              href="tel:+15551234567" 
+              className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
+            >
+              <Phone className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
               (555) 123-4567
             </a>
-            <a href="mailto:info@marketplace.com" className="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
-              <Mail className="w-4 h-4 mr-1" />
+            <a 
+              href="mailto:info@marketplace.com" 
+              className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
+            >
+              <Mail className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
               info@marketplace.com
             </a>
           </div>
           <Link 
             to="/admin/login" 
-            className="text-gray-500 hover:text-blue-600 transition-colors text-xs"
+            className="text-light-gray hover:text-golden-yellow transition-colors text-sm font-medium"
           >
             Admin Login
           </Link>
@@ -42,33 +48,49 @@ const PublicHeader = () => {
         {/* Main Header */}
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-terracotta rounded-lg flex items-center justify-center shadow-md">
               <span className="text-white font-bold text-xl">M</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">MarketPlace</h1>
-              <p className="text-xs text-gray-500">Quality Properties & Vehicles</p>
+              <h1 className="text-xl font-bold text-white">MarketPlace</h1>
+              <p className="text-xs text-light-gray">Premium Properties & Vehicles</p>
             </div>
           </Link>
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+            <Link 
+              to="/" 
+              className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
+            >
               Home
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link to="/category/properties" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+            <Link 
+              to="/category/properties" 
+              className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
+            >
               Properties
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link to="/category/vehicles" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+            <Link 
+              to="/category/vehicles" 
+              className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
+            >
               Vehicles
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+            <Link 
+              to="/contact" 
+              className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
+            >
               Contact
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </nav>
 
-          {/* Search & WhatsApp */}
+          {/* Search & Contact */}
           <div className="hidden lg:flex items-center space-x-4">
             <form onSubmit={handleSearch} className="relative">
               <input
@@ -76,13 +98,13 @@ const PublicHeader = () => {
                 placeholder="Search listings..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-64 pl-10 pr-4 py-2 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
               />
-              <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-3 top-2.5 w-4 h-4 text-mid-gray-blue" />
             </form>
             <Button
               onClick={() => window.open('https://wa.me/15551234567', '_blank')}
-              className="bg-green-600 hover:bg-green-700 text-white"
+              className="btn-primary"
             >
               WhatsApp
             </Button>
@@ -91,7 +113,7 @@ const PublicHeader = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-white hover:text-golden-yellow transition-colors"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -99,49 +121,50 @@ const PublicHeader = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
+          <div className="md:hidden py-4 border-t border-mid-gray-blue/30">
             <nav className="flex flex-col space-y-4">
               <Link 
                 to="/" 
-                className="text-gray-700 hover:text-blue-600 font-medium"
+                className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
               <Link 
                 to="/category/properties" 
-                className="text-gray-700 hover:text-blue-600 font-medium"
+                className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Properties
               </Link>
               <Link 
                 to="/category/vehicles" 
-                className="text-gray-700 hover:text-blue-600 font-medium"
+                className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Vehicles
               </Link>
               <Link 
                 to="/contact" 
-                className="text-gray-700 hover:text-blue-600 font-medium"
+                className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
               </Link>
+              <div className="divider opacity-30"></div>
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
                   placeholder="Search listings..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
                 />
-                <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-3.5 w-4 h-4 text-mid-gray-blue" />
               </form>
               <Button
                 onClick={() => window.open('https://wa.me/15551234567', '_blank')}
-                className="bg-green-600 hover:bg-green-700 text-white w-full"
+                className="btn-primary w-full"
               >
                 WhatsApp Contact
               </Button>
