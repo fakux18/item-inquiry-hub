@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Bed, Bath, Calendar, Gauge, ArrowLeft, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,6 +12,7 @@ const PropertyDetails = () => {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Listing Not Found</h1>
+        <p className="text-gray-600 mb-4">The listing you're looking for doesn't exist or has been removed.</p>
         <Link to="/">
           <Button>Back to Home</Button>
         </Link>
@@ -32,7 +32,7 @@ const PropertyDetails = () => {
     const message = encodeURIComponent(
       `Hi! I'm interested in "${listing.title}" listed for ${formatPrice(listing.price)}. Could you provide more information?`
     );
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/15551234567?text=${message}`, '_blank');
   };
 
   const handleEmailContact = () => {

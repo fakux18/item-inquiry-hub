@@ -26,7 +26,7 @@ const Index = () => {
           <Route path="contact" element={<ContactPage />} />
         </Route>
         
-        {/* Admin Routes */}
+        {/* Admin Login Route */}
         <Route 
           path="/admin/login" 
           element={
@@ -35,7 +35,12 @@ const Index = () => {
             <AdminLogin onLogin={() => setIsAdminLoggedIn(true)} />
           } 
         />
-        <Route path="/admin" element={isAdminLoggedIn ? <AdminLayout /> : <Navigate to="/admin/login" replace />}>
+        
+        {/* Admin Routes */}
+        <Route 
+          path="/admin" 
+          element={isAdminLoggedIn ? <AdminLayout /> : <Navigate to="/admin/login" replace />}
+        >
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="listings" element={<ManageListings />} />
