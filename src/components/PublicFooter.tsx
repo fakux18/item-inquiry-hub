@@ -51,7 +51,7 @@ const PublicFooter = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-blue-400" />
-                <a href="tel:+1234567890" className="text-gray-300 hover:text-white transition-colors">
+                <a href="tel:+15551234567" className="text-gray-300 hover:text-white transition-colors">
                   (555) 123-4567
                 </a>
               </div>
@@ -80,7 +80,7 @@ const PublicFooter = () => {
             <div className="bg-green-600 text-white p-3 rounded-lg text-center">
               <p className="font-semibold">Available via WhatsApp 24/7</p>
               <button
-                onClick={() => window.open('https://wa.me/1234567890', '_blank')}
+                onClick={() => window.open('https://wa.me/15551234567', '_blank')}
                 className="text-sm underline hover:no-underline"
               >
                 (555) 123-4567

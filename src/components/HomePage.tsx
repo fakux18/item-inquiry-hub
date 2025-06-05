@@ -8,10 +8,6 @@ import ListingCard from './ListingCard';
 import { mockListings } from '../data/mockData';
 
 const HomePage = () => {
-  const [searchCategory, setSearchCategory] = useState('all');
-  const [searchLocation, setSearchLocation] = useState('');
-  const [priceRange, setPriceRange] = useState([0, 1000000]);
-
   const featuredListings = mockListings.filter(listing => listing.featured).slice(0, 6);
   const recentListings = mockListings.slice(0, 8);
 
@@ -32,48 +28,28 @@ const HomePage = () => {
             Quality Properties & Vehicles for Sale
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Discover your perfect property or vehicle with personalized service and trusted expertise
+            Find exactly what you're looking for - from dream homes to reliable vehicles, we have quality options waiting for you
           </p>
 
-          {/* Search Bar */}
-          <div className="bg-white rounded-lg shadow-xl p-6 max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Select value={searchCategory} onValueChange={setSearchCategory}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="properties">Properties</SelectItem>
-                  <SelectItem value="vehicles">Vehicles</SelectItem>
-                  <SelectItem value="equipment">Equipment</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Location"
-                  value={searchLocation}
-                  onChange={(e) => setSearchLocation(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div className="relative">
-                <DollarSign className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Max Price"
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white h-10">
-                <Search className="w-4 h-4 mr-2" />
-                Search
-              </Button>
+          {/* Compelling Message */}
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg shadow-xl p-8 max-w-4xl mx-auto mb-8">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4">
+              Your next purchase is just a click away
+            </h2>
+            <p className="text-lg md:text-xl mb-6">
+              Browse our carefully selected properties and vehicles, each personally verified for quality and value
+            </p>
+            <div className="flex flex-col md:flex-row gap-4 justify-center">
+              <Link to="/category/properties">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+                  Browse Properties
+                </Button>
+              </Link>
+              <Link to="/category/vehicles">
+                <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
+                  View Vehicles
+                </Button>
+              </Link>
             </div>
           </div>
 
@@ -222,9 +198,11 @@ const HomePage = () => {
                     >
                       WhatsApp Me
                     </Button>
-                    <Button variant="outline">
-                      Send Email
-                    </Button>
+                    <Link to="/contact">
+                      <Button variant="outline">
+                        Send Email
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>

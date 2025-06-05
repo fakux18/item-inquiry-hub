@@ -22,7 +22,7 @@ const PublicHeader = () => {
         {/* Top Bar */}
         <div className="flex justify-between items-center py-2 text-sm border-b border-gray-100">
           <div className="flex items-center space-x-4">
-            <a href="tel:+1234567890" className="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
+            <a href="tel:+15551234567" className="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
               <Phone className="w-4 h-4 mr-1" />
               (555) 123-4567
             </a>
@@ -81,7 +81,7 @@ const PublicHeader = () => {
               <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
             </form>
             <Button
-              onClick={() => window.open('https://wa.me/1234567890', '_blank')}
+              onClick={() => window.open('https://wa.me/15551234567', '_blank')}
               className="bg-green-600 hover:bg-green-700 text-white"
             >
               WhatsApp
@@ -101,16 +101,32 @@ const PublicHeader = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <nav className="flex flex-col space-y-4">
-              <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link 
+                to="/" 
+                className="text-gray-700 hover:text-blue-600 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Home
               </Link>
-              <Link to="/category/properties" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link 
+                to="/category/properties" 
+                className="text-gray-700 hover:text-blue-600 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Properties
               </Link>
-              <Link to="/category/vehicles" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link 
+                to="/category/vehicles" 
+                className="text-gray-700 hover:text-blue-600 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Vehicles
               </Link>
-              <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
+              <Link 
+                to="/contact" 
+                className="text-gray-700 hover:text-blue-600 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Contact
               </Link>
               <form onSubmit={handleSearch} className="relative">
@@ -123,6 +139,12 @@ const PublicHeader = () => {
                 />
                 <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
               </form>
+              <Button
+                onClick={() => window.open('https://wa.me/15551234567', '_blank')}
+                className="bg-green-600 hover:bg-green-700 text-white w-full"
+              >
+                WhatsApp Contact
+              </Button>
             </nav>
           </div>
         )}

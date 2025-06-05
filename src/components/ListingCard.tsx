@@ -43,7 +43,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
     const message = encodeURIComponent(
       `Hi! I'm interested in "${listing.title}" listed for ${formatPrice(listing.price)}. Could you provide more information?`
     );
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/15551234567?text=${message}`, '_blank');
   };
 
   const handleEmailContact = () => {
@@ -80,7 +80,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
         {/* Featured Badge */}
         {listing.featured && (
           <div className="absolute top-4 right-4">
-            <span className="bg-gold-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+            <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
               Featured
             </span>
           </div>
