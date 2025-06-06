@@ -6,7 +6,7 @@ const WhatsAppFloat = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hi! I'm interested in your listings. Could you help me find what I'm looking for?");
+    const message = encodeURIComponent("¡Hola! Estoy interesado en sus propiedades. ¿Podrían ayudarme a encontrar lo que busco?");
     window.open(`https://wa.me/15551234567?text=${message}`, '_blank');
   };
 
@@ -18,7 +18,7 @@ const WhatsAppFloat = () => {
         {/* Close button */}
         <button
           onClick={() => setIsVisible(false)}
-          className="absolute -top-2 -right-2 bg-gray-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-gray-700 transition-colors z-10"
+          className="absolute -top-2 -right-2 bg-mid-gray-blue text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-dark-charcoal transition-colors z-10"
         >
           <X className="w-3 h-3" />
         </button>
@@ -30,7 +30,7 @@ const WhatsAppFloat = () => {
         >
           <Phone className="w-6 h-6" />
           <span className="hidden group-hover:block whitespace-nowrap pr-2 font-medium">
-            Chat with us!
+            ¡Chatea con nosotros!
           </span>
         </button>
 

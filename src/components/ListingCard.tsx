@@ -32,7 +32,7 @@ interface ListingCardProps {
 
 const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('es-ES', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
@@ -41,21 +41,29 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
 
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent(
-      `Hi! I'm interested in "${listing.title}" listed for ${formatPrice(listing.price)}. Could you provide more information?`
+      `¡Hola! Estoy interesado en "${listing.title}" con precio de ${formatPrice(listing.price)}. ¿Podrían proporcionarme más información?`
     );
     window.open(`https://wa.me/15551234567?text=${message}`, '_blank');
   };
 
   const handleEmailContact = () => {
-    const subject = encodeURIComponent(`Inquiry about ${listing.title}`);
+    const subject = encodeURIComponent(`Consulta sobre ${listing.title}`);
     const body = encodeURIComponent(
-      `Hi,\n\nI'm interested in "${listing.title}" listed for ${formatPrice(listing.price)}.\n\nCould you please provide more information?\n\nThank you!`
+      `Hola,\n\nEstoy interesado en "${listing.title}" con precio de ${formatPrice(listing.price)}.\n\n¿Podrían proporcionarme más información?\n\n¡Gracias!`
     );
     window.open(`mailto:info@marketplace.com?subject=${subject}&body=${body}`);
   };
 
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'pending': return 'Pendiente';
+      case 'sold': return 'Vendido';
+      default: return 'Disponible';
+    }
+  };
+
   return (
-    <div className="card-elevated overflow-hidden group animate-fade-in">
+    <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow duration-300 overflow-hidden group animate-fade-in">
       {/* Image */}
       <div className="relative overflow-hidden">
         <img
@@ -74,7 +82,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
                 ? 'bg-golden-yellow text-dark-charcoal' 
                 : 'bg-red-500 text-white'
             }`}>
-              {listing.status.charAt(0).toUpperCase() + listing.status.slice(1)}
+              {getStatusText(listing.status)}
             </span>
           </div>
         )}
@@ -82,8 +90,8 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
         {/* Featured Badge */}
         {listing.featured && (
           <div className="absolute top-4 right-4">
-            <span className="badge-featured shadow-md">
-              Featured
+            <span className="bg-terracotta text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md">
+              Destacado
             </span>
           </div>
         )}
@@ -103,7 +111,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
             <h3 className="text-xl font-semibold text-dark-charcoal mb-2 line-clamp-2 group-hover:text-deep-blue transition-colors">
               {listing.title}
             </h3>
-            <div className="flex items-center text-secondary text-sm mb-2">
+            <div className="flex items-center text-mid-gray-blue text-sm mb-2">
               <MapPin className="w-4 h-4 mr-1" />
               {listing.location}
             </div>
@@ -114,17 +122,17 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
         </div>
 
         {/* Key Details */}
-        <div className="flex flex-wrap gap-4 mb-4 text-sm text-secondary">
+        <div className="flex flex-wrap gap-4 mb-4 text-sm text-mid-gray-blue">
           {listing.details.bedrooms && (
             <div className="flex items-center">
               <Bed className="w-4 h-4 mr-1 text-deep-blue" />
-              {listing.details.bedrooms} bed
+              {listing.details.bedrooms} hab
             </div>
           )}
           {listing.details.bathrooms && (
             <div className="flex items-center">
               <Bath className="w-4 h-4 mr-1 text-deep-blue" />
-              {listing.details.bathrooms} bath
+              {listing.details.bathrooms} baño
             </div>
           )}
           {listing.details.year && (
@@ -136,14 +144,14 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
           {listing.details.mileage && (
             <div className="flex items-center">
               <Gauge className="w-4 h-4 mr-1 text-deep-blue" />
-              {listing.details.mileage.toLocaleString()} mi
+              {listing.details.mileage.toLocaleString()} km
             </div>
           )}
         </div>
 
         {/* Description */}
         {!compact && (
-          <p className="text-secondary text-sm mb-6 line-clamp-2 leading-relaxed">
+          <p className="text-mid-gray-blue text-sm mb-6 line-clamp-2 leading-relaxed">
             {listing.description}
           </p>
         )}
@@ -160,16 +168,16 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
             </Button>
             <Button
               onClick={handleEmailContact}
-              className="flex-1 btn-secondary py-2 text-sm"
+              className="flex-1 bg-white hover:bg-terracotta hover:text-white text-dark-charcoal border-0 font-medium py-2 text-sm rounded-lg transition-all duration-200 shadow-sm"
             >
               <Mail className="w-4 h-4 mr-1" />
-              Email
+              Correo
             </Button>
           </div>
           
           <Link to={`/property/${listing.id}`}>
-            <Button className="w-full btn-primary py-2 text-sm">
-              View Details →
+            <Button className="w-full bg-terracotta hover:bg-terracotta-hover text-white font-medium py-2 text-sm rounded-lg transition-colors duration-200">
+              Ver Detalles →
             </Button>
           </Link>
         </div>

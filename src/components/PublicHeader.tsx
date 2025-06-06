@@ -41,7 +41,7 @@ const PublicHeader = () => {
             to="/admin/login" 
             className="text-light-gray hover:text-golden-yellow transition-colors text-sm font-medium"
           >
-            Admin Login
+            Acceso Admin
           </Link>
         </div>
 
@@ -54,7 +54,7 @@ const PublicHeader = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">MarketPlace</h1>
-              <p className="text-xs text-light-gray">Premium Properties & Vehicles</p>
+              <p className="text-xs text-light-gray">Propiedades y Vehículos Premium</p>
             </div>
           </Link>
 
@@ -64,28 +64,28 @@ const PublicHeader = () => {
               to="/" 
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Home
+              Inicio
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link 
               to="/category/properties" 
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Properties
+              Propiedades
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link 
               to="/category/vehicles" 
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Vehicles
+              Vehículos
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link 
               to="/contact" 
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Contact
+              Contacto
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </nav>
@@ -95,16 +95,16 @@ const PublicHeader = () => {
             <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
-                placeholder="Search listings..."
+                placeholder="Buscar propiedades..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
+                className="w-64 pl-10 pr-4 py-2 bg-white border-0 rounded-lg focus:ring-2 focus:ring-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
               />
               <Search className="absolute left-3 top-2.5 w-4 h-4 text-mid-gray-blue" />
             </form>
             <Button
               onClick={() => window.open('https://wa.me/15551234567', '_blank')}
-              className="btn-primary"
+              className="bg-terracotta hover:bg-golden-yellow hover:text-dark-charcoal text-white font-medium px-6 py-2 rounded-lg transition-all duration-200 shadow-sm"
             >
               WhatsApp
             </Button>
@@ -128,45 +128,45 @@ const PublicHeader = () => {
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Home
+                Inicio
               </Link>
               <Link 
                 to="/category/properties" 
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Properties
+                Propiedades
               </Link>
               <Link 
                 to="/category/vehicles" 
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Vehicles
+                Vehículos
               </Link>
               <Link 
                 to="/contact" 
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contact
+                Contacto
               </Link>
-              <div className="divider opacity-30"></div>
+              <div className="h-px bg-mid-gray-blue/30 my-4"></div>
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
-                  placeholder="Search listings..."
+                  placeholder="Buscar propiedades..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
+                  className="w-full pl-10 pr-4 py-3 bg-white border-0 rounded-lg focus:ring-2 focus:ring-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
                 />
                 <Search className="absolute left-3 top-3.5 w-4 h-4 text-mid-gray-blue" />
               </form>
               <Button
                 onClick={() => window.open('https://wa.me/15551234567', '_blank')}
-                className="btn-primary w-full"
+                className="bg-terracotta hover:bg-golden-yellow hover:text-dark-charcoal text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 w-full"
               >
-                WhatsApp Contact
+                Contacto WhatsApp
               </Button>
             </nav>
           </div>
