@@ -45,7 +45,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
         </div>
 
         {/* Demo Credentials */}
-        <div className="bg-deep-blue/5 rounded-lg p-4 mb-6">
+        <div className="bg-light-gray rounded-lg p-4 mb-6">
           <h3 className="font-semibold text-deep-blue mb-2">Credenciales de Prueba:</h3>
           <p className="text-sm text-mid-gray-blue">Email: admin@marketplace.com</p>
           <p className="text-sm text-mid-gray-blue">Contraseña: admin123</p>
@@ -61,7 +61,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
               placeholder="admin@marketplace.com"
               value={credentials.email}
               onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-              className="bg-white text-dark-charcoal placeholder-mid-gray-blue border-0 focus:ring-2 focus:ring-deep-blue"
+              className="bg-white text-dark-charcoal placeholder-mid-gray-blue border-mid-gray-blue focus:border-deep-blue"
               required
             />
           </div>
@@ -74,7 +74,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
               placeholder="Ingrese su contraseña"
               value={credentials.password}
               onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-              className="bg-white text-dark-charcoal placeholder-mid-gray-blue border-0 focus:ring-2 focus:ring-deep-blue"
+              className="bg-white text-dark-charcoal placeholder-mid-gray-blue border-mid-gray-blue focus:border-deep-blue"
               required
             />
           </div>

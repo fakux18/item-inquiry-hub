@@ -32,12 +32,12 @@ const HeroSection = () => {
             
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <Link to="/category/properties">
-                <Button className="bg-terracotta hover:bg-terracotta-hover text-white font-medium text-lg px-8 py-4 min-w-[200px] rounded-lg transition-colors duration-200">
+                <Button className="bg-terracotta hover:bg-terracotta-hover text-white font-medium text-lg px-8 py-3 min-w-[200px] rounded-lg transition-colors duration-200">
                   Explorar Propiedades
                 </Button>
               </Link>
               <Link to="/category/vehicles">
-                <Button className="bg-golden-yellow hover:bg-golden-yellow/90 text-dark-charcoal font-medium text-lg px-8 py-4 min-w-[200px] rounded-lg transition-colors duration-200">
+                <Button className="bg-golden-yellow hover:bg-golden-yellow/90 text-dark-charcoal font-medium text-lg px-8 py-3 min-w-[200px] rounded-lg transition-colors duration-200">
                   Ver Vehículos
                 </Button>
               </Link>

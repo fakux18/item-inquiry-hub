@@ -168,7 +168,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
             </Button>
             <Button
               onClick={handleEmailContact}
-              className="flex-1 bg-white hover:bg-terracotta hover:text-white text-dark-charcoal border-0 font-medium py-2 text-sm rounded-lg transition-all duration-200 shadow-sm"
+              className="flex-1 bg-white hover:bg-terracotta hover:text-white text-dark-charcoal border border-dark-charcoal font-medium py-2 text-sm rounded-lg transition-all duration-200"
             >
               <Mail className="w-4 h-4 mr-1" />
               Correo
@@ -176,7 +176,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
           </div>
           
           <Link to={`/property/${listing.id}`}>
-            <Button className="w-full bg-terracotta hover:bg-terracotta-hover text-white font-medium py-2 text-sm rounded-lg transition-colors duration-200">
+            <Button className="w-full bg-white hover:bg-terracotta hover:text-white text-dark-charcoal border border-dark-charcoal font-medium py-2 text-sm rounded-lg transition-all duration-200">
               Ver Detalles →
             </Button>
           </Link>
