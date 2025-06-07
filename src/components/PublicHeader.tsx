@@ -96,7 +96,7 @@ const PublicHeader = () => {
                 placeholder="Buscar propiedades..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
+                className="w-64 pl-10 pr-4 py-2 bg-white border-0 rounded-lg focus:ring-2 focus:ring-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
               />
               <Search className="absolute left-3 top-2.5 w-4 h-4 text-mid-gray-blue" />
             </form>
@@ -151,14 +151,14 @@ const PublicHeader = () => {
               >
                 Contacto
               </Link>
-              <div className="divider opacity-30"></div>
+              <div className="h-px bg-mid-gray-blue/30 my-4"></div>
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
                   placeholder="Buscar propiedades..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
+                  className="w-full pl-10 pr-4 py-3 bg-white border-0 rounded-lg focus:ring-2 focus:ring-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
                 />
                 <Search className="absolute left-3 top-3.5 w-4 h-4 text-mid-gray-blue" />
               </form>

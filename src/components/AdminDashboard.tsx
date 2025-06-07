@@ -8,66 +8,71 @@ import { mockListings, adminStats } from '../data/mockData';
 const AdminDashboard = () => {
   const recentListings = mockListings.slice(0, 5);
 
+  const handleLogout = () => {
+    // Implement logout functionality
+    window.location.href = '/admin/login';
+  };
+
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-8">
-        <h1 className="text-3xl font-bold mb-2">Welcome back, Admin!</h1>
-        <p className="text-blue-100 text-lg">
-          Here's what's happening with your marketplace today.
+      <div className="bg-gradient-to-r from-deep-blue to-deep-blue/90 text-white rounded-lg p-8">
+        <h1 className="text-3xl font-bold mb-2">¡Bienvenido de nuevo, Admin!</h1>
+        <p className="text-light-gray text-lg">
+          Aquí está lo que está pasando con tu marketplace hoy.
         </p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="bg-white shadow-card border-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Listings</CardTitle>
-            <List className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-dark-charcoal">Total de Listados</CardTitle>
+            <List className="h-4 w-4 text-mid-gray-blue" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{adminStats.totalListings}</div>
-            <p className="text-xs text-muted-foreground">
-              Active listings on your site
+            <div className="text-2xl font-bold text-dark-charcoal">{adminStats.totalListings}</div>
+            <p className="text-xs text-mid-gray-blue">
+              Listados activos en tu sitio
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white shadow-card border-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Inquiries This Week</CardTitle>
-            <MessageCircle className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-dark-charcoal">Consultas Esta Semana</CardTitle>
+            <MessageCircle className="h-4 w-4 text-mid-gray-blue" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{adminStats.inquiriesThisWeek}</div>
-            <p className="text-xs text-muted-foreground">
-              +12% from last week
+            <div className="text-2xl font-bold text-dark-charcoal">{adminStats.inquiriesThisWeek}</div>
+            <p className="text-xs text-mid-gray-blue">
+              +12% desde la semana pasada
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white shadow-card border-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Most Viewed Item</CardTitle>
-            <Eye className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-dark-charcoal">Artículo Más Visto</CardTitle>
+            <Eye className="h-4 w-4 text-mid-gray-blue" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{adminStats.mostViewed.viewCount}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-dark-charcoal">{adminStats.mostViewed.viewCount}</div>
+            <p className="text-xs text-mid-gray-blue">
               {adminStats.mostViewed.title.substring(0, 30)}...
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white shadow-card border-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Recent Contacts</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-dark-charcoal">Contactos Recientes</CardTitle>
+            <TrendingUp className="h-4 w-4 text-mid-gray-blue" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{adminStats.recentContacts}</div>
-            <p className="text-xs text-muted-foreground">
-              Awaiting response
+            <div className="text-2xl font-bold text-dark-charcoal">{adminStats.recentContacts}</div>
+            <p className="text-xs text-mid-gray-blue">
+              Esperando respuesta
             </p>
           </CardContent>
         </Card>
@@ -75,71 +80,71 @@ const AdminDashboard = () => {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card>
+        <Card className="bg-white shadow-card border-0">
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-center text-dark-charcoal">
               <Plus className="w-5 h-5 mr-2" />
-              Add New Listing
+              Agregar Nuevo Listado
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-600 mb-4">
-              Quickly add a new property or vehicle to your marketplace.
+            <p className="text-mid-gray-blue mb-4">
+              Añade rápidamente una nueva propiedad o vehículo a tu marketplace.
             </p>
             <Link to="/admin/listings/add">
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                Create Listing
+              <Button className="w-full bg-deep-blue hover:bg-deep-blue/90 text-white border-0">
+                Crear Listado
               </Button>
             </Link>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white shadow-card border-0">
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-center text-dark-charcoal">
               <List className="w-5 h-5 mr-2" />
-              Manage Listings
+              Gestionar Listados
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-600 mb-4">
-              View, edit, or remove existing listings from your marketplace.
+            <p className="text-mid-gray-blue mb-4">
+              Ver, editar o eliminar listados existentes de tu marketplace.
             </p>
             <Link to="/admin/listings">
-              <Button variant="outline" className="w-full">
-                View All Listings
+              <Button className="w-full bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray">
+                Ver Todos los Listados
               </Button>
             </Link>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white shadow-card border-0">
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-center text-dark-charcoal">
               <MessageCircle className="w-5 h-5 mr-2" />
-              Check Messages
+              Revisar Mensajes
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-600 mb-4">
-              Review and respond to customer inquiries and contact forms.
+            <p className="text-mid-gray-blue mb-4">
+              Revisa y responde a consultas de clientes y formularios de contacto.
             </p>
-            <Button variant="outline" className="w-full">
-              View Messages
+            <Button className="w-full bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray">
+              Ver Mensajes
             </Button>
           </CardContent>
         </Card>
       </div>
 
       {/* Recent Listings */}
-      <Card>
+      <Card className="bg-white shadow-card border-0">
         <CardHeader>
-          <CardTitle>Recent Listings</CardTitle>
+          <CardTitle className="text-dark-charcoal">Listados Recientes</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {recentListings.map((listing) => (
-              <div key={listing.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+              <div key={listing.id} className="flex items-center justify-between p-4 rounded-lg bg-light-gray/30">
                 <div className="flex items-center space-x-4">
                   <img
                     src={listing.images[0]}
@@ -147,12 +152,12 @@ const AdminDashboard = () => {
                     className="w-16 h-16 object-cover rounded-lg"
                   />
                   <div>
-                    <h3 className="font-semibold text-gray-800">{listing.title}</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="font-semibold text-dark-charcoal">{listing.title}</h3>
+                    <p className="text-sm text-mid-gray-blue">
                       {listing.category} • ${listing.price.toLocaleString()}
                     </p>
-                    <p className="text-xs text-gray-500">
-                      Posted {listing.datePosted} • {listing.viewCount} views
+                    <p className="text-xs text-mid-gray-blue">
+                      Publicado {listing.datePosted} • {listing.viewCount} vistas
                     </p>
                   </div>
                 </div>
@@ -162,10 +167,11 @@ const AdminDashboard = () => {
                     listing.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
                     'bg-red-100 text-red-700'
                   }`}>
-                    {listing.status}
+                    {listing.status === 'available' ? 'disponible' : 
+                     listing.status === 'pending' ? 'pendiente' : 'vendido'}
                   </span>
-                  <Button variant="ghost" size="sm">
-                    Edit
+                  <Button className="bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray text-sm px-3 py-1">
+                    Editar
                   </Button>
                 </div>
               </div>
@@ -173,11 +179,37 @@ const AdminDashboard = () => {
           </div>
           <div className="mt-4 text-center">
             <Link to="/admin/listings">
-              <Button variant="outline">View All Listings</Button>
+              <Button className="bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray">
+                Ver Todos los Listados
+              </Button>
             </Link>
           </div>
         </CardContent>
       </Card>
+
+      {/* Action Buttons */}
+      <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+        <a 
+          href="/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-block bg-white hover:bg-mid-gray-blue hover:text-white text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px] text-center"
+        >
+          Ver Sitio
+        </a>
+        
+        <Button
+          onClick={handleLogout}
+          className="bg-white hover:bg-terracotta hover:text-white text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px]"
+        >
+          Cerrar Sesión
+        </Button>
+        
+        <Button className="bg-white hover:bg-mid-gray-blue hover:text-white text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px] flex items-center">
+          <Settings className="w-4 h-4 mr-2" />
+          Configuración
+        </Button>
+      </div>
     </div>
   );
 };

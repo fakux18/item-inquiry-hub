@@ -26,53 +26,55 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
       if (credentials.email === 'admin@marketplace.com' && credentials.password === 'admin123') {
         onLogin();
       } else {
-        alert('Invalid credentials. Try admin@marketplace.com / admin123');
+        alert('Credenciales inválidas. Prueba admin@marketplace.com / admin123');
       }
       setIsLoading(false);
     }, 1000);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+    <div className="min-h-screen bg-light-gray flex items-center justify-center px-4">
+      <div className="max-w-md w-full bg-white rounded-lg shadow-card p-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-deep-blue rounded-lg flex items-center justify-center mx-auto mb-4">
             <span className="text-white font-bold text-2xl">M</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
-          <p className="text-gray-600 mt-2">Access your marketplace dashboard</p>
+          <h1 className="text-2xl font-bold text-dark-charcoal">Acceso Administrativo</h1>
+          <p className="text-mid-gray-blue mt-2">Accede a tu panel de control</p>
         </div>
 
         {/* Demo Credentials */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <h3 className="font-semibold text-blue-800 mb-2">Demo Credentials:</h3>
-          <p className="text-sm text-blue-700">Email: admin@marketplace.com</p>
-          <p className="text-sm text-blue-700">Password: admin123</p>
+        <div className="bg-light-gray rounded-lg p-4 mb-6">
+          <h3 className="font-semibold text-deep-blue mb-2">Credenciales de Prueba:</h3>
+          <p className="text-sm text-mid-gray-blue">Email: admin@marketplace.com</p>
+          <p className="text-sm text-mid-gray-blue">Contraseña: admin123</p>
         </div>
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="email">Email Address</Label>
+            <Label htmlFor="email" className="text-dark-charcoal">Correo Electrónico</Label>
             <Input
               id="email"
               type="email"
               placeholder="admin@marketplace.com"
               value={credentials.email}
               onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+              className="bg-white text-dark-charcoal placeholder-mid-gray-blue border-mid-gray-blue focus:border-deep-blue"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-dark-charcoal">Contraseña</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Ingrese su contraseña"
               value={credentials.password}
               onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+              className="bg-white text-dark-charcoal placeholder-mid-gray-blue border-mid-gray-blue focus:border-deep-blue"
               required
             />
           </div>
@@ -86,19 +88,19 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
                   setCredentials({ ...credentials, rememberMe: checked as boolean })
                 }
               />
-              <Label htmlFor="remember" className="text-sm">Remember me</Label>
+              <Label htmlFor="remember" className="text-sm text-dark-charcoal">Recordarme</Label>
             </div>
-            <a href="#" className="text-sm text-blue-600 hover:text-blue-800">
-              Forgot password?
+            <a href="#" className="text-sm text-deep-blue hover:text-terracotta transition-colors">
+              ¿Olvidaste tu contraseña?
             </a>
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="w-full bg-deep-blue hover:bg-deep-blue/90 text-white"
             disabled={isLoading}
           >
-            {isLoading ? 'Signing in...' : 'Sign In'}
+            {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
           </Button>
         </form>
 
@@ -106,9 +108,9 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
         <div className="mt-8 text-center">
           <a
             href="/"
-            className="text-sm text-gray-600 hover:text-blue-600"
+            className="text-sm text-mid-gray-blue hover:text-deep-blue transition-colors"
           >
-            ← Back to main website
+            ← Volver al sitio web
           </a>
         </div>
       </div>

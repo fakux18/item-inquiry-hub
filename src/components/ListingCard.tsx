@@ -53,6 +53,17 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
     window.open(`mailto:info@marketplace.com?subject=${subject}&body=${body}`);
   };
 
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case "pending":
+        return "Pendiente";
+      case "sold":
+        return "Vendido";
+      default:
+        return "Disponible";
+    }
+  };
+
   return (
     <div className="card-elevated overflow-hidden group animate-fade-in">
       {/* Imagen */}
@@ -102,7 +113,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
             <h3 className="text-xl font-semibold text-dark-charcoal mb-2 line-clamp-2 group-hover:text-deep-blue transition-colors">
               {listing.title}
             </h3>
-            <div className="flex items-center text-secondary text-sm mb-2">
+            <div className="flex items-center text-mid-gray-blue text-sm mb-2">
               <MapPin className="w-4 h-4 mr-1" />
               {listing.location}
             </div>
@@ -142,7 +153,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
 
         {/* Descripción */}
         {!compact && (
-          <p className="text-secondary text-sm mb-6 line-clamp-2 leading-relaxed">
+          <p className="text-mid-gray-blue text-sm mb-6 line-clamp-2 leading-relaxed">
             {listing.description}
           </p>
         )}
@@ -159,10 +170,10 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
             </Button>
             <Button
               onClick={handleEmailContact}
-              className="flex-1 btn-secondary py-2 text-sm"
+              className="flex-1 bg-white hover:bg-terracotta hover:text-white text-dark-charcoal border border-dark-charcoal font-medium py-2 text-sm rounded-lg transition-all duration-200"
             >
               <Mail className="w-4 h-4 mr-1" />
-              Email
+              Correo
             </Button>
           </div>
 
