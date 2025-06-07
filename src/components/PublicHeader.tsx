@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoNavbar from "../images/akinmobiliaria.png"
 
 const PublicHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,12 +16,25 @@ const PublicHeader = () => {
     }
   };
 
+    const [count, setCount] = useState(0);
+  const palAdmin = useNavigate()
+
+  const handleClick = () => {
+    const newCount = count + 1
+    if (newCount === 5) {
+      palAdmin('/admin/login')
+      setCount(0)
+    } else {
+      setCount(newCount)
+  }
+}
+
   return (
     <header className="bg-deep-blue shadow-lg sticky top-0 z-50">
       <div className="container-custom">
         {/* Barra superior */}
-        <div className="flex justify-between items-center py-3 text-sm border-b border-mid-gray-blue/30">
-          <div className="flex items-center space-x-6">
+        <div className="py-3 text-sm border-b border-mid-gray-blue/30">
+          <div className="flex flex-col gap-2 items-center lg:items-start">
             <a
               href="tel:+15551234567"
               className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
@@ -30,25 +44,21 @@ const PublicHeader = () => {
             </a>
             <a
               href="mailto:info@marketplace.com"
-              className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
+              className="flex items-center gap-2 !ml-0 text-light-gray hover:text-golden-yellow transition-colors group"
             >
-              <Mail className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
-              info@marketplace.com
+              <Mail className="w-4 h-4 group-hover:text-golden-yellow" />
+              infoakmisiones@gmail.com
             </a>
           </div>
-          <Link
-            to="/admin/login"
-            className="text-light-gray hover:text-golden-yellow transition-colors text-sm font-medium"
-          >
-            Acceso Admin
-          </Link>
+
         </div>
         {/* Encabezado principal */}
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-terracotta rounded-lg flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-xl">M</span>
+          <div onClick={handleClick} className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-terracotta rounded-lg flex overflow-hidden items-center justify-center shadow-md">
+              {/* <span className="text-white font-bold text-xl">M</span> */}
+              <img src={logoNavbar} alt="" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">MarketPlace</h1>
@@ -56,7 +66,7 @@ const PublicHeader = () => {
                 Propiedades y Vehículos Premium
               </p>
             </div>
-          </Link>
+          </div>
           {/* Navegación - Escritorio */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link
@@ -102,7 +112,7 @@ const PublicHeader = () => {
             </form>
             <Button
               onClick={() => window.open("https://wa.me/15551234567", "_blank")}
-              className="btn-primary"
+              className="bg-[#16a34a] hover:bg-[#15803d]"
             >
               WhatsApp
             </Button>

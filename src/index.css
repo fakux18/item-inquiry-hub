@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 255 255 255;
+    --background: #fff;
     --foreground: 35 41 49;
 
     --card: 255 255 255;
@@ -180,6 +180,7 @@
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out forwards;
 }
+
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {

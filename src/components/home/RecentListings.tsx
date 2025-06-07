@@ -11,10 +11,10 @@ const RecentListings = () => {
     <section className="container mx-auto px-4">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-          Latest Additions
+          Ultimos ingresos
         </h2>
         <p className="text-lg text-gray-600">
-          Fresh listings added to our marketplace
+          Nuevos productos agregados a nuestro mercado
         </p>
       </div>
 
@@ -27,7 +27,7 @@ const RecentListings = () => {
       <div className="text-center mt-8">
         <Link to="/category/all">
           <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
-            View All Listings
+            Mostrar Catalogo
           </Button>
         </Link>
       </div>

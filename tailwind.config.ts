@@ -21,13 +21,15 @@ export default {
 		extend: {
 			colors: {
 				// Brand Color Palette
-				'deep-blue': '#0D3B66',
-				'light-gray': '#E8E9EB',
-				'mid-gray-blue': '#4D5B6B',
+				'deep-blue': '#1B4D3E',
+				'light-gray': '#E8F5E8',
+				'mid-gray-blue': '#4A6B5B',
 				'dark-charcoal': '#232931',
-				'golden-yellow': '#F4D35E',
-				'terracotta': '#EE964B',
-				'terracotta-hover': '#E4853C',
+			// TITULO
+				'golden-yellow': '#F5F5DC',
+
+				'terracotta': '#10B981',
+				'terracotta-hover': '#1F1F1F',
 				
 				// Shadcn compatibility
 				border: 'hsl(var(--border))',
@@ -36,7 +38,7 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#0D3B66',
+					DEFAULT: '#1B4D3E',
 					foreground: '#FFFFFF'
 				},
 				secondary: {
@@ -52,7 +54,8 @@ export default {
 					foreground: '#4D5B6B'
 				},
 				accent: {
-					DEFAULT: '#F4D35E',
+					// HOVER 
+					DEFAULT: '#d1fae5',
 					foreground: '#232931'
 				},
 				popover: {

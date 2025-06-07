@@ -162,7 +162,7 @@ const ManageListings = () => {
 
       {/* Tabla de publicaciones */}
       <Card>
-        <CardContent className="p-0">
+        <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto">
             <div className="space-y-0">
               {filteredListings.map((listing) => (
@@ -177,7 +177,7 @@ const ManageListings = () => {
                       className="w-20 h-20 object-cover rounded-lg"
                     />
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-800 truncate">
+                      <h3 className="font-semibold text-sm text-gray-800 truncate">
                         {listing.title}
                       </h3>
                       <p className="text-sm text-gray-600">

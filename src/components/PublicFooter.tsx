@@ -10,7 +10,7 @@ const PublicFooter = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-terracotta rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">M</span>
+                <span className="text-white font-bold text-lg">AK</span>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">MarketPlace</h3>
@@ -72,12 +72,6 @@ const PublicFooter = () => {
               >
                 Contacto
               </Link>
-              <Link
-                to="/admin/login"
-                className="text-mid-gray-blue hover:text-golden-yellow transition-colors duration-200 text-sm"
-              >
-                Acceso Admin
-              </Link>
             </nav>
           </div>
           {/* Información de contacto */}
@@ -89,8 +83,8 @@ const PublicFooter = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-terracotta mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-light-gray">Calle del Mercado 123</p>
-                  <p className="text-light-gray">Tu Ciudad, ES 12345</p>
+                  <p className="text-light-gray">Calle del Lapacho 456</p>
+                  <p className="text-light-gray">Posadas, N3300</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
@@ -108,7 +102,7 @@ const PublicFooter = () => {
                   href="mailto:info@marketplace.com"
                   className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
                 >
-                  info@marketplace.com
+                  infoakmisiones@gmail.com
                 </a>
               </div>
             </div>
@@ -132,7 +126,7 @@ const PublicFooter = () => {
               className="bg-green-600 hover:bg-green-700 transition-colors duration-200 text-white p-4 rounded-lg text-center cursor-pointer"
               onClick={() => window.open("https://wa.me/15551234567", "_blank")}
             >
-              <p className="font-semibold">Disponible vía WhatsApp 24/7</p>
+              <p className="font-semibold">WhatsApp 24/7</p>
               <p className="text-sm opacity-90 mt-1">(555) 123-4567</p>
             </div>
           </div>
