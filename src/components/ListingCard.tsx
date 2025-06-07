@@ -1,7 +1,6 @@
-
-import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Bed, Bath, Calendar, Gauge } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Link } from "react-router-dom";
+import { MapPin, Phone, Mail, Bed, Bath, Calendar, Gauge } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Listing {
   id: string;
@@ -12,7 +11,7 @@ interface Listing {
   type: string;
   images: string[];
   featured: boolean;
-  status: 'available' | 'pending' | 'sold';
+  status: "available" | "pending" | "sold";
   details: {
     bedrooms?: number;
     bathrooms?: number;
@@ -32,63 +31,63 @@ interface ListingCardProps {
 
 const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
       minimumFractionDigits: 0,
     }).format(price);
   };
 
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent(
-      `Hi! I'm interested in "${listing.title}" listed for ${formatPrice(listing.price)}. Could you provide more information?`
+      `¡Hola! Estoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}. ¿Podrías brindarme más información?`
     );
-    window.open(`https://wa.me/15551234567?text=${message}`, '_blank');
+    window.open(`https://wa.me/15551234567?text=${message}`, "_blank");
   };
 
   const handleEmailContact = () => {
-    const subject = encodeURIComponent(`Inquiry about ${listing.title}`);
+    const subject = encodeURIComponent(`Consulta sobre ${listing.title}`);
     const body = encodeURIComponent(
-      `Hi,\n\nI'm interested in "${listing.title}" listed for ${formatPrice(listing.price)}.\n\nCould you please provide more information?\n\nThank you!`
+      `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}.\n\n¿Podrías brindarme más información?\n\n¡Gracias!`
     );
     window.open(`mailto:info@marketplace.com?subject=${subject}&body=${body}`);
   };
 
   return (
     <div className="card-elevated overflow-hidden group animate-fade-in">
-      {/* Image */}
+      {/* Imagen */}
       <div className="relative overflow-hidden">
         <img
           src={listing.images[0]}
           alt={listing.title}
           className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
-            compact ? 'h-48' : 'h-64'
+            compact ? "h-48" : "h-64"
           }`}
         />
-        
-        {/* Status Badge */}
-        {listing.status !== 'available' && (
+
+        {/* Estado */}
+        {listing.status !== "available" && (
           <div className="absolute top-4 left-4">
-            <span className={`px-3 py-1 rounded-full text-xs font-semibold shadow-md ${
-              listing.status === 'pending' 
-                ? 'bg-golden-yellow text-dark-charcoal' 
-                : 'bg-red-500 text-white'
-            }`}>
-              {listing.status.charAt(0).toUpperCase() + listing.status.slice(1)}
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-semibold shadow-md ${
+                listing.status === "pending"
+                  ? "bg-golden-yellow text-dark-charcoal"
+                  : "bg-red-500 text-white"
+              }`}
+            >
+              {listing.status === "pending" ? "Pendiente" : "Vendido"}
             </span>
           </div>
         )}
 
-        {/* Featured Badge */}
+        {/* Destacado */}
         {listing.featured && (
           <div className="absolute top-4 right-4">
-            <span className="badge-featured shadow-md">
-              Featured
-            </span>
+            <span className="badge-featured shadow-md">Destacado</span>
           </div>
         )}
 
-        {/* Price Overlay */}
+        {/* Precio */}
         <div className="absolute bottom-4 left-4">
           <span className="bg-deep-blue text-white px-4 py-2 rounded-lg font-bold text-lg shadow-lg">
             {formatPrice(listing.price)}
@@ -96,7 +95,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Contenido */}
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
@@ -113,18 +112,18 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
           </span>
         </div>
 
-        {/* Key Details */}
+        {/* Detalles clave */}
         <div className="flex flex-wrap gap-4 mb-4 text-sm text-secondary">
           {listing.details.bedrooms && (
             <div className="flex items-center">
               <Bed className="w-4 h-4 mr-1 text-deep-blue" />
-              {listing.details.bedrooms} bed
+              {listing.details.bedrooms} hab.
             </div>
           )}
           {listing.details.bathrooms && (
             <div className="flex items-center">
               <Bath className="w-4 h-4 mr-1 text-deep-blue" />
-              {listing.details.bathrooms} bath
+              {listing.details.bathrooms} baño
             </div>
           )}
           {listing.details.year && (
@@ -136,19 +135,19 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
           {listing.details.mileage && (
             <div className="flex items-center">
               <Gauge className="w-4 h-4 mr-1 text-deep-blue" />
-              {listing.details.mileage.toLocaleString()} mi
+              {listing.details.mileage.toLocaleString()} km
             </div>
           )}
         </div>
 
-        {/* Description */}
+        {/* Descripción */}
         {!compact && (
           <p className="text-secondary text-sm mb-6 line-clamp-2 leading-relaxed">
             {listing.description}
           </p>
         )}
 
-        {/* Action Buttons */}
+        {/* Botones de acción */}
         <div className="flex flex-col space-y-3">
           <div className="flex space-x-2">
             <Button
@@ -166,10 +165,10 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
               Email
             </Button>
           </div>
-          
+
           <Link to={`/property/${listing.id}`}>
             <Button className="w-full btn-primary py-2 text-sm">
-              View Details →
+              Ver detalles →
             </Button>
           </Link>
         </div>

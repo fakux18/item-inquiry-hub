@@ -1,12 +1,11 @@
-
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, Menu, X, Phone, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Search, Menu, X, Phone, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const PublicHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -19,33 +18,32 @@ const PublicHeader = () => {
   return (
     <header className="bg-deep-blue shadow-lg sticky top-0 z-50">
       <div className="container-custom">
-        {/* Top Bar */}
+        {/* Barra superior */}
         <div className="flex justify-between items-center py-3 text-sm border-b border-mid-gray-blue/30">
           <div className="flex items-center space-x-6">
-            <a 
-              href="tel:+15551234567" 
+            <a
+              href="tel:+15551234567"
               className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
             >
               <Phone className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
               (555) 123-4567
             </a>
-            <a 
-              href="mailto:info@marketplace.com" 
+            <a
+              href="mailto:info@marketplace.com"
               className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
             >
               <Mail className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
               info@marketplace.com
             </a>
           </div>
-          <Link 
-            to="/admin/login" 
+          <Link
+            to="/admin/login"
             className="text-light-gray hover:text-golden-yellow transition-colors text-sm font-medium"
           >
-            Admin Login
+            Acceso Admin
           </Link>
         </div>
-
-        {/* Main Header */}
+        {/* Encabezado principal */}
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
@@ -54,48 +52,48 @@ const PublicHeader = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">MarketPlace</h1>
-              <p className="text-xs text-light-gray">Premium Properties & Vehicles</p>
+              <p className="text-xs text-light-gray">
+                Propiedades y Vehículos Premium
+              </p>
             </div>
           </Link>
-
-          {/* Navigation - Desktop */}
+          {/* Navegación - Escritorio */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Home
+              Inicio
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link 
-              to="/category/properties" 
+            <Link
+              to="/category/properties"
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Properties
+              Propiedades
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link 
-              to="/category/vehicles" 
+            <Link
+              to="/category/vehicles"
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Vehicles
+              Vehículos
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
-              Contact
+              Contacto
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </nav>
-
-          {/* Search & Contact */}
+          {/* Buscador y contacto */}
           <div className="hidden lg:flex items-center space-x-4">
             <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
-                placeholder="Search listings..."
+                placeholder="Buscar propiedades..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-64 pl-10 pr-4 py-2 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
@@ -103,59 +101,61 @@ const PublicHeader = () => {
               <Search className="absolute left-3 top-2.5 w-4 h-4 text-mid-gray-blue" />
             </form>
             <Button
-              onClick={() => window.open('https://wa.me/15551234567', '_blank')}
+              onClick={() => window.open("https://wa.me/15551234567", "_blank")}
               className="btn-primary"
             >
               WhatsApp
             </Button>
           </div>
-
-          {/* Mobile Menu Button */}
+          {/* Botón menú móvil */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-white hover:text-golden-yellow transition-colors"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
-
-        {/* Mobile Menu */}
+        {/* Menú móvil */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-mid-gray-blue/30">
             <nav className="flex flex-col space-y-4">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Home
+                Inicio
               </Link>
-              <Link 
-                to="/category/properties" 
+              <Link
+                to="/category/properties"
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Properties
+                Propiedades
               </Link>
-              <Link 
-                to="/category/vehicles" 
+              <Link
+                to="/category/vehicles"
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Vehicles
+                Vehículos
               </Link>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contact
+                Contacto
               </Link>
               <div className="divider opacity-30"></div>
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
-                  placeholder="Search listings..."
+                  placeholder="Buscar propiedades..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-white border border-light-gray rounded-lg focus:ring-2 focus:ring-golden-yellow focus:border-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
@@ -163,10 +163,12 @@ const PublicHeader = () => {
                 <Search className="absolute left-3 top-3.5 w-4 h-4 text-mid-gray-blue" />
               </form>
               <Button
-                onClick={() => window.open('https://wa.me/15551234567', '_blank')}
+                onClick={() =>
+                  window.open("https://wa.me/15551234567", "_blank")
+                }
                 className="btn-primary w-full"
               >
-                WhatsApp Contact
+                Contacto WhatsApp
               </Button>
             </nav>
           </div>
