@@ -134,7 +134,7 @@ const PublicFooter = () => {
         {/* Barra inferior */}
         <div className="border-t border-mid-gray-blue/30 mt-12 pt-8 text-center">
           <p className="text-light-gray">
-            &copy; 2024 MarketPlace. Todos los derechos reservados. |
+            &copy; 2025 MarketPlace. Todos los derechos reservados. |
             <span className="hover:text-golden-yellow transition-colors duration-200 cursor-pointer">
               {" "}
               Política de Privacidad

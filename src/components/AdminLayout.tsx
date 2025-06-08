@@ -16,7 +16,7 @@ const AdminLayout = () => {
   const isActive = (href: string) => location.pathname === href;
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50 !border-none">
       {/* Mobile Header */}
       <div className="flex md:hidden items-center justify-between bg-white border-b px-4 py-3 shadow-sm">
         <div className="flex items-center space-x-2">
@@ -31,7 +31,7 @@ const AdminLayout = () => {
       </div>
 
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'block' : 'hidden'} md:block w-full md:w-64 bg-white shadow-lg px-4 py-4 md:min-h-screen`}>
+      <div className={`${sidebarOpen ? 'block' : 'hidden'} md:block w-full md:w-64 bg-white shadow-lg px-4 py-4 md:min-h-screen !border-none`}>
         <div className="flex flex-col gap-10">
           <div className="hidden md:flex items-center space-x-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -49,7 +49,7 @@ const AdminLayout = () => {
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                    className={`flex items-center space-x-3 px-4 py-3 !border-none rounded-lg transition-colors ${
                       isActive(item.href)
                         ? 'bg-blue-100 text-blue-700'
                         : 'text-gray-600 hover:bg-gray-100'
@@ -86,7 +86,7 @@ const AdminLayout = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="hidden md:block bg-white shadow-sm border-b px-8 py-4">
+        <header className="hidden md:block bg-white shadow-sm border-b px-8 py-4 !border-none">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-gray-800">
               {navigation.find(item => isActive(item.href))?.name || 'Dashboard'}

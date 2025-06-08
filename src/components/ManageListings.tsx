@@ -70,7 +70,7 @@ const ManageListings = () => {
       </div>
 
       {/* Filtros */}
-      <Card>
+      <Card className="!border-none">
         <CardHeader>
           <CardTitle>Filtros</CardTitle>
         </CardHeader>
@@ -90,7 +90,7 @@ const ManageListings = () => {
               <SelectTrigger>
                 <SelectValue placeholder="Categoría" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="!border-none">
                 <SelectItem value="all">Todas las categorías</SelectItem>
                 <SelectItem value="properties">Propiedades</SelectItem>
                 <SelectItem value="vehicles">Vehículos</SelectItem>
@@ -101,7 +101,7 @@ const ManageListings = () => {
               <SelectTrigger>
                 <SelectValue placeholder="Estado" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="!border-none">
                 <SelectItem value="all">Todos los estados</SelectItem>
                 <SelectItem value="available">Disponible</SelectItem>
                 <SelectItem value="pending">Pendiente</SelectItem>
@@ -125,14 +125,14 @@ const ManageListings = () => {
 
       {/* Estadísticas */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="!border-none">
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{filteredListings.length}</div>
             <p className="text-sm text-gray-600">Total de publicaciones</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="!border-none">
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-green-600">
               {filteredListings.filter((l) => l.status === "available").length}
@@ -141,7 +141,7 @@ const ManageListings = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="!border-none">
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-yellow-600">
               {filteredListings.filter((l) => l.status === "pending").length}
@@ -150,7 +150,7 @@ const ManageListings = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="!border-none">
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-red-600">
               {filteredListings.filter((l) => l.status === "sold").length}
@@ -161,7 +161,7 @@ const ManageListings = () => {
       </div>
 
       {/* Tabla de publicaciones */}
-      <Card>
+      <Card className="!border-none">
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto">
             <div className="space-y-0">
