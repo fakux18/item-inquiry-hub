@@ -4,10 +4,10 @@ import { Home, Car, Building, Tractor } from 'lucide-react';
 
 const CategorySection = () => {
   const categories = [
-    { name: 'Residential Properties', icon: Home, count: 24, path: '/category/residential' },
-    { name: 'Commercial Properties', icon: Building, count: 12, path: '/category/commercial' },
-    { name: 'Vehicles', icon: Car, count: 18, path: '/category/vehicles' },
-    { name: 'Heavy Equipment', icon: Tractor, count: 6, path: '/category/equipment' },
+    { name: 'Propiedades residenciales', icon: Home, count: 24, path: '/category/residential' },
+    { name: 'Propiedades comerciales', icon: Building, count: 12, path: '/category/commercial' },
+    { name: 'Vehículos', icon: Car, count: 18, path: '/category/vehicles' },
+    { name: 'Equipo pesado', icon: Tractor, count: 6, path: '/category/equipment' },
   ];
 
   return (
@@ -15,10 +15,10 @@ const CategorySection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Browse by Category
+            Buscar por categoría
           </h2>
           <p className="text-lg text-gray-600">
-            Find exactly what you're looking for in our organized categories
+            Encuentra exactamente lo que buscas en nuestras categorías organizadas.
           </p>
         </div>
 
@@ -34,7 +34,7 @@ const CategorySection = () => {
                 {category.name}
               </h3>
               <p className="text-gray-600">
-                {category.count} available listings
+                {category.count} opciones disponibles
               </p>
             </Link>
           ))}

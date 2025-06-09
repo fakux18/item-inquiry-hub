@@ -65,7 +65,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
   };
 
   return (
-    <div className="card-elevated overflow-hidden group animate-fade-in">
+    <div className="card-elevated overflow-hidden group animate-fade-in bg-slate-100">
       {/* Imagen */}
       <div className="relative overflow-hidden">
         <img

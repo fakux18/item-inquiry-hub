@@ -7,7 +7,7 @@ const FeaturedListings = () => {
     .slice(0, 6);
 
   return (
-    <section className="bg-light-gray section-spacing">
+    <section className="section-spacing">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-dark-charcoal mb-4">

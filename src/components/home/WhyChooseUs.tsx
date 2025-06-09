@@ -8,7 +8,7 @@ const WhyChooseUs = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-            Why Choose Our Marketplace
+            Razones para elegirnos
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -16,24 +16,24 @@ const WhyChooseUs = () => {
               <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl font-bold">15+</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Years Experience</h3>
-              <p className="text-gray-600">Trusted expertise in local market</p>
+              <h3 className="text-xl font-semibold mb-2">Años de experiencia</h3>
+              <p className="text-gray-600">Experiencia confiable en el mercado local</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl font-bold">✓</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Verified Listings</h3>
-              <p className="text-gray-600">Every listing personally verified</p>
+              <h3 className="text-xl font-semibold mb-2">Productos verificados</h3>
+              <p className="text-gray-600">Cada producto es revisado personalmente</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl font-bold">24h</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Quick Response</h3>
-              <p className="text-gray-600">Personal attention to every inquiry</p>
+              <h3 className="text-xl font-semibold mb-2">Atención Rápida</h3>
+              <p className="text-gray-600">Atención personalizada a cada consulta</p>
             </div>
           </div>
 
@@ -45,21 +45,21 @@ const WhyChooseUs = () => {
                 className="w-24 h-24 rounded-full"
               />
               <div className="text-left">
-                <h4 className="text-xl font-semibold mb-2">John Smith, Owner</h4>
+                <h4 className="text-xl font-semibold mb-2">Andres Pansir, Dueño</h4>
                 <p className="text-gray-600 mb-4">
-                  "With over 15 years in the local market, I personally ensure every listing meets our high standards. 
-                  Your satisfaction is my guarantee."
+                  "Con más de 15 años en el mercado local, me aseguro personalmente de que cada anuncio cumpla con nuestros altos estándares. 
+                  Tu satisfacción es mi garantía."
                 </p>
                 <div className="flex space-x-4">
                   <Button
                     onClick={() => window.open('https://wa.me/15551234567', '_blank')}
                     className="bg-green-600 hover:bg-green-700"
                   >
-                    WhatsApp Me
+                    WhatsApp
                   </Button>
                   <Link to="/contact">
                     <Button variant="outline">
-                      Send Email
+                      Enviar correo
                     </Button>
                   </Link>
                 </div>

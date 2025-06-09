@@ -16,8 +16,8 @@ const AdminDashboard = () => {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-deep-blue to-deep-blue/90 text-white rounded-lg p-8">
-        <h1 className="text-3xl font-bold mb-2">¡Bienvenido de nuevo, Admin!</h1>
+      <div className="bg-gradient-to-r from-green-600 to-deep-blue/90 text-white rounded-lg p-8">
+        <h1 className="text-3xl font-bold text-slate-200 mb-2">¡Bienvenido de nuevo, Admin!</h1>
         <p className="text-light-gray text-lg">
           Aquí está lo que está pasando con tu marketplace hoy.
         </p>
@@ -84,7 +84,7 @@ const AdminDashboard = () => {
           <CardHeader>
             <CardTitle className="flex items-center text-dark-charcoal">
               <Plus className="w-5 h-5 mr-2" />
-              Agregar Nuevo Listado
+              <h2 className='text-lg'>Agregar Nuevo Listado</h2>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -103,7 +103,7 @@ const AdminDashboard = () => {
           <CardHeader>
             <CardTitle className="flex items-center text-dark-charcoal">
               <List className="w-5 h-5 mr-2" />
-              Gestionar Listados
+              <h2 className='text-lg'>Gestionar Listados</h2>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -122,7 +122,7 @@ const AdminDashboard = () => {
           <CardHeader>
             <CardTitle className="flex items-center text-dark-charcoal">
               <MessageCircle className="w-5 h-5 mr-2" />
-              Revisar Mensajes
+              <h2 className='text-lg'>Revisar Mensajes</h2>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -152,7 +152,7 @@ const AdminDashboard = () => {
                     className="w-16 h-16 object-cover rounded-lg"
                   />
                   <div>
-                    <h3 className="font-semibold text-dark-charcoal">{listing.title}</h3>
+                    <h3 className="font-semibold text-lg text-dark-charcoal">{listing.title}</h3>
                     <p className="text-sm text-mid-gray-blue">
                       {listing.category} • ${listing.price.toLocaleString()}
                     </p>
