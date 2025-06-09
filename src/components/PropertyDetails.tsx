@@ -78,9 +78,9 @@ const PropertyDetails = () => {
           <Link to="/">
             <Button
               variant="ghost"
-              className="text-blue-600 hover:text-blue-700"
+              className="text-blue-600 hover:text-blue-700 hover:bg-transparent"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft className="w-4 h-4 mr-2 !hover:bg-none" />
               Volver a los listados
             </Button>
           </Link>
@@ -90,7 +90,7 @@ const PropertyDetails = () => {
           {/* Contenido principal */}
           <div className="lg:col-span-2 space-y-6">
             {/* Galería de imágenes */}
-            <Card>
+            <Card className="!border-none">
               <CardContent className="p-0">
                 <div className="relative">
                   <img
@@ -151,7 +151,7 @@ const PropertyDetails = () => {
             </Card>
 
             {/* Detalles */}
-            <Card>
+            <Card className="!border-none">
               <CardContent className="p-6">
                 <div className="space-y-6">
                   {/* Encabezado */}
@@ -286,7 +286,7 @@ const PropertyDetails = () => {
           {/* Barra lateral */}
           <div className="space-y-6">
             {/* Contacto */}
-            <Card>
+            <Card className="!border-none">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   Contacto
@@ -302,8 +302,8 @@ const PropertyDetails = () => {
 
                   <Button
                     onClick={handleEmailContact}
-                    variant="outline"
-                    className="w-full"
+                    variant="border"
+                    className="w-full hover:bg-transparent"
                   >
                     <Mail className="w-4 h-4 mr-2" />
                     Enviar consulta por correo
@@ -325,7 +325,7 @@ const PropertyDetails = () => {
             </Card>
 
             {/* Agente */}
-            <Card>
+            <Card className="!border-none">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   Tu agente
@@ -337,7 +337,7 @@ const PropertyDetails = () => {
                     className="w-16 h-16 rounded-full"
                   />
                   <div>
-                    <h4 className="font-semibold text-gray-800">John Smith</h4>
+                    <h4 className="font-semibold text-gray-800">Andrés Pansir</h4>
                     <p className="text-sm text-gray-600">
                       Propietario y agente matriculado
                     </p>
@@ -356,13 +356,13 @@ const PropertyDetails = () => {
                   variant="outline"
                   className="w-full"
                 >
-                  Contactar a John directamente
+                  Contactar a Andrés directamente
                 </Button>
               </CardContent>
             </Card>
 
             {/* Listados similares */}
-            <Card>
+            <Card className="!border-none">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   Listados similares

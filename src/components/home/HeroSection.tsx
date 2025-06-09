@@ -58,7 +58,7 @@ const HeroSection = () => {
                 href="mailto:info@marketplace.com"
                 className="text-golden-yellow hover:text-golden-yellow/80 transition-colors ml-2 font-medium"
               >
-                info@marketplace.com
+                infoakmisiones@gmail.com
               </a>
             </div>
           </div>

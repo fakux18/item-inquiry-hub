@@ -28,7 +28,7 @@ export default {
 			// TITULO
 				'golden-yellow': '#F5F5DC',
 
-				'terracotta': '#10B981',
+				'terracotta': '#1B4D3E',
 				'terracotta-hover': '#1F1F1F',
 				
 				// Shadcn compatibility

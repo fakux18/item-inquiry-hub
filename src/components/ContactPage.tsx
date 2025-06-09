@@ -55,7 +55,7 @@ const ContactPage = () => {
           {/* Información de contacto */}
           <div className="space-y-8">
             {/* Métodos de contacto */}
-            <Card>
+            <Card className="!border-none">
               <CardHeader>
                 <CardTitle>Información de Contacto</CardTitle>
               </CardHeader>
@@ -88,7 +88,7 @@ const ContactPage = () => {
                         href="mailto:info@marketplace.com"
                         className="text-blue-600 hover:text-blue-700"
                       >
-                        info@marketplace.com
+                        infoakmisiones@gmail.com
                       </a>
                       <p className="text-sm text-gray-500">
                         Respuesta en menos de 24 horas
@@ -115,9 +115,9 @@ const ContactPage = () => {
                     <div>
                       <h4 className="font-semibold text-gray-800">Oficina</h4>
                       <p className="text-gray-600">
-                        Calle del Mercado 123
+                        Calle del Lapacho 456
                         <br />
-                        Tu Ciudad, ES 12345
+                        Posadas, N3300
                       </p>
                       <p className="text-sm text-gray-500">
                         Solo con cita previa
@@ -128,7 +128,7 @@ const ContactPage = () => {
               </CardContent>
             </Card>
             {/* Horarios */}
-            <Card>
+            <Card className="!border-none">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Clock className="w-5 h-5 mr-2" />
@@ -158,7 +158,7 @@ const ContactPage = () => {
               </CardContent>
             </Card>
             {/* Sobre el agente */}
-            <Card>
+            <Card className="!border-none">
               <CardHeader>
                 <CardTitle>Conoce a tu agente</CardTitle>
               </CardHeader>
@@ -171,7 +171,7 @@ const ContactPage = () => {
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">
-                      John Smith
+                      Andrés Pansir
                     </h3>
                     <p className="text-gray-600">
                       Propietario y agente matriculado
@@ -203,7 +203,7 @@ const ContactPage = () => {
           </div>
           {/* Formulario de contacto */}
           <div>
-            <Card className="bg-white shadow-xl">
+            <Card className="bg-white shadow-xl !border-none">
               <CardHeader>
                 <CardTitle>Envíanos un mensaje</CardTitle>
               </CardHeader>
@@ -215,6 +215,7 @@ const ContactPage = () => {
                       <Input
                         id="name"
                         placeholder="Tu nombre"
+                        className="border border-dark-charcoal"
                         value={formData.name}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
@@ -227,9 +228,11 @@ const ContactPage = () => {
                       <Input
                         id="email"
                         type="email"
+                        pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
                         placeholder="Tu correo electrónico"
                         value={formData.email}
-                        onChange={(e) =>
+                        className="border border-dark-charcoal invalid:border-red-400 valid:border-green-400"
+                        onChange={(e) => 
                           setFormData({ ...formData, email: e.target.value })
                         }
                         required
@@ -240,8 +243,13 @@ const ContactPage = () => {
                     <Label htmlFor="phone">Teléfono</Label>
                     <Input
                       id="phone"
-                      placeholder="Tu número de teléfono"
+                      type="text"
+                      placeholder="Ej: 37571234567"
+                      pattern="^([1-9]{2,4})([0-9]{6,8})$"
+                      minLength={8}
+                      maxLength={12}
                       value={formData.phone}
+                      className="border border-dark-charcoal invalid:border-red-400 valid:border-green-400"
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
@@ -255,10 +263,10 @@ const ContactPage = () => {
                         setFormData({ ...formData, interest: value })
                       }
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="border border-dark-charcoal">
                         <SelectValue placeholder="Selecciona lo que te interesa" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="!border-none">
                         <SelectItem value="general">
                           Consulta general
                         </SelectItem>
@@ -277,6 +285,7 @@ const ContactPage = () => {
                       rows={5}
                       placeholder="¿Qué te gustaría saber?"
                       value={formData.message}
+                      className="border border-dark-charcoal"
                       onChange={(e) =>
                         setFormData({ ...formData, message: e.target.value })
                       }
