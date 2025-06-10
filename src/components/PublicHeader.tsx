@@ -16,24 +16,24 @@ const PublicHeader = () => {
     }
   };
 
-    const [count, setCount] = useState(0);
-  const palAdmin = useNavigate()
+//   const [count, setCount] = useState(0);
+//   const palAdmin = useNavigate()
 
-  const handleClick = () => {
-    const newCount = count + 1
-    if (newCount === 5) {
-      palAdmin('/admin/login')
-      setCount(0)
-    } else {
-      setCount(newCount)
-  }
-}
+//   const handleClick = () => {
+//     const newCount = count + 1
+//     if (newCount === 5) {
+//       palAdmin('/admin/login')
+//       setCount(0)
+//     } else {
+//       setCount(newCount)
+//   }
+// }
 
   return (
     <header className="bg-deep-blue shadow-lg sticky top-0 z-50">
       <div className="container-custom">
         {/* Barra superior */}
-        <div className="py-3 text-sm border-b border-mid-gray-blue/30">
+        <div className="py-3 text-sm border-b flex items-center justify-between border-mid-gray-blue/30">
           <div className="flex flex-col gap-2 items-center lg:items-start">
             <a
               href="tel:+15551234567"
@@ -50,12 +50,15 @@ const PublicHeader = () => {
               infoakmisiones@gmail.com
             </a>
           </div>
+          <div>
+            <Link className="text-light-gray hover:text-golden-yellow" to="/admin/login">Admin Login</Link>
+          </div>
 
         </div>
         {/* Encabezado principal */}
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <div onClick={handleClick} className="flex items-center space-x-3">
+          <Link to='/' className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-terracotta rounded-lg flex overflow-hidden items-center justify-center shadow-md">
               {/* <span className="text-white font-bold text-xl">M</span> */}
               <img src={logoNavbar} alt="" />
@@ -66,7 +69,7 @@ const PublicHeader = () => {
                 Propiedades y Vehículos Premium
               </p>
             </div>
-          </div>
+          </Link>
           {/* Navegación - Escritorio */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link

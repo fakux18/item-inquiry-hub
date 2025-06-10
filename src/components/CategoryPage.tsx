@@ -95,7 +95,7 @@ const CategoryPage = () => {
         </div>
 
         {/* Filtros */}
-        <Card className="mb-8">
+        <Card className="mb-8 !border-none">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Filter className="w-5 h-5 mr-2" />
@@ -112,7 +112,7 @@ const CategoryPage = () => {
                     placeholder="Buscar en los listados..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 border border-dark-charcoal"
                   />
                 </div>
               </div>
@@ -126,6 +126,7 @@ const CategoryPage = () => {
                   onChange={(e) =>
                     setPriceRange((prev) => ({ ...prev, min: e.target.value }))
                   }
+                  className="border border-dark-charcoal"
                 />
                 <Input
                   placeholder="Precio máx."
@@ -134,15 +135,16 @@ const CategoryPage = () => {
                   onChange={(e) =>
                     setPriceRange((prev) => ({ ...prev, max: e.target.value }))
                   }
+                  className="border border-dark-charcoal"
                 />
               </div>
 
               {/* Ordenar */}
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger>
+                <SelectTrigger className="border border-dark-charcoal">
                   <SelectValue placeholder="Ordenar por" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="!border-none">
                   <SelectItem value="newest">Más nuevos primero</SelectItem>
                   <SelectItem value="oldest">Más antiguos primero</SelectItem>
                   <SelectItem value="price-low">
@@ -184,7 +186,7 @@ const CategoryPage = () => {
                     setSearchTerm("");
                     setPriceRange({ min: "", max: "" });
                   }}
-                  className="text-blue-600 hover:text-blue-700"
+                  className="text-blue-600 hover:text-blue-700 !bg-transparent"
                 >
                   Limpiar todos los filtros
                 </Button>
@@ -237,7 +239,7 @@ const CategoryPage = () => {
         {/* Cargar más */}
         {sortedListings.length > 0 && (
           <div className="text-center mt-12">
-            <Button variant="outline" className="px-8">
+            <Button variant="border" className="px-8">
               Cargar más resultados
             </Button>
           </div>

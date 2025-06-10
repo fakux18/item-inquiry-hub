@@ -81,14 +81,14 @@ const PublicFooter = () => {
             </h4>
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-terracotta mt-0.5 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-golden-yellow mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-light-gray">Calle del Lapacho 456</p>
                   <p className="text-light-gray">Posadas, N3300</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-terracotta flex-shrink-0" />
+                <Phone className="w-5 h-5 text-golden-yellow flex-shrink-0" />
                 <a
                   href="tel:+15551234567"
                   className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
@@ -97,7 +97,7 @@ const PublicFooter = () => {
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-terracotta flex-shrink-0" />
+                <Mail className="w-5 h-5 text-golden-yellow flex-shrink-0" />
                 <a
                   href="mailto:info@marketplace.com"
                   className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
@@ -114,7 +114,7 @@ const PublicFooter = () => {
             </h4>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
-                <Clock className="w-5 h-5 text-terracotta mt-0.5 flex-shrink-0" />
+                <Clock className="w-5 h-5 text-golden-yellow mt-0.5 flex-shrink-0" />
                 <div className="space-y-1">
                   <p className="text-light-gray">Lun - Vie: 9:00 - 18:00</p>
                   <p className="text-light-gray">Sáb: 9:00 - 16:00</p>

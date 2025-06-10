@@ -57,8 +57,8 @@ const WhyChooseUs = () => {
                   >
                     WhatsApp
                   </Button>
-                  <Link to="/contact">
-                    <Button variant="outline">
+                  <Link to="/contact" className='!hover:bg-red-500 !hover:text-xl'>
+                    <Button variant="border">
                       Enviar correo
                     </Button>
                   </Link>

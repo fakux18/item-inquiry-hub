@@ -45,7 +45,7 @@ const AdminLogin = ({ onLogin }: AdminLoginProps) => {
         </div>
 
         {/* Demo Credentials */}
-        <div className="bg-light-gray rounded-lg p-4 mb-6">
+        <div className="bg-light-gray rounded-lg p-4 mb-6 hidden">
           <h3 className="font-semibold text-deep-blue mb-2">Credenciales de Prueba:</h3>
           <p className="text-sm text-mid-gray-blue">Email: admin@marketplace.com</p>
           <p className="text-sm text-mid-gray-blue">Contraseña: admin123</p>
