@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +16,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { mockListings } from "../data/mockData";
 
 const ContactPage = () => {
+  const form = useRef();
+  const SERVICE = "service_tzxj4bb";
+  const TEMPLATE = "template_x7rn9qh";
+  const KEY = "CNoUgEVNJ1bR3Msdg";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,9 +31,19 @@ const ContactPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // En una app real, enviarías esto a tu backend
-    console.log("Formulario de contacto enviado:", formData);
+    // console.log("Formulario de contacto enviado:", formData);
     alert("¡Gracias por tu consulta! Te responderemos en menos de 24 horas.");
     setFormData({ name: "", email: "", phone: "", interest: "", message: "" });
+
+    // 
+    emailjs.sendForm(SERVICE, TEMPLATE, form.current, KEY).then(
+      (result) => {
+        // console.log(result.text);
+      },
+      (error) => {
+        // console.log(error.text);
+      }
+    );
   };
 
   const handleWhatsAppContact = () => {
@@ -208,15 +223,17 @@ const ContactPage = () => {
                 <CardTitle>Envíanos un mensaje</CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} ref={form} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="name">Nombre *</Label>
                       <Input
+                        name="name"
                         id="name"
                         placeholder="Tu nombre"
-                        className="border border-dark-charcoal"
+                        className="border border-dark-charcoal invalid:border-red-400 valid:border-green-400"
                         value={formData.name}
+                        maxLength={50}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
                         }
@@ -226,6 +243,7 @@ const ContactPage = () => {
                     <div className="space-y-2">
                       <Label htmlFor="email">Correo *</Label>
                       <Input
+                        name="email"
                         id="email"
                         type="email"
                         pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
@@ -240,8 +258,9 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Teléfono</Label>
+                    <Label htmlFor="phone">Teléfono *</Label>
                     <Input
+                      name="phone"
                       id="phone"
                       type="text"
                       placeholder="Ej: 37571234567"
@@ -253,6 +272,7 @@ const ContactPage = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
+                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -271,16 +291,19 @@ const ContactPage = () => {
                           Consulta general
                         </SelectItem>
                         {mockListings.map((listing) => (
-                          <SelectItem key={listing.id} value={listing.id}>
+                          <SelectItem key={listing.id} value={listing.title}>
                             {listing.title}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
+                    {/* ESTA MAMADA ES LO QUE PERMITE ENVIAR A EMAILJS EL NOMBRE DEL PRODUCTO DE INTERES */}
+                    <input type="hidden" id="interest" name="interest" value={formData.interest} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="message">Mensaje *</Label>
                     <Textarea
+                      name="message"
                       id="message"
                       rows={5}
                       placeholder="¿Qué te gustaría saber?"
@@ -294,6 +317,7 @@ const ContactPage = () => {
                   </div>
                   <Button
                     type="submit"
+                    onSubmit={handleSubmit}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   >
                     <Send className="w-4 h-4 mr-2" />

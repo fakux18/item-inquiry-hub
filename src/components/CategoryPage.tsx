@@ -186,7 +186,7 @@ const CategoryPage = () => {
                     setSearchTerm("");
                     setPriceRange({ min: "", max: "" });
                   }}
-                  className="text-blue-600 hover:text-blue-700"
+                  className="text-blue-600 hover:text-blue-700 !bg-transparent"
                 >
                   Limpiar todos los filtros
                 </Button>
