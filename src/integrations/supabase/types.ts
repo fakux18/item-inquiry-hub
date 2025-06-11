@@ -9,7 +9,78 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      listings: {
+        Row: {
+          area: number | null
+          bathrooms: number | null
+          bedrooms: number | null
+          category: string
+          condition: string | null
+          created_at: string
+          description: string | null
+          featured: boolean | null
+          id: string
+          image_urls: string[] | null
+          location: string
+          make: string | null
+          mileage: number | null
+          model: string | null
+          price: number
+          status: string
+          title: string
+          transmission: string | null
+          updated_at: string
+          year: number | null
+          year_built: number | null
+        }
+        Insert: {
+          area?: number | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          category: string
+          condition?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean | null
+          id?: string
+          image_urls?: string[] | null
+          location: string
+          make?: string | null
+          mileage?: number | null
+          model?: string | null
+          price: number
+          status?: string
+          title: string
+          transmission?: string | null
+          updated_at?: string
+          year?: number | null
+          year_built?: number | null
+        }
+        Update: {
+          area?: number | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          category?: string
+          condition?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean | null
+          id?: string
+          image_urls?: string[] | null
+          location?: string
+          make?: string | null
+          mileage?: number | null
+          model?: string | null
+          price?: number
+          status?: string
+          title?: string
+          transmission?: string | null
+          updated_at?: string
+          year?: number | null
+          year_built?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

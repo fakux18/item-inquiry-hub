@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash2, Eye, Plus, Search } from "lucide-react";
@@ -11,10 +12,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { mockListings } from "../data/mockData";
+import { useListings } from "@/hooks/useListings";
 
 const ManageListings = () => {
-  const [listings, setListings] = useState(mockListings);
+  const { listings, loading, updateListing, deleteListing } = useListings();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -32,22 +33,26 @@ const ManageListings = () => {
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  const handleDelete = (id: string) => {
-    if (window.confirm("Are you sure you want to delete this listing?")) {
-      setListings(listings.filter((listing) => listing.id !== id));
+  const handleDelete = async (id: string) => {
+    if (window.confirm("¿Estás seguro de que quieres eliminar esta publicación?")) {
+      await deleteListing(id);
     }
   };
 
-  const handleStatusChange = (
+  const handleStatusChange = async (
     id: string,
     newStatus: "available" | "pending" | "sold"
   ) => {
-    setListings(
-      listings.map((listing) =>
-        listing.id === id ? { ...listing, status: newStatus } : listing
-      )
-    );
+    await updateListing(id, { status: newStatus });
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -94,6 +99,7 @@ const ManageListings = () => {
                 <SelectItem value="all">Todas las categorías</SelectItem>
                 <SelectItem value="properties">Propiedades</SelectItem>
                 <SelectItem value="vehicles">Vehículos</SelectItem>
+                <SelectItem value="equipment">Maquinaria</SelectItem>
               </SelectContent>
             </Select>
 
@@ -171,11 +177,19 @@ const ManageListings = () => {
                   className="flex items-center justify-between p-6 border-b border-gray-200 last:border-b-0 hover:bg-gray-50"
                 >
                   <div className="flex items-center space-x-4 flex-1">
-                    <img
-                      src={listing.images[0]}
-                      alt={listing.title}
-                      className="w-20 h-20 object-cover rounded-lg"
-                    />
+                    <div className="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden">
+                      {listing.image_urls && listing.image_urls.length > 0 ? (
+                        <img
+                          src={listing.image_urls[0]}
+                          alt={listing.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          Sin imagen
+                        </div>
+                      )}
+                    </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-sm text-gray-800 truncate">
                         {listing.title}
@@ -191,13 +205,12 @@ const ManageListings = () => {
                             minimumFractionDigits: 0,
                           })}
                         </span>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-gray-500 capitalize">
                           {listing.category}
                         </span>
-                        <div className="flex items-center text-sm text-gray-500">
-                          <Eye className="w-4 h-4 mr-1" />
-                          {listing.viewCount}
-                        </div>
+                        <span className="text-sm text-gray-500">
+                          {new Date(listing.created_at).toLocaleDateString('es-AR')}
+                        </span>
                       </div>
                     </div>
                   </div>
