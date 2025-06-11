@@ -6,19 +6,21 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
-import { Lock, Mail } from 'lucide-react';
+import { Lock, Mail, AlertCircle } from 'lucide-react';
 
 const AuthLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     try {
       const { error } = isSignUp 
@@ -26,15 +28,22 @@ const AuthLogin = () => {
         : await signIn(email, password);
 
       if (error) {
-        toast.error(error.message);
+        console.error('Auth error:', error);
+        setError(error.message || 'Ocurrió un error durante la autenticación');
+        toast.error(error.message || 'Error de autenticación');
       } else {
-        toast.success(isSignUp ? 'Account created successfully!' : 'Logged in successfully!');
+        toast.success(isSignUp ? 'Cuenta creada exitosamente!' : 'Sesión iniciada exitosamente!');
         if (!isSignUp) {
           navigate('/admin');
+        } else {
+          toast.info('Revisa tu email para confirmar tu cuenta');
         }
       }
-    } catch (error) {
-      toast.error('An unexpected error occurred');
+    } catch (error: any) {
+      console.error('Unexpected auth error:', error);
+      const errorMessage = 'Ocurrió un error inesperado';
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -55,6 +64,13 @@ const AuthLogin = () => {
           </p>
         </CardHeader>
         <CardContent>
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center text-red-700">
+              <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span className="text-sm">{error}</span>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">Email</label>
@@ -67,6 +83,7 @@ const AuthLogin = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10 border border-dark-charcoal"
                   required
+                  disabled={loading}
                 />
               </div>
             </div>
@@ -82,6 +99,8 @@ const AuthLogin = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10 border border-dark-charcoal"
                   required
+                  disabled={loading}
+                  minLength={6}
                 />
               </div>
             </div>
@@ -98,13 +117,28 @@ const AuthLogin = () => {
           <div className="mt-6 text-center">
             <button
               type="button"
-              onClick={() => setIsSignUp(!isSignUp)}
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setError('');
+              }}
               className="text-blue-600 hover:text-blue-700 text-sm"
+              disabled={loading}
             >
               {isSignUp 
                 ? '¿Ya tienes cuenta? Iniciar sesión'
                 : '¿Necesitas crear una cuenta? Registrarse'
               }
+            </button>
+          </div>
+
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="text-gray-500 hover:text-gray-700 text-sm"
+              disabled={loading}
+            >
+              ← Volver al sitio web
             </button>
           </div>
         </CardContent>

@@ -78,17 +78,36 @@ const AddListing = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!formData.title.trim()) {
+      alert("El título es requerido");
+      return;
+    }
+    if (!formData.category) {
+      alert("La categoría es requerida");
+      return;
+    }
+    if (!formData.price || parseFloat(formData.price) <= 0) {
+      alert("El precio es requerido y debe ser mayor a 0");
+      return;
+    }
+    if (!formData.location.trim()) {
+      alert("La ubicación es requerida");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
       if (isEditing) {
         // For updates, use Partial<Listing>
         const updateData: Partial<Listing> = {
-          title: formData.title,
+          title: formData.title.trim(),
           category: formData.category,
           price: parseFloat(formData.price),
-          location: formData.location,
-          description: formData.description,
+          location: formData.location.trim(),
+          description: formData.description.trim(),
           status: formData.status as any,
           featured: formData.featured,
           image_urls: images,
@@ -116,13 +135,13 @@ const AddListing = () => {
           navigate("/admin/listings");
         }
       } else {
-        // For creation, use CreateListingData
+        // For creation, construct CreateListingData with all required fields
         const createData: CreateListingData = {
-          title: formData.title,
+          title: formData.title.trim(),
+          description: formData.description.trim(),
           category: formData.category,
           price: parseFloat(formData.price),
-          location: formData.location,
-          description: formData.description,
+          location: formData.location.trim(),
           status: formData.status as any,
           featured: formData.featured,
           image_urls: images,
@@ -152,6 +171,7 @@ const AddListing = () => {
       }
     } catch (error) {
       console.error("Error submitting listing:", error);
+      alert("Error al procesar la publicación. Por favor intenta nuevamente.");
     } finally {
       setSubmitting(false);
     }
@@ -388,7 +408,7 @@ const AddListing = () => {
         <div className="flex justify-end space-x-4">
           <Button
             type="button"
-            variant="border"
+            variant="outline"
             onClick={() => navigate("/admin/listings")}
             disabled={submitting}
           >

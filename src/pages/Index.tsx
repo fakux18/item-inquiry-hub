@@ -1,9 +1,9 @@
 
 import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
 import PublicLayout from '../components/PublicLayout';
 import AdminLayout from '../components/AdminLayout';
-import AdminLogin from '../components/AdminLogin';
 import HomePage from '../components/HomePage';
 import PropertyDetails from '../components/PropertyDetails';
 import CategoryPage from '../components/CategoryPage';
@@ -13,7 +13,16 @@ import ManageListings from '../components/ManageListings';
 import AddListing from '../components/AddListing';
 
 const Index = () => {
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const { user, loading } = useAuth();
+
+  // Show loading while authentication is being determined
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -26,20 +35,10 @@ const Index = () => {
           <Route path="contact" element={<ContactPage />} />
         </Route>
         
-        {/* Admin Login Route */}
-        <Route 
-          path="/admin/login" 
-          element={
-            isAdminLoggedIn ? 
-            <Navigate to="/admin/dashboard" replace /> : 
-            <AdminLogin onLogin={() => setIsAdminLoggedIn(true)} />
-          } 
-        />
-        
-        {/* Admin Routes */}
+        {/* Admin Routes - Protected */}
         <Route 
           path="/admin" 
-          element={isAdminLoggedIn ? <AdminLayout /> : <Navigate to="/admin/login" replace />}
+          element={user ? <AdminLayout /> : <Navigate to="/auth" replace />}
         >
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
