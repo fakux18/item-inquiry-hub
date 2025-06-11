@@ -57,7 +57,7 @@ export const useListings = () => {
     try {
       const { error } = await supabase
         .from('listings')
-        .insert([listingData]);
+        .insert(listingData);
 
       if (error) {
         throw error;
