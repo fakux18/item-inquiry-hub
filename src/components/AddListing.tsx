@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useListings, Listing } from "@/hooks/useListings";
+import { useListings, Listing, CreateListingData } from "@/hooks/useListings";
 import ImageUpload from "./ImageUpload";
 
 const AddListing = () => {
@@ -81,40 +81,74 @@ const AddListing = () => {
     setSubmitting(true);
 
     try {
-      const listingData: Partial<Listing> = {
-        title: formData.title,
-        category: formData.category,
-        price: parseFloat(formData.price),
-        location: formData.location,
-        description: formData.description,
-        status: formData.status as any,
-        featured: formData.featured,
-        image_urls: images,
-      };
+      if (isEditing) {
+        // For updates, use Partial<Listing>
+        const updateData: Partial<Listing> = {
+          title: formData.title,
+          category: formData.category,
+          price: parseFloat(formData.price),
+          location: formData.location,
+          description: formData.description,
+          status: formData.status as any,
+          featured: formData.featured,
+          image_urls: images,
+        };
 
-      // Add category-specific fields
-      if (formData.category === "properties") {
-        if (formData.bedrooms) listingData.bedrooms = parseInt(formData.bedrooms);
-        if (formData.bathrooms) listingData.bathrooms = parseInt(formData.bathrooms);
-        if (formData.area) listingData.area = parseFloat(formData.area);
-        if (formData.year_built) listingData.year_built = parseInt(formData.year_built);
-      }
+        // Add category-specific fields
+        if (formData.category === "properties") {
+          if (formData.bedrooms) updateData.bedrooms = parseInt(formData.bedrooms);
+          if (formData.bathrooms) updateData.bathrooms = parseInt(formData.bathrooms);
+          if (formData.area) updateData.area = parseFloat(formData.area);
+          if (formData.year_built) updateData.year_built = parseInt(formData.year_built);
+        }
 
-      if (formData.category === "vehicles") {
-        if (formData.make) listingData.make = formData.make;
-        if (formData.model) listingData.model = formData.model;
-        if (formData.year) listingData.year = parseInt(formData.year);
-        if (formData.mileage) listingData.mileage = parseInt(formData.mileage);
-        if (formData.transmission) listingData.transmission = formData.transmission;
-        if (formData.condition) listingData.condition = formData.condition;
-      }
+        if (formData.category === "vehicles") {
+          if (formData.make) updateData.make = formData.make;
+          if (formData.model) updateData.model = formData.model;
+          if (formData.year) updateData.year = parseInt(formData.year);
+          if (formData.mileage) updateData.mileage = parseInt(formData.mileage);
+          if (formData.transmission) updateData.transmission = formData.transmission;
+          if (formData.condition) updateData.condition = formData.condition;
+        }
 
-      const success = isEditing 
-        ? await updateListing(id!, listingData)
-        : await createListing(listingData);
+        const success = await updateListing(id!, updateData);
+        if (success) {
+          navigate("/admin/listings");
+        }
+      } else {
+        // For creation, use CreateListingData
+        const createData: CreateListingData = {
+          title: formData.title,
+          category: formData.category,
+          price: parseFloat(formData.price),
+          location: formData.location,
+          description: formData.description,
+          status: formData.status as any,
+          featured: formData.featured,
+          image_urls: images,
+        };
 
-      if (success) {
-        navigate("/admin/listings");
+        // Add category-specific fields
+        if (formData.category === "properties") {
+          if (formData.bedrooms) createData.bedrooms = parseInt(formData.bedrooms);
+          if (formData.bathrooms) createData.bathrooms = parseInt(formData.bathrooms);
+          if (formData.area) createData.area = parseFloat(formData.area);
+          if (formData.year_built) createData.year_built = parseInt(formData.year_built);
+        }
+
+        if (formData.category === "vehicles") {
+          if (formData.make) createData.make = formData.make;
+          if (formData.model) createData.model = formData.model;
+          if (formData.year) createData.year = parseInt(formData.year);
+          if (formData.mileage) createData.mileage = parseInt(formData.mileage);
+          if (formData.transmission) createData.transmission = formData.transmission;
+          if (formData.condition) createData.condition = formData.condition;
+        }
+
+        const success = await createListing(createData);
+        if (success) {
+          navigate("/admin/listings");
+        }
       }
     } catch (error) {
       console.error("Error submitting listing:", error);
