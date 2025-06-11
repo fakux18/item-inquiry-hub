@@ -29,6 +29,30 @@ export interface Listing {
   condition?: string;
 }
 
+// Type for creating a new listing with required fields
+export interface CreateListingData {
+  title: string;
+  description?: string;
+  price: number;
+  category: string;
+  location: string;
+  status?: string;
+  image_urls?: string[];
+  featured?: boolean;
+  // Property fields
+  bedrooms?: number;
+  bathrooms?: number;
+  area?: number;
+  year_built?: number;
+  // Vehicle fields
+  make?: string;
+  model?: string;
+  year?: number;
+  mileage?: number;
+  transmission?: string;
+  condition?: string;
+}
+
 export const useListings = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
@@ -53,7 +77,7 @@ export const useListings = () => {
     }
   };
 
-  const createListing = async (listingData: Partial<Listing>): Promise<boolean> => {
+  const createListing = async (listingData: CreateListingData): Promise<boolean> => {
     try {
       const { error } = await supabase
         .from('listings')
