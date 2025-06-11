@@ -90,16 +90,17 @@ const PublicFooter = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-golden-yellow flex-shrink-0" />
                 <a
-                  href="tel:+15551234567"
-                  className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
+                  href="https://wa.me/+5493775200964"
+                  target="_blank"
+                  className="text-light-gray hover:text-golden-yellow transition-colors duration-200 cursor-pointer"
                 >
-                  (555) 123-4567
+                  (3775) 20-0964
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-golden-yellow flex-shrink-0" />
                 <a
-                  href="mailto:info@marketplace.com"
+                  href="mailto:infoakmisiones@gmail.com"
                   className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
                 >
                   infoakmisiones@gmail.com
@@ -124,10 +125,10 @@ const PublicFooter = () => {
             </div>
             <div
               className="bg-green-600 hover:bg-green-700 transition-colors duration-200 text-white p-4 rounded-lg text-center cursor-pointer"
-              onClick={() => window.open("https://wa.me/15551234567", "_blank")}
+              onClick={() => window.open("https://wa.me/+5493775200964", "_blank")}
             >
               <p className="font-semibold">WhatsApp 24/7</p>
-              <p className="text-sm opacity-90 mt-1">(555) 123-4567</p>
+              <p className="text-sm opacity-90 mt-1">(3775) 20-0964</p>
             </div>
           </div>
         </div>

@@ -27,30 +27,45 @@ const ContactPage = () => {
     interest: "",
     message: "",
   });
+  
+  const [isSending, setIsSending] = useState(false);
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // En una app real, enviarías esto a tu backend
-    // console.log("Formulario de contacto enviado:", formData);
-    alert("¡Gracias por tu consulta! Te responderemos en menos de 24 horas.");
-    setFormData({ name: "", email: "", phone: "", interest: "", message: "" });
+  const now = Date.now();
+  const lastSend = localStorage.getItem("last_form_submit");
 
-    // 
-    emailjs.sendForm(SERVICE, TEMPLATE, form.current, KEY).then(
-      (result) => {
-        // console.log(result.text);
-      },
-      (error) => {
-        // console.log(error.text);
-      }
-    );
-  };
+  if (lastSend && now - parseInt(lastSend) < 120000) {
+    alert("Espera 2 minutos antes de enviar otra consulta.");
+    return;
+  }
+
+  if (isSending) return;
+  setIsSending(true);
+  localStorage.setItem("last_form_submit", now.toString());
+
+  alert("¡Gracias por tu consulta! Te responderemos en menos de 24 horas.");
+  setFormData({ name: "", email: "", phone: "", interest: "", message: "" });
+
+  emailjs.sendForm(SERVICE, TEMPLATE, form.current, KEY).then(
+    (result) => {
+      console.log(result.text);
+    },
+    (error) => {
+      console.log(error.text);
+    }
+  ).finally(() => {
+    setTimeout(() => setIsSending(false), 120000);
+  });
+};
+
 
   const handleWhatsAppContact = () => {
+
     const message = encodeURIComponent(
       "¡Hola! Estoy interesado en sus publicaciones y me gustaría saber más sobre lo que tienen disponible."
     );
-    window.open(`https://wa.me/1234567890?text=${message}`, "_blank");
+    window.open(`https://wa.me/+5493775200964?text=${message}`, "_blank");
   };
 
   return (
@@ -90,7 +105,7 @@ const ContactPage = () => {
                     className="bg-green-600 hover:bg-green-700 text-white w-full"
                   >
                     <Phone className="w-4 h-4 mr-2" />
-                    Chatear ahora: (555) 123-4567
+                    Chatear ahora: (3775) 20-0964
                   </Button>
                 </div>
                 {/* Otros métodos */}
@@ -100,7 +115,7 @@ const ContactPage = () => {
                     <div>
                       <h4 className="font-semibold text-gray-800">Correo</h4>
                       <a
-                        href="mailto:info@marketplace.com"
+                        href="mailto:infoakmisiones@gmail.com"
                         className="text-blue-600 hover:text-blue-700"
                       >
                         infoakmisiones@gmail.com
@@ -115,10 +130,10 @@ const ContactPage = () => {
                     <div>
                       <h4 className="font-semibold text-gray-800">Teléfono</h4>
                       <a
-                        href="tel:+1234567890"
+                        href="https://wa.me/+5493775200964"
                         className="text-blue-600 hover:text-blue-700"
                       >
-                        (555) 123-4567
+                        (3775) 20-0964
                       </a>
                       <p className="text-sm text-gray-500">
                         Solo en horario laboral
@@ -186,7 +201,7 @@ const ContactPage = () => {
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">
-                      Andrés Pansir
+                      Andrés Perin
                     </h3>
                     <p className="text-gray-600">
                       Propietario y agente matriculado
@@ -258,7 +273,7 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Teléfono *</Label>
+                    <Label htmlFor="phone">Teléfono</Label>
                     <Input
                       name="phone"
                       id="phone"
@@ -268,11 +283,10 @@ const ContactPage = () => {
                       minLength={8}
                       maxLength={12}
                       value={formData.phone}
-                      className="border border-dark-charcoal invalid:border-red-400 valid:border-green-400"
+                      className="border border-dark-charcoal"
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
-                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -318,7 +332,9 @@ const ContactPage = () => {
                   <Button
                     type="submit"
                     onSubmit={handleSubmit}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    className={isSending 
+                      ? "w-full bg-blue-600 hover:bg-blue-700 text-white pointer-events-none" 
+                      : "w-full bg-blue-600 hover:bg-blue-700 text-white"}
                   >
                     <Send className="w-4 h-4 mr-2" />
                     Enviar mensaje

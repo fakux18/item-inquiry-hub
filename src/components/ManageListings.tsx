@@ -82,12 +82,12 @@ const ManageListings = () => {
                 placeholder="Buscar publicaciones..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 border border-dark-charcoal"
               />
             </div>
 
             <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger>
+              <SelectTrigger className="border border-dark-charcoal">
                 <SelectValue placeholder="Categoría" />
               </SelectTrigger>
               <SelectContent className="!border-none">
@@ -98,7 +98,7 @@ const ManageListings = () => {
             </Select>
 
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger>
+              <SelectTrigger className="border border-dark-charcoal">
                 <SelectValue placeholder="Estado" />
               </SelectTrigger>
               <SelectContent className="!border-none">
@@ -110,7 +110,7 @@ const ManageListings = () => {
             </Select>
 
             <Button
-              variant="outline"
+              className="bg-blue-600 hover:bg-blue-700 text-card"
               onClick={() => {
                 setSearchTerm("");
                 setFilterCategory("all");
@@ -209,10 +209,10 @@ const ManageListings = () => {
                         value: "available" | "pending" | "sold"
                       ) => handleStatusChange(listing.id, value)}
                     >
-                      <SelectTrigger className="w-32">
+                      <SelectTrigger className="w-32 border border-dark-charcoal">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="!border-none">
                         <SelectItem value="available">Disponible</SelectItem>
                         <SelectItem value="pending">Pendiente</SelectItem>
                         <SelectItem value="sold">Vendido</SelectItem>
@@ -221,17 +221,17 @@ const ManageListings = () => {
 
                     <div className="flex space-x-2">
                       <Link to={`/property/${listing.id}`}>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="border" size="sm">
                           <Eye className="w-4 h-4" />
                         </Button>
                       </Link>
                       <Link to={`/admin/listings/edit/${listing.id}`}>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="border" size="sm">
                           <Edit className="w-4 h-4" />
                         </Button>
                       </Link>
                       <Button
-                        variant="ghost"
+                        variant="border"
                         size="sm"
                         onClick={() => handleDelete(listing.id)}
                         className="text-red-600 hover:text-red-700 hover:bg-red-50"

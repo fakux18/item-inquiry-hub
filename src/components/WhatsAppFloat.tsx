@@ -6,8 +6,8 @@ const WhatsAppFloat = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("¡Hola! Estoy interesado en sus propiedades. ¿Podrían ayudarme a encontrar lo que busco?");
-    window.open(`https://wa.me/15551234567?text=${message}`, '_blank');
+    const message = encodeURIComponent("¡Hola! Estoy interesado en uno de sus productos. ¿Podrían ayudarme a encontrar lo que busco?");
+    window.open(`https://wa.me/+5493775200964?text=${message}`, '_blank');
   };
 
   if (!isVisible) return null;
