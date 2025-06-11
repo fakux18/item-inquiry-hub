@@ -36,14 +36,14 @@ const PublicHeader = () => {
         <div className="py-3 text-sm border-b flex items-center justify-between border-mid-gray-blue/30">
           <div className="flex flex-col gap-2 items-center lg:items-start">
             <a
-              href="tel:+15551234567"
+              href="tel:+5493755200964"
               className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
             >
               <Phone className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
-              (555) 123-4567
+              (3775) 20-0964
             </a>
             <a
-              href="mailto:info@marketplace.com"
+              href="mailto:infoakmisiones@gmail.com"
               className="flex items-center gap-2 !ml-0 text-light-gray hover:text-golden-yellow transition-colors group"
             >
               <Mail className="w-4 h-4 group-hover:text-golden-yellow" />
@@ -114,7 +114,7 @@ const PublicHeader = () => {
               <Search className="absolute left-3 top-2.5 w-4 h-4 text-mid-gray-blue" />
             </form>
             <Button
-              onClick={() => window.open("https://wa.me/15551234567", "_blank")}
+              onClick={() => window.open("https://wa.me/+5493775200964", "_blank")}
               className="bg-[#16a34a] hover:bg-[#15803d]"
             >
               WhatsApp
@@ -177,7 +177,7 @@ const PublicHeader = () => {
               </form>
               <Button
                 onClick={() =>
-                  window.open("https://wa.me/15551234567", "_blank")
+                  window.open("https://wa.me/+5493775200964", "_blank")
                 }
                 className="btn-primary w-full"
               >

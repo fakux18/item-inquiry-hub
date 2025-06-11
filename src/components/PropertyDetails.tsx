@@ -337,7 +337,7 @@ const PropertyDetails = () => {
                     className="w-16 h-16 rounded-full"
                   />
                   <div>
-                    <h4 className="font-semibold text-gray-800">Andrés Pansir</h4>
+                    <h4 className="font-semibold text-gray-800">Andrés Perin</h4>
                     <p className="text-sm text-gray-600">
                       Propietario y agente matriculado
                     </p>

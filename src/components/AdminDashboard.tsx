@@ -111,7 +111,7 @@ const AdminDashboard = () => {
               Ver, editar o eliminar listados existentes de tu marketplace.
             </p>
             <Link to="/admin/listings">
-              <Button className="w-full bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray">
+              <Button className="w-full bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-slate-200">
                 Ver Todos los Listados
               </Button>
             </Link>
@@ -129,7 +129,7 @@ const AdminDashboard = () => {
             <p className="text-mid-gray-blue mb-4">
               Revisa y responde a consultas de clientes y formularios de contacto.
             </p>
-            <Button className="w-full bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray">
+            <Button className="w-full bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-slate-200">
               Ver Mensajes
             </Button>
           </CardContent>
@@ -144,7 +144,7 @@ const AdminDashboard = () => {
         <CardContent>
           <div className="space-y-4">
             {recentListings.map((listing) => (
-              <div key={listing.id} className="flex items-center justify-between p-4 rounded-lg bg-light-gray/30">
+              <div key={listing.id} className="flex items-center justify-between p-4 rounded-lg bg-slate-200/30">
                 <div className="flex items-center space-x-4">
                   <img
                     src={listing.images[0]}
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
                     {listing.status === 'available' ? 'disponible' : 
                      listing.status === 'pending' ? 'pendiente' : 'vendido'}
                   </span>
-                  <Button className="bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray text-sm px-3 py-1">
+                  <Button className="bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-slate-200 text-sm px-3 py-1">
                     Editar
                   </Button>
                 </div>
@@ -179,7 +179,7 @@ const AdminDashboard = () => {
           </div>
           <div className="mt-4 text-center">
             <Link to="/admin/listings">
-              <Button className="bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-light-gray">
+              <Button className="bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-slate-200">
                 Ver Todos los Listados
               </Button>
             </Link>
@@ -193,22 +193,22 @@ const AdminDashboard = () => {
           href="/" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-block bg-white hover:bg-mid-gray-blue hover:text-white text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px] text-center"
+          className="bg-white hover:bg-slate-200 text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px] text-sm h-full"
         >
           Ver Sitio
         </a>
         
         <Button
           onClick={handleLogout}
-          className="bg-white hover:bg-terracotta hover:text-white text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px]"
+          className="bg-white hover:bg-slate-200 text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px] text-sm h-full"
         >
           Cerrar Sesión
         </Button>
         
-        <Button className="bg-white hover:bg-mid-gray-blue hover:text-white text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px] flex items-center">
+        {/* <Button className="bg-white hover:bg-slate-200 text-dark-charcoal border border-dark-charcoal font-medium px-6 py-3 rounded-lg transition-all duration-200 max-w-[180px] text-sm h-full">
           <Settings className="w-4 h-4 mr-2" />
           Configuración
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

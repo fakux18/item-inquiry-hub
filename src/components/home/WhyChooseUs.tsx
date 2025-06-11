@@ -45,14 +45,14 @@ const WhyChooseUs = () => {
                 className="w-24 h-24 rounded-full"
               />
               <div className="text-left">
-                <h4 className="text-xl font-semibold mb-2">Andres Pansir, Dueño</h4>
+                <h4 className="text-xl font-semibold mb-2">Andres Perin, Dueño</h4>
                 <p className="text-gray-600 mb-4">
                   "Con más de 15 años en el mercado local, me aseguro personalmente de que cada anuncio cumpla con nuestros altos estándares. 
                   Tu satisfacción es mi garantía."
                 </p>
                 <div className="flex space-x-4">
                   <Button
-                    onClick={() => window.open('https://wa.me/15551234567', '_blank')}
+                    onClick={() => window.open('https://wa.me/+5493775200964', '_blank')}
                     className="bg-green-600 hover:bg-green-700"
                   >
                     WhatsApp
