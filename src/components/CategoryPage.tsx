@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
-import { Search, Filter, Grid, List as ListIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { Search, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -10,238 +11,192 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ListingCard from "./ListingCard";
-import { mockListings } from "../data/mockData";
+import { usePublicListings } from "@/hooks/usePublicListings";
+
+// Transform Supabase listing to ListingCard format
+const transformListing = (listing: any) => {
+  return {
+    id: listing.id,
+    title: listing.title,
+    price: listing.price,
+    location: listing.location,
+    category: listing.category,
+    type: listing.category,
+    images: listing.image_urls || [],
+    featured: listing.featured || false,
+    status: listing.status as "available" | "pending" | "sold",
+    details: {
+      bedrooms: listing.bedrooms,
+      bathrooms: listing.bathrooms,
+      area: listing.area,
+      year: listing.year || listing.year_built,
+      mileage: listing.mileage,
+      transmission: listing.transmission,
+    },
+    description: listing.description || "",
+    datePosted: listing.created_at,
+  };
+};
 
 const CategoryPage = () => {
   const { category } = useParams();
-  const [searchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(
-    searchParams.get("search") || ""
-  );
+  const [searchTerm, setSearchTerm] = useState("");
+  const [priceFilter, setPriceFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
 
-  // Filter listings based on category and search
-  const filteredListings = mockListings.filter((listing) => {
-    const matchesCategory =
-      category === "all" ||
-      listing.category.toLowerCase().includes(category?.toLowerCase() || "");
-    const matchesSearch =
-      !searchTerm ||
-      listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      listing.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      listing.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesPriceMin =
-      !priceRange.min || listing.price >= parseInt(priceRange.min);
-    const matchesPriceMax =
-      !priceRange.max || listing.price <= parseInt(priceRange.max);
-
-    return (
-      matchesCategory && matchesSearch && matchesPriceMin && matchesPriceMax
-    );
+  const { listings, loading } = usePublicListings({
+    searchTerm,
+    category: category === 'all' ? '' : category,
+    status: 'available'
   });
 
-  // Sort listings
-  const sortedListings = [...filteredListings].sort((a, b) => {
-    switch (sortBy) {
-      case "price-low":
-        return a.price - b.price;
-      case "price-high":
-        return b.price - a.price;
-      case "newest":
-        return (
-          new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()
-        );
-      case "oldest":
-        return (
-          new Date(a.datePosted).getTime() - new Date(b.datePosted).getTime()
-        );
-      default:
-        return 0;
+  const transformedListings = listings.map(transformListing);
+
+  // Apply additional filters and sorting
+  let filteredListings = [...transformedListings];
+
+  // Price filter
+  if (priceFilter !== "all") {
+    switch (priceFilter) {
+      case "under-100k":
+        filteredListings = filteredListings.filter(l => l.price < 100000);
+        break;
+      case "100k-500k":
+        filteredListings = filteredListings.filter(l => l.price >= 100000 && l.price < 500000);
+        break;
+      case "500k-1m":
+        filteredListings = filteredListings.filter(l => l.price >= 500000 && l.price < 1000000);
+        break;
+      case "over-1m":
+        filteredListings = filteredListings.filter(l => l.price >= 1000000);
+        break;
     }
-  });
+  }
 
-  const getCategoryTitle = () => {
-    switch (category) {
+  // Sorting
+  switch (sortBy) {
+    case "newest":
+      filteredListings.sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime());
+      break;
+    case "oldest":
+      filteredListings.sort((a, b) => new Date(a.datePosted).getTime() - new Date(b.datePosted).getTime());
+      break;
+    case "price-low":
+      filteredListings.sort((a, b) => a.price - b.price);
+      break;
+    case "price-high":
+      filteredListings.sort((a, b) => b.price - a.price);
+      break;
+  }
+
+  const getCategoryTitle = (cat: string | undefined) => {
+    switch (cat) {
       case "properties":
         return "Propiedades";
       case "vehicles":
         return "Vehículos";
-      case "residential":
-        return "Propiedades Residenciales";
-      case "commercial":
-        return "Propiedades Comerciales";
       case "equipment":
-        return "Maquinaria Pesada";
+        return "Maquinaria";
       default:
-        return "Todos los Listados";
+        return "Todas las categorías";
     }
   };
+
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setPriceFilter("all");
+    setSortBy("newest");
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        {/* Encabezado */}
+        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-            {getCategoryTitle()}
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            {getCategoryTitle(category)}
           </h1>
           <p className="text-gray-600">
-            {sortedListings.length} resultados encontrados
+            {filteredListings.length} {filteredListings.length === 1 ? 'resultado encontrado' : 'resultados encontrados'}
           </p>
         </div>
 
-        {/* Filtros */}
-        <Card className="mb-8 !border-none">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Filter className="w-5 h-5 mr-2" />
-              Filtros y Búsqueda
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-              {/* Búsqueda */}
-              <div className="lg:col-span-2">
-                <div className="relative">
-                  <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                  <Input
-                    placeholder="Buscar en los listados..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 border border-dark-charcoal"
-                  />
-                </div>
-              </div>
-
-              {/* Rango de precio */}
-              <div className="flex space-x-2">
-                <Input
-                  placeholder="Precio mín."
-                  type="number"
-                  value={priceRange.min}
-                  onChange={(e) =>
-                    setPriceRange((prev) => ({ ...prev, min: e.target.value }))
-                  }
-                  className="border border-dark-charcoal"
-                />
-                <Input
-                  placeholder="Precio máx."
-                  type="number"
-                  value={priceRange.max}
-                  onChange={(e) =>
-                    setPriceRange((prev) => ({ ...prev, max: e.target.value }))
-                  }
-                  className="border border-dark-charcoal"
-                />
-              </div>
-
-              {/* Ordenar */}
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="border border-dark-charcoal">
-                  <SelectValue placeholder="Ordenar por" />
-                </SelectTrigger>
-                <SelectContent className="!border-none">
-                  <SelectItem value="newest">Más nuevos primero</SelectItem>
-                  <SelectItem value="oldest">Más antiguos primero</SelectItem>
-                  <SelectItem value="price-low">
-                    Precio: menor a mayor
-                  </SelectItem>
-                  <SelectItem value="price-high">
-                    Precio: mayor a menor
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              {/* Vista */}
-              <div className="flex space-x-2">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("grid")}
-                  className="flex-1"
-                >
-                  <Grid className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("list")}
-                  className="flex-1"
-                >
-                  <ListIcon className="w-4 h-4" />
-                </Button>
-              </div>
+        {/* Filters */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+              <Input
+                placeholder="Buscar..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
             </div>
 
-            {/* Limpiar filtros */}
-            {(searchTerm || priceRange.min || priceRange.max) && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    setSearchTerm("");
-                    setPriceRange({ min: "", max: "" });
-                  }}
-                  className="text-blue-600 hover:text-blue-700 !bg-transparent"
-                >
-                  Limpiar todos los filtros
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+            <Select value={priceFilter} onValueChange={setPriceFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Rango de precio" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos los precios</SelectItem>
+                <SelectItem value="under-100k">Menos de $100,000</SelectItem>
+                <SelectItem value="100k-500k">$100,000 - $500,000</SelectItem>
+                <SelectItem value="500k-1m">$500,000 - $1,000,000</SelectItem>
+                <SelectItem value="over-1m">Más de $1,000,000</SelectItem>
+              </SelectContent>
+            </Select>
 
-        {/* Resultados */}
-        {sortedListings.length === 0 ? (
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger>
+                <SelectValue placeholder="Ordenar por" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Más recientes</SelectItem>
+                <SelectItem value="oldest">Más antiguos</SelectItem>
+                <SelectItem value="price-low">Precio: menor a mayor</SelectItem>
+                <SelectItem value="price-high">Precio: mayor a menor</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Button
+              variant="outline"
+              onClick={handleClearFilters}
+              className="flex items-center space-x-2"
+            >
+              <Filter className="w-4 h-4" />
+              <span>Limpiar filtros</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* Results */}
+        {filteredListings.length === 0 ? (
           <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
-              <Search className="w-16 h-16 mx-auto" />
-            </div>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
               No se encontraron resultados
             </h2>
             <p className="text-gray-600 mb-6">
-              Prueba ajustando tus criterios de búsqueda o explora todas las
-              categorías.
+              Intenta ajustar tus filtros de búsqueda para ver más opciones.
             </p>
-            <Button
-              onClick={() => {
-                setSearchTerm("");
-                setPriceRange({ min: "", max: "" });
-              }}
-              className="bg-blue-600 hover:bg-blue-700"
-            >
-              Limpiar filtros
+            <Button onClick={handleClearFilters}>
+              Limpiar todos los filtros
             </Button>
           </div>
         ) : (
-          <div
-            className={
-              viewMode === "grid"
-                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                : "space-y-6"
-            }
-          >
-            {sortedListings.map((listing) => (
-              <ListingCard
-                key={listing.id}
-                listing={listing}
-                compact={viewMode === "list"}
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
             ))}
-          </div>
-        )}
-
-        {/* Cargar más */}
-        {sortedListings.length > 0 && (
-          <div className="text-center mt-12">
-            <Button variant="border" className="px-8">
-              Cargar más resultados
-            </Button>
           </div>
         )}
       </div>

@@ -1,11 +1,9 @@
 
-import { useEffect, useState } from "react";
+import { usePublicListings } from "@/hooks/usePublicListings";
 import ListingCard from "../ListingCard";
-import { supabase } from "@/integrations/supabase/client";
-import { Listing as SupabaseListing } from "@/hooks/useListings";
 
 // Transform Supabase listing to ListingCard format
-const transformListing = (listing: SupabaseListing) => {
+const transformListing = (listing: any) => {
   return {
     id: listing.id,
     title: listing.title,
@@ -30,60 +28,13 @@ const transformListing = (listing: SupabaseListing) => {
 };
 
 const FeaturedListings = () => {
-  const [featuredListings, setFeaturedListings] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { listings, loading } = usePublicListings({
+    featured: true,
+    status: 'available',
+    limit: 6
+  });
 
-  const fetchFeaturedListings = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('listings')
-        .select('*')
-        .eq('featured', true)
-        .eq('status', 'available')
-        .order('created_at', { ascending: false })
-        .limit(6);
-
-      if (error) {
-        console.error('Error fetching featured listings:', error);
-        return;
-      }
-
-      // Transform the data to match ListingCard expectations
-      const transformedListings = (data || []).map(transformListing);
-      setFeaturedListings(transformedListings);
-    } catch (error) {
-      console.error('Error fetching featured listings:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    // Initial fetch
-    fetchFeaturedListings();
-
-    // Set up real-time subscription
-    const channel = supabase
-      .channel('featured-listings-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*', // Listen to all events (INSERT, UPDATE, DELETE)
-          schema: 'public',
-          table: 'listings'
-        },
-        (payload) => {
-          console.log('Real-time update received:', payload);
-          // Refetch data when any change occurs to listings table
-          fetchFeaturedListings();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
+  const transformedListings = listings.map(transformListing);
 
   if (loading) {
     return (
@@ -121,7 +72,7 @@ const FeaturedListings = () => {
           <div className="w-24 h-1 bg-terracotta mx-auto mt-6 rounded-full"></div>
         </div>
 
-        {featuredListings.length === 0 ? (
+        {transformedListings.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-lg text-secondary">
               No hay publicaciones destacadas disponibles en este momento.
@@ -129,7 +80,7 @@ const FeaturedListings = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredListings.map((listing) => (
+            {transformedListings.map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}
           </div>

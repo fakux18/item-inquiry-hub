@@ -1,4 +1,6 @@
+
 import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   MapPin,
   Phone,
@@ -12,11 +14,66 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { mockListings } from "../data/mockData";
+import { supabase } from "@/integrations/supabase/client";
+import { Listing } from "@/hooks/useListings";
 
 const PropertyDetails = () => {
   const { id } = useParams();
-  const listing = mockListings.find((l) => l.id === id);
+  const [listing, setListing] = useState<Listing | null>(null);
+  const [relatedListings, setRelatedListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      if (!id) return;
+
+      try {
+        console.log('Fetching listing with id:', id);
+        const { data, error } = await supabase
+          .from('listings')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (error) {
+          console.error('Error fetching listing:', error);
+          return;
+        }
+
+        console.log('Listing fetched:', data);
+        setListing(data);
+
+        // Fetch related listings from the same category
+        if (data) {
+          const { data: related, error: relatedError } = await supabase
+            .from('listings')
+            .select('*')
+            .eq('category', data.category)
+            .neq('id', id)
+            .eq('status', 'available')
+            .limit(3);
+
+          if (!relatedError && related) {
+            setRelatedListings(related);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching listing:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchListing();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   if (!listing) {
     return (
@@ -94,7 +151,7 @@ const PropertyDetails = () => {
               <CardContent className="p-0">
                 <div className="relative">
                   <img
-                    src={listing.images[0]}
+                    src={listing.image_urls && listing.image_urls.length > 0 ? listing.image_urls[0] : "/placeholder.svg"}
                     alt={listing.title}
                     className="w-full h-96 object-cover rounded-t-lg"
                   />
@@ -133,10 +190,10 @@ const PropertyDetails = () => {
                 </div>
 
                 {/* Imágenes adicionales */}
-                {listing.images.length > 1 && (
+                {listing.image_urls && listing.image_urls.length > 1 && (
                   <div className="p-4">
                     <div className="grid grid-cols-3 gap-2">
-                      {listing.images.slice(1, 4).map((image, index) => (
+                      {listing.image_urls.slice(1, 4).map((image, index) => (
                         <img
                           key={index}
                           src={image}
@@ -166,7 +223,7 @@ const PropertyDetails = () => {
                           {listing.location}
                         </div>
                         <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                          {listing.category} • {listing.type}
+                          {listing.category}
                         </span>
                       </div>
                       <div className="text-right">
@@ -174,7 +231,7 @@ const PropertyDetails = () => {
                           {formatPrice(listing.price)}
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
-                          Publicado {listing.datePosted}
+                          Publicado {new Date(listing.created_at).toLocaleDateString('es-AR')}
                         </div>
                       </div>
                     </div>
@@ -182,41 +239,31 @@ const PropertyDetails = () => {
 
                   {/* Detalles clave */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-gray-200">
-                    {listing.details.bedrooms && (
+                    {listing.bedrooms && (
                       <div className="text-center">
                         <Bed className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {listing.details.bedrooms}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          Habitaciones
-                        </div>
+                        <div className="font-semibold">{listing.bedrooms}</div>
+                        <div className="text-sm text-gray-500">Habitaciones</div>
                       </div>
                     )}
-                    {listing.details.bathrooms && (
+                    {listing.bathrooms && (
                       <div className="text-center">
                         <Bath className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {listing.details.bathrooms}
-                        </div>
+                        <div className="font-semibold">{listing.bathrooms}</div>
                         <div className="text-sm text-gray-500">Baños</div>
                       </div>
                     )}
-                    {listing.details.year && (
+                    {(listing.year || listing.year_built) && (
                       <div className="text-center">
                         <Calendar className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {listing.details.year}
-                        </div>
+                        <div className="font-semibold">{listing.year || listing.year_built}</div>
                         <div className="text-sm text-gray-500">Año</div>
                       </div>
                     )}
-                    {listing.details.mileage && (
+                    {listing.mileage && (
                       <div className="text-center">
                         <Gauge className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {listing.details.mileage.toLocaleString()}
-                        </div>
+                        <div className="font-semibold">{listing.mileage.toLocaleString()}</div>
                         <div className="text-sm text-gray-500">Kilómetros</div>
                       </div>
                     )}
@@ -228,51 +275,45 @@ const PropertyDetails = () => {
                       Descripción
                     </h2>
                     <p className="text-gray-600 leading-relaxed">
-                      {listing.description}
+                      {listing.description || "No hay descripción disponible."}
                     </p>
                   </div>
 
                   {/* Detalles adicionales */}
-                  {(listing.details.area ||
-                    listing.details.lotSize ||
-                    listing.details.transmission) && (
+                  {(listing.area || listing.transmission || listing.make || listing.model || listing.condition) && (
                     <div>
                       <h2 className="text-xl font-semibold text-gray-800 mb-3">
                         Detalles adicionales
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {listing.details.area && (
+                        {listing.area && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Superficie:</span>
-                            <span className="font-medium">
-                              {listing.details.area.toLocaleString()} m²
-                            </span>
+                            <span className="font-medium">{listing.area.toLocaleString()} m²</span>
                           </div>
                         )}
-                        {listing.details.lotSize && (
+                        {listing.make && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
-                            <span className="text-gray-600">
-                              Tamaño del lote:
-                            </span>
-                            <span className="font-medium">
-                              {listing.details.lotSize}
-                            </span>
+                            <span className="text-gray-600">Marca:</span>
+                            <span className="font-medium">{listing.make}</span>
                           </div>
                         )}
-                        {listing.details.transmission && (
+                        {listing.model && (
+                          <div className="flex justify-between py-2 border-b border-gray-100">
+                            <span className="text-gray-600">Modelo:</span>
+                            <span className="font-medium">{listing.model}</span>
+                          </div>
+                        )}
+                        {listing.transmission && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Transmisión:</span>
-                            <span className="font-medium">
-                              {listing.details.transmission}
-                            </span>
+                            <span className="font-medium">{listing.transmission}</span>
                           </div>
                         )}
-                        {listing.details.condition && (
+                        {listing.condition && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Condición:</span>
-                            <span className="font-medium">
-                              {listing.details.condition}
-                            </span>
+                            <span className="font-medium">{listing.condition}</span>
                           </div>
                         )}
                       </div>
@@ -333,7 +374,7 @@ const PropertyDetails = () => {
                 <div className="flex items-center space-x-4 mb-4">
                   <img
                     src="/placeholder.svg"
-                    alt="John Smith"
+                    alt="Andrés Perin"
                     className="w-16 h-16 rounded-full"
                   />
                   <div>
@@ -367,14 +408,9 @@ const PropertyDetails = () => {
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   Listados similares
                 </h3>
-                <div className="space-y-4">
-                  {mockListings
-                    .filter(
-                      (l) =>
-                        l.id !== listing.id && l.category === listing.category
-                    )
-                    .slice(0, 3)
-                    .map((similar) => (
+                {relatedListings.length > 0 ? (
+                  <div className="space-y-4">
+                    {relatedListings.map((similar) => (
                       <Link
                         key={similar.id}
                         to={`/property/${similar.id}`}
@@ -382,7 +418,7 @@ const PropertyDetails = () => {
                       >
                         <div className="flex space-x-3">
                           <img
-                            src={similar.images[0]}
+                            src={similar.image_urls && similar.image_urls.length > 0 ? similar.image_urls[0] : "/placeholder.svg"}
                             alt={similar.title}
                             className="w-16 h-16 object-cover rounded-lg"
                           />
@@ -400,7 +436,14 @@ const PropertyDetails = () => {
                         </div>
                       </Link>
                     ))}
-                </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 text-sm">
+                      No hay artículos relacionados disponibles en este momento.
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -17,10 +16,10 @@ const AuthLogin = () => {
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect to admin if already authenticated
+  // Redirect to admin dashboard if already authenticated
   useEffect(() => {
     if (user) {
-      navigate('/admin');
+      navigate('/admin/dashboard');
     }
   }, [user, navigate]);
 
@@ -41,7 +40,7 @@ const AuthLogin = () => {
       } else {
         toast.success(isSignUp ? 'Cuenta creada exitosamente!' : 'Sesión iniciada exitosamente!');
         if (!isSignUp) {
-          navigate('/admin');
+          navigate('/admin/dashboard');
         } else {
           toast.info('Revisa tu email para confirmar tu cuenta');
         }
