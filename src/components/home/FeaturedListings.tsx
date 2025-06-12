@@ -2,10 +2,35 @@
 import { useEffect, useState } from "react";
 import ListingCard from "../ListingCard";
 import { supabase } from "@/integrations/supabase/client";
-import { Listing } from "@/hooks/useListings";
+import { Listing as SupabaseListing } from "@/hooks/useListings";
+
+// Transform Supabase listing to ListingCard format
+const transformListing = (listing: SupabaseListing) => {
+  return {
+    id: listing.id,
+    title: listing.title,
+    price: listing.price,
+    location: listing.location,
+    category: listing.category,
+    type: listing.category, // Use category as type
+    images: listing.image_urls || [],
+    featured: listing.featured || false,
+    status: listing.status as "available" | "pending" | "sold",
+    details: {
+      bedrooms: listing.bedrooms,
+      bathrooms: listing.bathrooms,
+      area: listing.area,
+      year: listing.year || listing.year_built,
+      mileage: listing.mileage,
+      transmission: listing.transmission,
+    },
+    description: listing.description || "",
+    datePosted: listing.created_at,
+  };
+};
 
 const FeaturedListings = () => {
-  const [featuredListings, setFeaturedListings] = useState<Listing[]>([]);
+  const [featuredListings, setFeaturedListings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchFeaturedListings = async () => {
@@ -23,7 +48,9 @@ const FeaturedListings = () => {
         return;
       }
 
-      setFeaturedListings(data || []);
+      // Transform the data to match ListingCard expectations
+      const transformedListings = (data || []).map(transformListing);
+      setFeaturedListings(transformedListings);
     } catch (error) {
       console.error('Error fetching featured listings:', error);
     } finally {
