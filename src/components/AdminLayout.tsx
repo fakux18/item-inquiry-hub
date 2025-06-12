@@ -1,11 +1,15 @@
+
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, List, Plus, Settings, LogOut, Home, Menu } from 'lucide-react';
+import { LayoutDashboard, List, Plus, LogOut, Home, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 const AdminLayout = () => {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { signOut } = useAuth();
 
   const navigation = [
     { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
@@ -14,6 +18,15 @@ const AdminLayout = () => {
   ];
 
   const isActive = (href: string) => location.pathname === href;
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success('Sesión cerrada exitosamente');
+    } catch (error) {
+      toast.error('Error al cerrar sesión');
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gray-50 !border-none">
@@ -74,7 +87,7 @@ const AdminLayout = () => {
             <Button
               variant="ghost"
               className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
-              onClick={() => (window.location.href = '/admin/login')}
+              onClick={handleSignOut}
             >
               <LogOut className="w-4 h-4 mr-2" />
               Cerrar sesión
