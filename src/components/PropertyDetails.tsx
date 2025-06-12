@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { supabase } from "@/integrations/supabase/client";
 import { Listing } from "@/hooks/useListings";
 
@@ -146,64 +146,104 @@ const PropertyDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contenido principal */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Galería de imágenes */}
+            {/* Galería de imágenes con carousel */}
             <Card className="!border-none">
               <CardContent className="p-0">
                 <div className="relative">
-                  <img
-                    src={listing.image_urls && listing.image_urls.length > 0 ? listing.image_urls[0] : "/placeholder.svg"}
-                    alt={listing.title}
-                    className="w-full h-96 object-cover rounded-t-lg"
-                  />
+                  {listing.image_urls && listing.image_urls.length > 1 ? (
+                    <Carousel className="w-full">
+                      <CarouselContent>
+                        {listing.image_urls.map((image, index) => (
+                          <CarouselItem key={index}>
+                            <div className="relative">
+                              <img
+                                src={image}
+                                alt={`${listing.title} ${index + 1}`}
+                                className="w-full h-96 object-cover rounded-t-lg"
+                              />
+                              
+                              {/* Estado */}
+                              {listing.status !== "available" && index === 0 && (
+                                <div className="absolute top-4 left-4">
+                                  <span
+                                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                                      listing.status === "pending"
+                                        ? "bg-yellow-500 text-white"
+                                        : "bg-red-500 text-white"
+                                    }`}
+                                  >
+                                    {listing.status === "pending" ? "Pendiente" : "Vendido"}
+                                  </span>
+                                </div>
+                              )}
 
-                  {/* Estado */}
-                  {listing.status !== "available" && (
-                    <div className="absolute top-4 left-4">
-                      <span
-                        className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                          listing.status === "pending"
-                            ? "bg-yellow-500 text-white"
-                            : "bg-red-500 text-white"
-                        }`}
+                              {/* Destacado */}
+                              {listing.featured && index === 0 && (
+                                <div className="absolute top-4 right-4">
+                                  <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                    Destacado
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* Compartir */}
+                              {index === 0 && (
+                                <button
+                                  onClick={handleShare}
+                                  className="absolute bottom-4 right-4 bg-white text-gray-700 p-2 rounded-full shadow-lg hover:bg-gray-50"
+                                >
+                                  <Share2 className="w-5 h-5" />
+                                </button>
+                              )}
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious className="left-4" />
+                      <CarouselNext className="right-4" />
+                    </Carousel>
+                  ) : (
+                    <div className="relative">
+                      <img
+                        src={listing.image_urls && listing.image_urls.length > 0 ? listing.image_urls[0] : "/placeholder.svg"}
+                        alt={listing.title}
+                        className="w-full h-96 object-cover rounded-t-lg"
+                      />
+
+                      {/* Estado */}
+                      {listing.status !== "available" && (
+                        <div className="absolute top-4 left-4">
+                          <span
+                            className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                              listing.status === "pending"
+                                ? "bg-yellow-500 text-white"
+                                : "bg-red-500 text-white"
+                            }`}
+                          >
+                            {listing.status === "pending" ? "Pendiente" : "Vendido"}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Destacado */}
+                      {listing.featured && (
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Destacado
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Compartir */}
+                      <button
+                        onClick={handleShare}
+                        className="absolute bottom-4 right-4 bg-white text-gray-700 p-2 rounded-full shadow-lg hover:bg-gray-50"
                       >
-                        {listing.status === "pending" ? "Pendiente" : "Vendido"}
-                      </span>
+                        <Share2 className="w-5 h-5" />
+                      </button>
                     </div>
                   )}
-
-                  {/* Destacado */}
-                  {listing.featured && (
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        Destacado
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Compartir */}
-                  <button
-                    onClick={handleShare}
-                    className="absolute bottom-4 right-4 bg-white text-gray-700 p-2 rounded-full shadow-lg hover:bg-gray-50"
-                  >
-                    <Share2 className="w-5 h-5" />
-                  </button>
                 </div>
-
-                {/* Imágenes adicionales */}
-                {listing.image_urls && listing.image_urls.length > 1 && (
-                  <div className="p-4">
-                    <div className="grid grid-cols-3 gap-2">
-                      {listing.image_urls.slice(1, 4).map((image, index) => (
-                        <img
-                          key={index}
-                          src={image}
-                          alt={`${listing.title} ${index + 2}`}
-                          className="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-75 transition-opacity"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
               </CardContent>
             </Card>
 
@@ -343,7 +383,7 @@ const PropertyDetails = () => {
 
                   <Button
                     onClick={handleEmailContact}
-                    variant="border"
+                    variant="outline"
                     className="w-full hover:bg-transparent"
                   >
                     <Mail className="w-4 h-4 mr-2" />

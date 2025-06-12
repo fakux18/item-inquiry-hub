@@ -130,8 +130,9 @@ const CategoryPage = () => {
           </p>
         </div>
 
-        {/* Filters */}
+        {/* Filters - Restored original styling */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4">Filtros y búsqueda</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
@@ -139,12 +140,12 @@ const CategoryPage = () => {
                 placeholder="Buscar..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 border-gray-300 focus:border-gray-500 focus:ring-gray-500"
               />
             </div>
 
             <Select value={priceFilter} onValueChange={setPriceFilter}>
-              <SelectTrigger>
+              <SelectTrigger className="border-gray-300 focus:border-gray-500 focus:ring-gray-500">
                 <SelectValue placeholder="Rango de precio" />
               </SelectTrigger>
               <SelectContent>
@@ -157,7 +158,7 @@ const CategoryPage = () => {
             </Select>
 
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger>
+              <SelectTrigger className="border-gray-300 focus:border-gray-500 focus:ring-gray-500">
                 <SelectValue placeholder="Ordenar por" />
               </SelectTrigger>
               <SelectContent>
@@ -171,7 +172,7 @@ const CategoryPage = () => {
             <Button
               variant="outline"
               onClick={handleClearFilters}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-2 border-gray-300 hover:bg-gray-50"
             >
               <Filter className="w-4 h-4" />
               <span>Limpiar filtros</span>
