@@ -57,8 +57,8 @@ const ManageListings = () => {
   return (
     <div className="space-y-6">
       {/* Encabezado */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-        <div>
+      <div className="flex flex-col items-center md:flex-row md:justify-between space-y-4 md:space-y-0">
+        <div className="text-center md:text-left">
           <h1 className="text-2xl font-bold text-gray-800">
             Administrar publicaciones
           </h1>

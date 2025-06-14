@@ -142,16 +142,20 @@ const ImageUpload = ({
                 <img 
                   src={url} 
                   alt={`Imagen ${index + 1}`}
-                  className="w-full h-24 object-cover rounded-lg border"
+                  className="w-full h-24 object-cover rounded-lg"
                 />
                 {onImageRemoved && (
                   <Button
                     variant="destructive"
                     size="sm"
-                    className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 h-auto"
-                    onClick={() => handleRemoveExisting(url)}
+                    className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 h-auto bg-blue-600 hover:bg-blue-700"
+                    onClick={(e) => {
+                    e.preventDefault()
+                    handleRemoveExisting(url)}
+                  }
+                      
                   >
-                    <X className="w-3 h-3" />
+                    <X className="w-3 h-3 text-white" />
                   </Button>
                 )}
               </div>

@@ -79,7 +79,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <Card className="bg-white shadow-card border-0">
           <CardHeader>
             <CardTitle className="flex items-center text-dark-charcoal">
@@ -144,15 +144,15 @@ const AdminDashboard = () => {
         <CardContent>
           <div className="space-y-4">
             {recentListings.map((listing) => (
-              <div key={listing.id} className="flex items-center justify-between p-4 rounded-lg bg-slate-200/30">
-                <div className="flex items-center space-x-4">
+              <div key={listing.id} className="flex flex-col md:flex-row items-center justify-between p-4 rounded-lg bg-slate-200/30">
+                <div className="flex flex-col md:flex-row items-center space-x-4">
                   <img
                     src={listing.images[0]}
                     alt={listing.title}
                     className="w-16 h-16 object-cover rounded-lg"
                   />
                   <div>
-                    <h3 className="font-semibold text-lg text-dark-charcoal">{listing.title}</h3>
+                    <h3 className="font-semibold text-xs md:text-lg text-dark-charcoal">{listing.title}</h3>
                     <p className="text-sm text-mid-gray-blue">
                       {listing.category} • ${listing.price.toLocaleString()}
                     </p>
@@ -161,7 +161,7 @@ const AdminDashboard = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex flex-col-reverse gap-3 items-center space-x-2">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                     listing.status === 'available' ? 'bg-green-100 text-green-700' :
                     listing.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
