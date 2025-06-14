@@ -29,9 +29,9 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50 !border-none">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50 !border-none">
       {/* Mobile Header */}
-      <div className="flex md:hidden items-center justify-between bg-white border-b px-4 py-3 shadow-sm">
+      <div className="flex lg:hidden !border-none items-center justify-between bg-white border-b px-4 py-3 shadow-sm">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold">M</span>
@@ -44,9 +44,9 @@ const AdminLayout = () => {
       </div>
 
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'block' : 'hidden'} md:block w-full md:w-64 bg-white shadow-lg px-4 py-4 md:min-h-screen !border-none`}>
+      <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block w-full lg:w-64 bg-white shadow-lg px-4 py-4 lg:min-h-screen !border-none`}>
         <div className="flex flex-col gap-10">
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden lg:flex items-center space-x-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold">M</span>
             </div>
@@ -99,7 +99,7 @@ const AdminLayout = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="hidden md:block bg-white shadow-sm border-b px-8 py-4 !border-none">
+        <header className="hidden lg:block bg-white shadow-sm border-b px-8 py-4 !border-none">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-semibold text-gray-800">
               {navigation.find(item => isActive(item.href))?.name || 'Dashboard'}
@@ -114,7 +114,7 @@ const AdminLayout = () => {
         </header>
 
         {/* Content */}
-        <main className="w-full px-4 md:px-8 py-6">
+        <main className="w-full px-4 lg:px-8 py-6">
           <Outlet />
         </main>
       </div>

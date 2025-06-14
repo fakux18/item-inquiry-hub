@@ -1,14 +1,28 @@
-
 import { Link } from 'react-router-dom';
-import { Home, Car, Building, Tractor } from 'lucide-react';
+import { Home, Car, Tractor } from 'lucide-react';
+import { useListings } from "@/hooks/useListings";
+
+const getCategoryCounts = (listings) => {
+  const counts = {};
+  for (const listing of listings) {
+    const category = listing.category || "category-not-found";
+    counts[category] = (counts[category] || 0) + 1;
+  }
+  return counts;
+};
 
 const CategorySection = () => {
+  const { listings } = useListings();
+  const categoryCounts = getCategoryCounts(listings);
+
   const categories = [
-    { name: 'Propiedades residenciales', icon: Home, count: 24, path: '/category/residential' },
-    { name: 'Propiedades comerciales', icon: Building, count: 12, path: '/category/commercial' },
-    { name: 'Vehículos', icon: Car, count: 18, path: '/category/vehicles' },
-    { name: 'Equipo pesado', icon: Tractor, count: 6, path: '/category/equipment' },
-  ];
+    { key: "properties", name: "Propiedades", icon: Home, path: "/category/properties" },
+    { key: "vehicles", name: "Vehículos", icon: Car, path: "/category/vehicles" },
+    { key: "equipment", name: "Equipo pesado", icon: Tractor, path: "/category/equipment" },
+  ].map((category) => ({
+    ...category,
+    count: categoryCounts[category.key] || 0,
+  }));
 
   return (
     <section className="bg-gray-100 py-16">
@@ -22,10 +36,10 @@ const CategorySection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category) => (
             <Link
-              key={category.name}
+              key={category.key}
               to={category.path}
               className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 text-center group"
             >

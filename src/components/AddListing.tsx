@@ -35,7 +35,6 @@ const AddListing = () => {
 
   const [images, setImages] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
-
   useEffect(() => {
     if (isEditing && id) {
       const listing = listings.find(l => l.id === id);
@@ -179,6 +178,7 @@ const AddListing = () => {
 
   const isPropertyCategory = formData.category === "properties";
   const isVehicleCategory = formData.category === "vehicles";
+  console.log(formData)
 
   return (
     <div className="space-y-6">
@@ -209,7 +209,7 @@ const AddListing = () => {
           </div>
 
           <div>
-            <label className="block mb-2 font-medium text-gray-700">Precio (ARS) *</label>
+            <label className="block mb-2 font-medium text-gray-700">Precio (USD) *</label>
             <input
               type="number"
               className="w-full px-4 py-2 border border-dark-charcoal rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -408,7 +408,7 @@ const AddListing = () => {
         <div className="flex justify-end space-x-4">
           <Button
             type="button"
-            variant="outline"
+            variant="border"
             onClick={() => navigate("/admin/listings")}
             disabled={submitting}
           >
