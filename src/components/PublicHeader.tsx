@@ -94,7 +94,7 @@ const PublicHeader = () => {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link
-              to="/category/vehicles"
+              to="/category/equipment"
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
               Equipamiento
