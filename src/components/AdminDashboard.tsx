@@ -137,7 +137,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Listings */}
-      <Card className="bg-white shadow-card border-0">
+      {/* <Card className="bg-white shadow-card border-0">
         <CardHeader>
           <CardTitle className="text-dark-charcoal">Listados Recientes</CardTitle>
         </CardHeader>
@@ -185,7 +185,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Action Buttons */}
       <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">

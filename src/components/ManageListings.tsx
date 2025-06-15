@@ -174,10 +174,10 @@ const ManageListings = () => {
               {filteredListings.map((listing) => (
                 <div
                   key={listing.id}
-                  className="flex flex-col md:flex-row items-center justify-between p-6 border-b border-gray-200 last:border-b-0 hover:bg-gray-50"
+                  className="flex flex-col md:flex-row gap-4 items-center justify-between p-6 border-b border-gray-200 last:border-b-0 hover:bg-gray-50"
                 >
-                  <div className="flex flex-col md:flex-row items-center space-x-4 flex-1">
-                    <div className="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden">
+                  <div className="flex flex-col md:flex-row items-center space-x-4 flex-1 gap-2">
+                    <div className="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden !m-0">
                       {listing.image_urls && listing.image_urls.length > 0 ? (
                         <img
                           src={listing.image_urls[0]}
@@ -185,19 +185,19 @@ const ManageListings = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        <div className="w-full h-full flex items-center justify-center text-gray-400 !m-0">
                           Sin imagen
                         </div>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm text-gray-800 truncate">
+                      <h3 className="font-semibold text-sm text-gray-800 truncate text-center md:text-left !m-0">
                         {listing.title}
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 text-center md:text-left">
                         {listing.location}
                       </p>
-                      <div className="flex flex-col md:flex-row items-center space-x-4 mt-1">
+                      <div className="flex flex-col md:flex-row items-center space-x-4 mt-1 !m-0 gap-2">
                         <span className="text-lg font-bold text-blue-600">
                           {listing.price.toLocaleString("es-AR", {
                             style: "currency",
@@ -205,24 +205,24 @@ const ManageListings = () => {
                             minimumFractionDigits: 0,
                           })}
                         </span>
-                        <span className="text-sm text-gray-500 capitalize">
+                        <span className="text-sm text-gray-500 capitalize !m-0">
                           {listing.category}
                         </span>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-gray-500 !m-0">
                           {new Date(listing.created_at).toLocaleDateString('es-AR')}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-center md:flex-row space-x-4">
+                  <div className="flex flex-col items-center md:flex-row gap-4 lg:gap-2">
                     <Select
                       value={listing.status}
                       onValueChange={(
                         value: "available" | "pending" | "sold"
                       ) => handleStatusChange(listing.id, value)}
                     >
-                      <SelectTrigger className="w-32 border border-dark-charcoal">
+                      <SelectTrigger className="min-w-32 border border-dark-charcoal w-full">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="!border-none">
@@ -232,7 +232,7 @@ const ManageListings = () => {
                       </SelectContent>
                     </Select>
 
-                    <div className="flex space-x-2">
+                    <div className="flex gap-1 justify-between !ml-0">
                       <Link to={`/property/${listing.id}`}>
                         <Button variant="border" size="sm">
                           <Eye className="w-4 h-4" />
