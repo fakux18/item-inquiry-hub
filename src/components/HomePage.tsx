@@ -11,7 +11,7 @@ const HomePage = () => {
       <HeroSection />
       <FeaturedListings />
       <CategorySection />
-      <RecentListings />
+      {/* <RecentListings /> */}
       <WhyChooseUs />
     </div>
   );

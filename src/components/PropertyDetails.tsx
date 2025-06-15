@@ -103,7 +103,7 @@ const PropertyDetails = () => {
     const message = encodeURIComponent(
       `¡Hola! Estoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}. ¿Podrían brindarme más información?`
     );
-    window.open(`https://wa.me/15551234567?text=${message}`, "_blank");
+    window.open(`https://wa.me/+5493775200964?text=${message}`, '_blank');
   };
 
   const handleEmailContact = () => {
@@ -111,7 +111,7 @@ const PropertyDetails = () => {
     const body = encodeURIComponent(
       `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}.\n\n¿Podrían brindarme más información?\n\n¡Gracias!`
     );
-    window.open(`mailto:info@marketplace.com?subject=${subject}&body=${body}`);
+    window.open(`mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`);
   };
 
   const handleShare = () => {
@@ -135,7 +135,7 @@ const PropertyDetails = () => {
           <Link to="/">
             <Button
               variant="ghost"
-              className="text-blue-600 hover:text-blue-700 hover:bg-transparent"
+              className="text-blue-600 hover:text-blue-700 hover:underline underline-offset-4 hover:bg-transparent"
             >
               <ArrowLeft className="w-4 h-4 mr-2 !hover:bg-none" />
               Volver a los listados
@@ -199,8 +199,8 @@ const PropertyDetails = () => {
                           </CarouselItem>
                         ))}
                       </CarouselContent>
-                      <CarouselPrevious className="left-4" />
-                      <CarouselNext className="right-4" />
+                      <CarouselPrevious className="left-4 bg-slate-100 hover:bg-slate-300" />
+                      <CarouselNext className="right-4 bg-slate-100 hover:bg-slate-300" />
                     </Carousel>
                   ) : (
                     <div className="relative">
@@ -262,9 +262,6 @@ const PropertyDetails = () => {
                           <MapPin className="w-5 h-5 mr-2" />
                           {listing.location}
                         </div>
-                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                          {listing.category}
-                        </span>
                       </div>
                       <div className="text-right">
                         <div className="text-3xl font-bold text-blue-600">
@@ -378,12 +375,12 @@ const PropertyDetails = () => {
                     className="w-full bg-green-600 hover:bg-green-700 text-white"
                   >
                     <Phone className="w-4 h-4 mr-2" />
-                    WhatsApp: (555) 123-4567
+                    WhatsApp: (3775) 20-0964
                   </Button>
 
                   <Button
                     onClick={handleEmailContact}
-                    variant="outline"
+                    variant="border"
                     className="w-full hover:bg-transparent"
                   >
                     <Mail className="w-4 h-4 mr-2" />
@@ -434,7 +431,7 @@ const PropertyDetails = () => {
                 </p>
                 <Button
                   onClick={handleWhatsAppContact}
-                  variant="outline"
+                  variant="border"
                   className="w-full"
                 >
                   Contactar a Andrés directamente

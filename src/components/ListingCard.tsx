@@ -107,7 +107,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
       </div>
 
       {/* Contenido */}
-      <div className="p-6">
+      <div className="p-4">
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <h3 className="text-xl font-semibold text-dark-charcoal mb-2 line-clamp-2 group-hover:text-deep-blue transition-colors">
@@ -118,9 +118,9 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
               {listing.location}
             </div>
           </div>
-          <span className="bg-light-gray text-mid-gray-blue px-3 py-1 rounded-full text-xs font-medium ml-2">
+          {/* <span className="bg-light-gray text-mid-gray-blue px-3 py-1 rounded-full text-xs font-medium ml-2">
             {listing.category}
-          </span>
+          </span> */}
         </div>
 
         {/* Detalles clave */}
@@ -159,7 +159,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
         )}
 
         {/* Botones de acción */}
-        <div className="flex flex-col space-y-3">
+        <div className="flex flex-col space-y-3 w-full">
           <div className="flex space-x-2">
             <Button
               onClick={handleWhatsAppContact}
@@ -178,7 +178,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
           </div>
 
           <Link to={`/property/${listing.id}`}>
-            <Button className="w-full btn-primary py-2 text-sm">
+            <Button className="w-full btn-primary py-2 text-sm min-w-full">
               Ver detalles →
             </Button>
           </Link>
