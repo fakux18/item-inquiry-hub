@@ -174,9 +174,9 @@ const ManageListings = () => {
               {filteredListings.map((listing) => (
                 <div
                   key={listing.id}
-                  className="flex items-center justify-between p-6 border-b border-gray-200 last:border-b-0 hover:bg-gray-50"
+                  className="flex flex-col md:flex-row items-center justify-between p-6 border-b border-gray-200 last:border-b-0 hover:bg-gray-50"
                 >
-                  <div className="flex items-center space-x-4 flex-1">
+                  <div className="flex flex-col md:flex-row items-center space-x-4 flex-1">
                     <div className="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden">
                       {listing.image_urls && listing.image_urls.length > 0 ? (
                         <img
@@ -197,7 +197,7 @@ const ManageListings = () => {
                       <p className="text-sm text-gray-600">
                         {listing.location}
                       </p>
-                      <div className="flex items-center space-x-4 mt-1">
+                      <div className="flex flex-col md:flex-row items-center space-x-4 mt-1">
                         <span className="text-lg font-bold text-blue-600">
                           {listing.price.toLocaleString("es-AR", {
                             style: "currency",
@@ -215,7 +215,7 @@ const ManageListings = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4">
+                  <div className="flex flex-col items-center md:flex-row space-x-4">
                     <Select
                       value={listing.status}
                       onValueChange={(
