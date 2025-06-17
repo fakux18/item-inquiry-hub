@@ -24,7 +24,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="bg-white shadow-card border-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-dark-charcoal">Total de Listados</CardTitle>
@@ -76,11 +76,11 @@ const AdminDashboard = () => {
             </p>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-white shadow-card border-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="bg-white shadow-card border-0 flex flex-col justify-between">
           <CardHeader>
             <CardTitle className="flex items-center text-dark-charcoal">
               <Plus className="w-5 h-5 mr-2" />
@@ -89,7 +89,7 @@ const AdminDashboard = () => {
           </CardHeader>
           <CardContent>
             <p className="text-mid-gray-blue mb-4">
-              Añade rápidamente una nueva propiedad o vehículo a tu marketplace.
+              Añade rápidamente un nuevo producto al listado de tu marketplace.
             </p>
             <Link to="/admin/listings/add">
               <Button className="w-full bg-deep-blue hover:bg-deep-blue/90 text-white border-0">
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-card border-0">
+        <Card className="bg-white flex flex-col justify-between shadow-card border-0">
           <CardHeader>
             <CardTitle className="flex items-center text-dark-charcoal">
               <List className="w-5 h-5 mr-2" />
@@ -108,7 +108,7 @@ const AdminDashboard = () => {
           </CardHeader>
           <CardContent>
             <p className="text-mid-gray-blue mb-4">
-              Ver, editar o eliminar listados existentes de tu marketplace.
+              Verificar, editar o eliminar listados existentes de tu marketplace.
             </p>
             <Link to="/admin/listings">
               <Button className="w-full bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-slate-200">
@@ -118,7 +118,7 @@ const AdminDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-card border-0">
+        {/* <Card className="bg-white shadow-card border-0 flex flex-col justify-between">
           <CardHeader>
             <CardTitle className="flex items-center text-dark-charcoal">
               <MessageCircle className="w-5 h-5 mr-2" />
@@ -133,26 +133,26 @@ const AdminDashboard = () => {
               Ver Mensajes
             </Button>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
 
       {/* Recent Listings */}
-      <Card className="bg-white shadow-card border-0">
+      {/* <Card className="bg-white shadow-card border-0">
         <CardHeader>
           <CardTitle className="text-dark-charcoal">Listados Recientes</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {recentListings.map((listing) => (
-              <div key={listing.id} className="flex items-center justify-between p-4 rounded-lg bg-slate-200/30">
-                <div className="flex items-center space-x-4">
+              <div key={listing.id} className="flex flex-col md:flex-row items-center justify-between p-4 rounded-lg bg-slate-200/30">
+                <div className="flex flex-col md:flex-row items-center space-x-4">
                   <img
                     src={listing.images[0]}
                     alt={listing.title}
                     className="w-16 h-16 object-cover rounded-lg"
                   />
                   <div>
-                    <h3 className="font-semibold text-lg text-dark-charcoal">{listing.title}</h3>
+                    <h3 className="font-semibold text-xs md:text-lg text-dark-charcoal">{listing.title}</h3>
                     <p className="text-sm text-mid-gray-blue">
                       {listing.category} • ${listing.price.toLocaleString()}
                     </p>
@@ -161,7 +161,7 @@ const AdminDashboard = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex flex-col-reverse gap-3 items-center space-x-2">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                     listing.status === 'available' ? 'bg-green-100 text-green-700' :
                     listing.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
@@ -185,7 +185,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* Action Buttons */}
       <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">

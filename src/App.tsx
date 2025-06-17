@@ -18,7 +18,7 @@ const App = () => (
     <AuthProvider>
       <TooltipProvider>
         <Toaster />
-        <Sonner />
+        <Sonner toastOptions={{className: "bg-slate-200 text-dark-charcoal pointer-events-none" }} duration={1200} pauseWhenPageIsHidden={false}/>
         <BrowserRouter>
           <Routes>
             {/* Public routes - no authentication required */}

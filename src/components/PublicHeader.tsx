@@ -33,10 +33,10 @@ const PublicHeader = () => {
     <header className="bg-deep-blue shadow-lg sticky top-0 z-50">
       <div className="container-custom">
         {/* Barra superior */}
-        <div className="py-3 text-sm border-b flex items-center justify-between border-mid-gray-blue/30">
-          <div className="flex flex-col gap-2 items-center lg:items-start">
+        <div className="py-3 text-sm border-b flex flex-col sm:flex-row gap-5 items-center justify-between border-mid-gray-blue/30">
+          <div className="flex flex-col gap-2 items-center sm:items-start">
             <a
-              href="tel:+5493755200964"
+              href="https://wa.me/+5493775200964"
               className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
             >
               <Phone className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
@@ -51,7 +51,7 @@ const PublicHeader = () => {
             </a>
           </div>
           <div>
-            <Link className="text-light-gray hover:text-golden-yellow" to="/admin/login">Admin Login</Link>
+            <Link className="text-light-gray hover:text-golden-yellow" to="/admin">Admin Login</Link>
           </div>
 
         </div>
@@ -71,7 +71,7 @@ const PublicHeader = () => {
             </div>
           </Link>
           {/* Navegación - Escritorio */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             <Link
               to="/"
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
@@ -94,6 +94,13 @@ const PublicHeader = () => {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link
+              to="/category/equipment"
+              className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
+            >
+              Equipamiento
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-golden-yellow transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+            <Link
               to="/contact"
               className="text-white hover:text-golden-yellow font-medium transition-colors relative group"
             >
@@ -102,17 +109,7 @@ const PublicHeader = () => {
             </Link>
           </nav>
           {/* Buscador y contacto */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <form onSubmit={handleSearch} className="relative">
-              <input
-                type="text"
-                placeholder="Buscar propiedades..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 bg-white border-0 rounded-lg focus:ring-2 focus:ring-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
-              />
-              <Search className="absolute left-3 top-2.5 w-4 h-4 text-mid-gray-blue" />
-            </form>
+          <div className="hidden xl:flex items-center space-x-4">
             <Button
               onClick={() => window.open("https://wa.me/+5493775200964", "_blank")}
               className="bg-[#16a34a] hover:bg-[#15803d]"
@@ -123,7 +120,7 @@ const PublicHeader = () => {
           {/* Botón menú móvil */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-white hover:text-golden-yellow transition-colors"
+            className="lg:hidden p-2 text-white hover:text-golden-yellow transition-colors"
           >
             {isMenuOpen ? (
               <X className="w-6 h-6" />
@@ -134,8 +131,8 @@ const PublicHeader = () => {
         </div>
         {/* Menú móvil */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-mid-gray-blue/30">
-            <nav className="flex flex-col space-y-4">
+          <div className="lg:hidden py-4 border-t border-mid-gray-blue/30">
+            <nav className="flex flex-col space-y-2">
               <Link
                 to="/"
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
@@ -158,6 +155,13 @@ const PublicHeader = () => {
                 Vehículos
               </Link>
               <Link
+                to="/category/equipment"
+                className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Equipamiento
+              </Link>
+              <Link
                 to="/contact"
                 className="text-white hover:text-golden-yellow font-medium transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
@@ -165,7 +169,7 @@ const PublicHeader = () => {
                 Contacto
               </Link>
               <div className="h-px bg-mid-gray-blue/30 my-4"></div>
-              <form onSubmit={handleSearch} className="relative">
+              {/* <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
                   placeholder="Buscar propiedades..."
@@ -174,7 +178,7 @@ const PublicHeader = () => {
                   className="w-full pl-10 pr-4 py-3 bg-white border-0 rounded-lg focus:ring-2 focus:ring-golden-yellow text-dark-charcoal placeholder-mid-gray-blue"
                 />
                 <Search className="absolute left-3 top-3.5 w-4 h-4 text-mid-gray-blue" />
-              </form>
+              </form> */}
               <Button
                 onClick={() =>
                   window.open("https://wa.me/+5493775200964", "_blank")
