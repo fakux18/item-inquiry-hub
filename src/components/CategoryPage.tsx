@@ -1,7 +1,7 @@
 
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, Currency } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +20,7 @@ const transformListing = (listing: any) => {
     id: listing.id,
     title: listing.title,
     price: listing.price,
+    currency: listing.currency,
     location: listing.location,
     category: listing.category,
     type: listing.category,
