@@ -8,6 +8,7 @@ const transformListing = (listing: any) => {
     id: listing.id,
     title: listing.title,
     price: listing.price,
+    currency: listing.currency,
     location: listing.location,
     category: listing.category,
     type: listing.category, // Use category as type

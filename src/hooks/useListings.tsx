@@ -8,6 +8,7 @@ export interface Listing {
   title: string;
   description: string;
   price: number;
+  currency: string;
   category: string;
   location: string;
   status: string;
@@ -34,6 +35,7 @@ export interface CreateListingData {
   title: string;
   description: string; // Make this required to match the form validation
   price: number;
+  currency: string;
   category: string;
   location: string;
   status?: string;

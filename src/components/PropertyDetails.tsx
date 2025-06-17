@@ -265,7 +265,7 @@ const PropertyDetails = () => {
                       </div>
                       <div className="text-right">
                         <div className="text-3xl font-bold text-blue-600">
-                          {formatPrice(listing.price)}
+                          {formatPrice(listing.price)} {listing.currency}
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
                           Publicado {new Date(listing.created_at).toLocaleDateString('es-AR')}
@@ -467,7 +467,7 @@ const PropertyDetails = () => {
                               {similar.location}
                             </p>
                             <p className="text-sm font-semibold text-blue-600">
-                              {formatPrice(similar.price)}
+                              {formatPrice(similar.price)} {listing.currency}
                             </p>
                           </div>
                         </div>
