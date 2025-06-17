@@ -130,7 +130,7 @@ const ManageListings = () => {
       </Card>
 
       {/* Estadísticas */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <Card className="!border-none">
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{filteredListings.length}</div>
@@ -177,7 +177,7 @@ const ManageListings = () => {
                   className="flex flex-col md:flex-row gap-4 items-center justify-between p-6 border-b border-gray-200 last:border-b-0 hover:bg-gray-50"
                 >
                   <div className="flex flex-col md:flex-row items-center space-x-4 flex-1 gap-2">
-                    <div className="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden !m-0">
+                    <div className="w-32 h-32 xl:w-28 xl:h-28 bg-gray-200 rounded-lg overflow-hidden !m-0">
                       {listing.image_urls && listing.image_urls.length > 0 ? (
                         <img
                           src={listing.image_urls[0]}

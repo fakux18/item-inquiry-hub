@@ -67,6 +67,12 @@ const PublicFooter = () => {
                 Vehículos
               </Link>
               <Link
+                to="/category/equipment"
+                className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
+              >
+                Equipamiento
+              </Link>
+              <Link
                 to="/contact"
                 className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
               >

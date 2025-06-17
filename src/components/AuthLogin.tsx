@@ -120,7 +120,7 @@ const AuthLogin = () => {
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
+          {/* <div className="mt-6 text-center">
             <button
               type="button"
               onClick={() => {
@@ -135,7 +135,7 @@ const AuthLogin = () => {
                 : '¿Necesitas crear una cuenta? Registrarse'
               }
             </button>
-          </div>
+          </div> */}
 
           <div className="mt-4 text-center">
             <button
