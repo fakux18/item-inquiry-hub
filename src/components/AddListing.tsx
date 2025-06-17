@@ -209,7 +209,7 @@ const AddListing = () => {
           </div>
 
           <div>
-            <label className="block mb-2 font-medium text-gray-700">Precio (USD) *</label>
+            <label className="block mb-2 font-medium text-gray-700">Precio pesos argentinos (ARS) *</label>
             <input
               type="number"
               className="w-full px-4 py-2 border border-dark-charcoal rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -392,9 +392,10 @@ const AddListing = () => {
           />
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 hidden">
           <input
             type="checkbox"
+            defaultChecked
             id="featured"
             checked={formData.featured}
             onChange={() => handleInputChange("featured", !formData.featured)}

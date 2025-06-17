@@ -10,7 +10,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative container-custom py-20 text-center">
         <div className="max-w-4xl mx-auto animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 !leading-tight">
             Propiedades y Vehículos Premium
             <span className="block text-golden-yellow">Marketplace</span>
           </h1>

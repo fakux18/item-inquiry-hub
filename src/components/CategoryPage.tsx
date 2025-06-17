@@ -148,7 +148,7 @@ const CategoryPage = () => {
               <SelectTrigger className="border-gray-300 focus:border-gray-500 focus:ring-gray-500">
                 <SelectValue placeholder="Rango de precio" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="!border-none">
                 <SelectItem value="all">Todos los precios</SelectItem>
                 <SelectItem value="under-100k">Menos de $100,000</SelectItem>
                 <SelectItem value="100k-500k">$100,000 - $500,000</SelectItem>
@@ -161,7 +161,7 @@ const CategoryPage = () => {
               <SelectTrigger className="border-gray-300 focus:border-gray-500 focus:ring-gray-500">
                 <SelectValue placeholder="Ordenar por" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="!border-none">
                 <SelectItem value="newest">Más recientes</SelectItem>
                 <SelectItem value="oldest">Más antiguos</SelectItem>
                 <SelectItem value="price-low">Precio: menor a mayor</SelectItem>
