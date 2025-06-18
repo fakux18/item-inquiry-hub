@@ -170,19 +170,19 @@ const ManageListings = () => {
       <Card className="!border-none">
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto">
-            <div className="space-y-0">
+            <div className="space-y-0 grid grid-cols-2 md:grid-cols-1">
               {filteredListings.map((listing) => (
                 <div
                   key={listing.id}
                   className="flex flex-col md:flex-row gap-4 items-center justify-between p-6 border-b border-gray-200 last:border-b-0 hover:bg-gray-50"
                 >
-                  <div className="flex flex-col md:flex-row items-center space-x-4 flex-1 gap-2">
-                    <div className="w-32 h-32 xl:w-28 xl:h-28 bg-gray-200 rounded-lg overflow-hidden !m-0">
+                  <div className="flex flex-col md:flex-row items-center space-x-4 flex-1 gap-6">
+                    <div className="bg-gray-200 rounded-lg overflow-hidden !m-0">
                       {listing.image_urls && listing.image_urls.length > 0 ? (
                         <img
                           src={listing.image_urls[0]}
                           alt={listing.title}
-                          className="w-full h-full object-cover"
+                          className="w-44 h-44 md:h-28 md:w-28 object-cover"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-400 !m-0">
@@ -190,20 +190,16 @@ const ManageListings = () => {
                         </div>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 !m-0">
                       <h3 className="font-semibold text-sm text-gray-800 truncate text-center md:text-left !m-0">
                         {listing.title}
                       </h3>
                       <p className="text-sm text-gray-600 text-center md:text-left">
                         {listing.location}
                       </p>
-                      <div className="flex flex-col md:flex-row items-center space-x-4 mt-1 !m-0 gap-2">
+                      <div className="flex flex-col space-x-4 mt-1 !m-0">
                         <span className="text-lg font-bold text-blue-600">
-                          {listing.price.toLocaleString("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                            minimumFractionDigits: 0,
-                          })} {listing.currency}
+                          ${listing.price} {listing.currency}
                         </span>
                         <span className="text-sm text-gray-500 capitalize !m-0">
                           {listing.category}
