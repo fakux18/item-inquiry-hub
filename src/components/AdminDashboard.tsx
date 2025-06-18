@@ -143,7 +143,7 @@ const AdminDashboard = () => {
       {/* Recent Listings */}
       <Card className="bg-white shadow-card border-0">
         <CardHeader>
-          <CardTitle className="text-dark-charcoal">Listados Recientes</CardTitle>
+          <CardTitle className="text-dark-charcoal">Listados recientes - Disponibles</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid sm:grid-cols-2 gap-6 md:grid-cols-1">
