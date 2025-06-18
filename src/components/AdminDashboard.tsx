@@ -4,9 +4,11 @@ import { Eye, MessageCircle, TrendingUp, Plus, List, Settings } from 'lucide-rea
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { mockListings, adminStats } from '../data/mockData';
+import { usePublicListings } from "@/hooks/usePublicListings";
+
 
 const AdminDashboard = () => {
-  const recentListings = mockListings.slice(0, 5);
+  const {listings} = usePublicListings()
 
   const handleLogout = () => {
     // Implement logout functionality
@@ -137,32 +139,32 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Listings */}
-      {/* <Card className="bg-white shadow-card border-0">
+      <Card className="bg-white shadow-card border-0">
         <CardHeader>
           <CardTitle className="text-dark-charcoal">Listados Recientes</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {recentListings.map((listing) => (
-              <div key={listing.id} className="flex flex-col md:flex-row items-center justify-between p-4 rounded-lg bg-slate-200/30">
-                <div className="flex flex-col md:flex-row items-center space-x-4">
+          <div className="grid sm:grid-cols-2 gap-6 md:grid-cols-1">
+            {listings.map((listing) => (
+              <div key={listing.id} className="flex flex-col md:flex-row items-center justify-between p-4 rounded-lg bg-slate-200/30 gap-4">
+                <div className="flex flex-col md:flex-row items-center !m-0 gap-4">
                   <img
-                    src={listing.images[0]}
+                    src={listing.image_urls[0]}
                     alt={listing.title}
-                    className="w-16 h-16 object-cover rounded-lg"
+                    className="w-44 h-44 md:h-24 md:w-24 object-cover rounded-lg"
                   />
                   <div>
-                    <h3 className="font-semibold text-xs md:text-lg text-dark-charcoal">{listing.title}</h3>
-                    <p className="text-sm text-mid-gray-blue">
-                      {listing.category} • ${listing.price.toLocaleString()}
+                    <h3 className="font-semibold text-center uppercase md:text-left text-base md:text-lg text-dark-charcoal">{listing.title}</h3>
+                    <p className="text-sm text-center md:text-left text-mid-gray-blue">
+                      {listing.currency} • ${listing.price.toLocaleString()}
                     </p>
-                    <p className="text-xs text-mid-gray-blue">
-                      Publicado {listing.datePosted} • {listing.viewCount} vistas
+                    <p className="text-xs text-center md:text-left text-mid-gray-blue">
+                      Publicado {listing.created_at.slice(0,10)}
                     </p>
                   </div>
                 </div>
                 <div className="flex flex-col-reverse gap-3 items-center space-x-2">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  <span className={`px-8 py-1 rounded-full text-xs font-medium uppercase ${
                     listing.status === 'available' ? 'bg-green-100 text-green-700' :
                     listing.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
                     'bg-red-100 text-red-700'
@@ -170,9 +172,11 @@ const AdminDashboard = () => {
                     {listing.status === 'available' ? 'disponible' : 
                      listing.status === 'pending' ? 'pendiente' : 'vendido'}
                   </span>
-                  <Button className="bg-white border border-mid-gray-blue text-dark-charcoal hover:bg-slate-200 text-sm px-3 py-1">
-                    Editar
-                  </Button>
+                  <Link to={`/admin/listings/edit/${listing.id}`} className='w-full'>
+                    <Button className="bg-white border w-full border-mid-gray-blue text-dark-charcoal hover:bg-slate-200 text-sm px-3 py-1 !m-0">
+                      Editar
+                    </Button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -185,7 +189,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
         </CardContent>
-      </Card> */}
+      </Card>
 
       {/* Action Buttons */}
       <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">

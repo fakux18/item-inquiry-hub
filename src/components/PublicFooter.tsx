@@ -21,7 +21,7 @@ const PublicFooter = () => {
               Tu socio de confianza para propiedades y vehículos de calidad.
               Servicio personal con resultados profesionales por más de 15 años.
             </p>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <a
                 href="#"
                 className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
@@ -40,7 +40,7 @@ const PublicFooter = () => {
               >
                 LinkedIn
               </a>
-            </div>
+            </div> */}
           </div>
           {/* Enlaces rápidos */}
           <div className="space-y-6">
@@ -86,13 +86,13 @@ const PublicFooter = () => {
               Información de Contacto
             </h4>
             <div className="space-y-4">
-              <div className="flex items-start space-x-3">
+              {/* <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-golden-yellow mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-light-gray">Calle del Lapacho 456</p>
                   <p className="text-light-gray">Posadas, N3300</p>
                 </div>
-              </div>
+              </div> */}
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-golden-yellow flex-shrink-0" />
                 <a
