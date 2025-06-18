@@ -8,7 +8,9 @@ import { usePublicListings } from "@/hooks/usePublicListings";
 
 
 const AdminDashboard = () => {
-  const {listings} = usePublicListings()
+  const {listings} = usePublicListings( {
+    limit: 3,
+  })
 
   const handleLogout = () => {
     // Implement logout functionality
