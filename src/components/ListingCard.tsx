@@ -6,6 +6,7 @@ interface Listing {
   id: string;
   title: string;
   price: number;
+  currency: string;
   location: string;
   category: string;
   type: string;
@@ -101,7 +102,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
         {/* Precio */}
         <div className="absolute bottom-4 left-4">
           <span className="bg-deep-blue text-white px-4 py-2 rounded-lg font-bold text-lg shadow-lg">
-            {formatPrice(listing.price)}
+            {formatPrice(listing.price)} {listing.currency}
           </span>
         </div>
       </div>

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -15,6 +14,7 @@ const AddListing = () => {
     title: "",
     category: "",
     price: "",
+    currency: "ARS", // Add new currency field, default to ARS
     location: "",
     description: "",
     status: "available",
@@ -35,6 +35,7 @@ const AddListing = () => {
 
   const [images, setImages] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
+
   useEffect(() => {
     if (isEditing && id) {
       const listing = listings.find(l => l.id === id);
@@ -43,6 +44,7 @@ const AddListing = () => {
           title: listing.title,
           category: listing.category,
           price: listing.price.toString(),
+          currency: listing.currency || "ARS", // Load existing currency or default
           location: listing.location,
           description: listing.description || "",
           status: listing.status,
@@ -77,7 +79,7 @@ const AddListing = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate required fields
     if (!formData.title.trim()) {
       alert("El título es requerido");
@@ -95,6 +97,11 @@ const AddListing = () => {
       alert("La ubicación es requerida");
       return;
     }
+    // Currency is now required too
+    if (!formData.currency) {
+      alert("La moneda es requerida");
+      return;
+    }
 
     setSubmitting(true);
 
@@ -105,6 +112,7 @@ const AddListing = () => {
           title: formData.title.trim(),
           category: formData.category,
           price: parseFloat(formData.price),
+          currency: formData.currency, // Include currency in update
           location: formData.location.trim(),
           description: formData.description.trim(),
           status: formData.status as any,
@@ -140,6 +148,7 @@ const AddListing = () => {
           description: formData.description.trim(),
           category: formData.category,
           price: parseFloat(formData.price),
+          currency: formData.currency, // Include currency in creation
           location: formData.location.trim(),
           status: formData.status as any,
           featured: formData.featured,
@@ -178,7 +187,6 @@ const AddListing = () => {
 
   const isPropertyCategory = formData.category === "properties";
   const isVehicleCategory = formData.category === "vehicles";
-  console.log(formData)
 
   return (
     <div className="space-y-6">
@@ -209,16 +217,27 @@ const AddListing = () => {
           </div>
 
           <div>
-            <label className="block mb-2 font-medium text-gray-700">Precio (USD) *</label>
-            <input
-              type="number"
-              className="w-full px-4 py-2 border border-dark-charcoal rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={formData.price}
-              onChange={(e) => handleInputChange("price", e.target.value)}
-              placeholder="Ej: 15000000"
-              required
-              min={0}
-            />
+            <label className="block mb-2 font-medium text-gray-700">Precio *</label>
+            <div className="flex">
+              <input
+                type="number"
+                className="w-full px-4 py-2 border border-dark-charcoal rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                value={formData.price}
+                onChange={(e) => handleInputChange("price", e.target.value)}
+                placeholder="Ej: 15000000"
+                required
+                min={0}
+              />
+              <select
+                className="px-4 py-2 border border-l-0 border-dark-charcoal rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                value={formData.currency}
+                onChange={(e) => handleInputChange("currency", e.target.value)}
+                required
+              >
+                <option value="ARS">ARS</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
           </div>
 
           <div>
@@ -392,9 +411,10 @@ const AddListing = () => {
           />
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="hidden">
           <input
             type="checkbox"
+            defaultChecked
             id="featured"
             checked={formData.featured}
             onChange={() => handleInputChange("featured", !formData.featured)}
@@ -414,13 +434,13 @@ const AddListing = () => {
           >
             Cancelar
           </Button>
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             className="bg-blue-600 hover:bg-blue-700"
             disabled={submitting}
           >
-            {submitting 
-              ? (isEditing ? "Actualizando..." : "Publicando...") 
+            {submitting
+              ? (isEditing ? "Actualizando..." : "Publicando...")
               : (isEditing ? "Actualizar publicación" : "Publicar")
             }
           </Button>

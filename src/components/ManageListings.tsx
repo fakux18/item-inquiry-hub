@@ -203,7 +203,7 @@ const ManageListings = () => {
                             style: "currency",
                             currency: "ARS",
                             minimumFractionDigits: 0,
-                          })}
+                          })} {listing.currency}
                         </span>
                         <span className="text-sm text-gray-500 capitalize !m-0">
                           {listing.category}
