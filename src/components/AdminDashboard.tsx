@@ -156,26 +156,26 @@ const AdminDashboard = () => {
                     className="w-44 h-44 md:h-24 md:w-24 object-cover rounded-lg"
                   />
                   <div>
-                    <h3 className="font-semibold text-center uppercase md:text-left text-base md:text-lg text-dark-charcoal">{listing.title}</h3>
+                    <h3 className="font-semibold text-center md:text-left text-base md:text-lg text-dark-charcoal">{listing.title}</h3>
                     <p className="text-sm text-center md:text-left text-mid-gray-blue">
                       {listing.currency} • ${listing.price.toLocaleString()}
                     </p>
                     <p className="text-xs text-center md:text-left text-mid-gray-blue">
-                      Publicado {listing.created_at.slice(0,10)}
+                      Publicado: {listing.created_at.slice(0,10)}
                     </p>
                   </div>
                 </div>
                 <div className="flex flex-col-reverse gap-3 items-center space-x-2">
-                  <span className={`px-8 py-1 rounded-full text-xs font-medium uppercase ${
+                  <span className={`px-8 py-2 rounded-full text-xs font-medium uppercase ${
                     listing.status === 'available' ? 'bg-green-100 text-green-700' :
                     listing.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
                     'bg-red-100 text-red-700'
-                  }`}>
+                  }`}>  
                     {listing.status === 'available' ? 'disponible' : 
                      listing.status === 'pending' ? 'pendiente' : 'vendido'}
                   </span>
                   <Link to={`/admin/listings/edit/${listing.id}`} className='w-full'>
-                    <Button className="bg-white border w-full border-mid-gray-blue text-dark-charcoal hover:bg-slate-200 text-sm px-3 py-1 !m-0">
+                    <Button className="bg-white border w-full uppercase border-mid-gray-blue text-dark-charcoal hover:bg-slate-200 text-sm px-3 py-1 !m-0">
                       Editar
                     </Button>
                   </Link>
