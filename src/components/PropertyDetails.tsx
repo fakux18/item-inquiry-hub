@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import logoNavbar from "../images/akinmobiliaria.png"
 import { useEffect, useState } from "react";
 import {
   MapPin,
@@ -101,7 +102,7 @@ const PropertyDetails = () => {
 
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent(
-      `¡Hola! Estoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}. ¿Podrían brindarme más información?`
+      `¡Hola! Estoy interesado en "${listing.title}" publicado por ${listing.price} ${listing.currency}. ¿Podrían brindarme más información?`
     );
     window.open(`https://wa.me/+5493775200964?text=${message}`, '_blank');
   };
@@ -109,7 +110,7 @@ const PropertyDetails = () => {
   const handleEmailContact = () => {
     const subject = encodeURIComponent(`Consulta sobre ${listing.title}`);
     const body = encodeURIComponent(
-      `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}.\n\n¿Podrían brindarme más información?\n\n¡Gracias!`
+      `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${(listing.price)} ${(listing.currency)}.\n\n¿Podrían brindarme más información?\n\n¡Gracias!`
     );
     window.open(`mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`);
   };
@@ -410,12 +411,12 @@ const PropertyDetails = () => {
                 </h3>
                 <div className="flex items-center space-x-4 mb-4">
                   <img
-                    src="/placeholder.svg"
-                    alt="Andrés Perin"
+                    src={logoNavbar}
+                    alt="Andrés P"
                     className="w-16 h-16 rounded-full"
                   />
                   <div>
-                    <h4 className="font-semibold text-gray-800">Andrés Perin</h4>
+                    <h4 className="font-semibold text-gray-800">Andrés P</h4>
                     <p className="text-sm text-gray-600">
                       Propietario y agente matriculado
                     </p>

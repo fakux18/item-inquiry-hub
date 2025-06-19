@@ -18,7 +18,7 @@ const AddListing = () => {
     location: "",
     description: "",
     status: "available",
-    featured: false,
+    featured: true,
     // Property fields
     bedrooms: "",
     bathrooms: "",
@@ -414,7 +414,7 @@ const AddListing = () => {
         <div className="hidden">
           <input
             type="checkbox"
-            defaultChecked
+            defaultChecked={true}
             id="featured"
             checked={formData.featured}
             onChange={() => handleInputChange("featured", !formData.featured)}

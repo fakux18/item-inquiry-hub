@@ -41,7 +41,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
 
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent(
-      `¡Hola! Estoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}. ¿Podrías brindarme más información?`
+      `¡Hola! Estoy interesado en "${listing.title}" publicado por ${listing.price} ${listing.currency}. ¿Podrías brindarme más información?`
     );
     window.open(`https://wa.me/+5493775200964?text=${message}`, "_blank");
   };
@@ -49,7 +49,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
   const handleEmailContact = () => {
     const subject = encodeURIComponent(`Consulta sobre ${listing.title}`);
     const body = encodeURIComponent(
-      `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${formatPrice(listing.price)}.\n\n¿Podrías brindarme más información?\n\n¡Gracias!`
+      `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${(listing.price)} ${(listing.currency)}.\n\n¿Podrías brindarme más información?\n\n¡Gracias!`
     );
     window.open(`mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`);
   };

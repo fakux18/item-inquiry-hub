@@ -1,4 +1,4 @@
-
+import logoNavbar from "../../images/akinmobiliaria.png"
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -40,12 +40,12 @@ const WhyChooseUs = () => {
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
               <img
-                src="/placeholder.svg"
-                alt="John Smith - Owner"
+                src={logoNavbar}
+                alt="Andres P - Dueño"
                 className="w-24 h-24 rounded-full"
               />
               <div className="text-center md:text-left">
-                <h4 className="text-xl font-semibold mb-2">Andres Perin, Dueño</h4>
+                <h4 className="text-xl font-semibold mb-2">Andrés P, Dueño</h4>
                 <p className="text-gray-600 mb-4">
                   "Con más de 15 años en el mercado local, me aseguro personalmente de que cada anuncio cumpla con nuestros altos estándares. 
                   Tu satisfacción es mi garantía."

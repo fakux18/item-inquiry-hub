@@ -32,7 +32,7 @@ const FeaturedListings = () => {
   const { listings, loading } = usePublicListings({
     featured: true,
     status: 'available',
-    limit: 6
+    // limit: 6
   });
 
   const transformedListings = listings.map(transformListing);

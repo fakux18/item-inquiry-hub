@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import logoNavbar from "../images/akinmobiliaria.png"
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { mockListings } from "../data/mockData";
+import { usePublicListings } from "@/hooks/usePublicListings";
 
 const ContactPage = () => {
   const form = useRef();
@@ -29,39 +30,38 @@ const ContactPage = () => {
   });
   
   const [isSending, setIsSending] = useState(false);
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const now = Date.now();
-  const lastSend = localStorage.getItem("last_form_submit");
+    const now = Date.now();
+    const lastSend = localStorage.getItem("last_form_submit");
 
-  if (lastSend && now - parseInt(lastSend) < 120000) {
-    alert("Espera 2 minutos antes de enviar otra consulta.");
-    return;
-  }
-
-  if (isSending) return;
-  setIsSending(true);
-  localStorage.setItem("last_form_submit", now.toString());
-
-  alert("¡Gracias por tu consulta! Te responderemos en menos de 24 horas.");
-  setFormData({ name: "", email: "", phone: "", interest: "", message: "" });
-
-  emailjs.sendForm(SERVICE, TEMPLATE, form.current, KEY).then(
-    (result) => {
-      console.log(result.text);
-    },
-    (error) => {
-      console.log(error.text);
+    if (lastSend && now - parseInt(lastSend) < 120000) {
+      alert("Espera 2 minutos antes de enviar otra consulta.");
+      return;
     }
-  ).finally(() => {
-    setTimeout(() => setIsSending(false), 120000);
-  });
-};
 
+    if (isSending) return;
+    setIsSending(true);
+    localStorage.setItem("last_form_submit", now.toString());
 
+    alert("¡Gracias por tu consulta! Te responderemos en menos de 24 horas.");
+    setFormData({ name: "", email: "", phone: "", interest: "", message: "" });
+
+    emailjs.sendForm(SERVICE, TEMPLATE, form.current, KEY).then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    ).finally(() => {
+      setTimeout(() => setIsSending(false), 120000);
+    });
+  };
+
+  const { listings } = usePublicListings()
   const handleWhatsAppContact = () => {
-
     const message = encodeURIComponent(
       "¡Hola! Estoy interesado en sus publicaciones y me gustaría saber más sobre lo que tienen disponible."
     );
@@ -195,13 +195,13 @@ const handleSubmit = (e: React.FormEvent) => {
               <CardContent>
                 <div className="flex items-center space-x-4 mb-4">
                   <img
-                    src="/placeholder.svg"
-                    alt="John Smith"
+                    src={logoNavbar}
+                    alt="Andrés P"
                     className="w-20 h-20 rounded-full"
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">
-                      Andrés Perin
+                      Andrés P
                     </h3>
                     <p className="text-gray-600">
                       Propietario y agente matriculado
@@ -304,7 +304,7 @@ const handleSubmit = (e: React.FormEvent) => {
                         <SelectItem value="general">
                           Consulta general
                         </SelectItem>
-                        {mockListings.map((listing) => (
+                        {listings.map((listing) => (
                           <SelectItem key={listing.id} value={listing.title}>
                             {listing.title}
                           </SelectItem>
