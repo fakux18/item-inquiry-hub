@@ -6,7 +6,9 @@ const getCategoryCounts = (listings) => {
   const counts = {};
   for (const listing of listings) {
     const category = listing.category || "category-not-found";
-    counts[category] = (counts[category] || 0) + 1;
+    if (listing.status == 'available') {
+      counts[category] = (counts[category] || 0) + 1;
+    }
   }
   return counts;
 };
@@ -14,6 +16,7 @@ const getCategoryCounts = (listings) => {
 const CategorySection = () => {
   const { listings } = useListings();
   const categoryCounts = getCategoryCounts(listings);
+  console.log(listings)
 
   const categories = [
     { key: "properties", name: "Propiedades", icon: Home, path: "/category/properties" },
