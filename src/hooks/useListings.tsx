@@ -61,7 +61,6 @@ export const useListings = () => {
 
   const fetchListings = async () => {
     try {
-      console.log('Fetching listings...');
       const { data, error } = await supabase
         .from('listings')
         .select('*')
@@ -71,7 +70,6 @@ export const useListings = () => {
         throw error;
       }
 
-      console.log('Listings fetched:', data);
       setListings(data || []);
     } catch (error: any) {
       console.error('Error fetching listings:', error);
@@ -83,7 +81,6 @@ export const useListings = () => {
 
   const createListing = async (listingData: CreateListingData): Promise<boolean> => {
     try {
-      console.log('Creating listing with data:', listingData);
       
       const { error } = await supabase
         .from('listings')
@@ -105,7 +102,6 @@ export const useListings = () => {
 
   const updateListing = async (id: string, listingData: Partial<Listing>): Promise<boolean> => {
     try {
-      console.log('Updating listing with id:', id, 'data:', listingData);
       
       const { error } = await supabase
         .from('listings')
@@ -128,7 +124,6 @@ export const useListings = () => {
 
   const deleteListing = async (id: string): Promise<boolean> => {
     try {
-      console.log('Deleting listing with id:', id);
       
       const { error } = await supabase
         .from('listings')

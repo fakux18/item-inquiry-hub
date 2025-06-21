@@ -16,7 +16,6 @@ const getCategoryCounts = (listings) => {
 const CategorySection = () => {
   const { listings } = useListings();
   const categoryCounts = getCategoryCounts(listings);
-  console.log(listings)
 
   const categories = [
     { key: "properties", name: "Propiedades", icon: Home, path: "/category/properties" },

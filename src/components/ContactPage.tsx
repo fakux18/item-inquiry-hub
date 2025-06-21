@@ -50,10 +50,8 @@ const ContactPage = () => {
 
     emailjs.sendForm(SERVICE, TEMPLATE, form.current, KEY).then(
       (result) => {
-        console.log(result.text);
       },
       (error) => {
-        console.log(error.text);
       }
     ).finally(() => {
       setTimeout(() => setIsSending(false), 120000);
