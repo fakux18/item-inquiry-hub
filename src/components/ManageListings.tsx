@@ -170,7 +170,7 @@ const ManageListings = () => {
       <Card className="!border-none">
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto">
-            <div className="space-y-0 grid grid-cols-2 md:grid-cols-1">
+            <div className="space-y-0 grid grid-cols-1">
               {filteredListings.map((listing) => (
                 <div
                   key={listing.id}

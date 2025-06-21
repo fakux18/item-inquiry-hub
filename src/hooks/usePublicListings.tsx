@@ -23,7 +23,6 @@ export const usePublicListings = ({
 
   const fetchListings = async () => {
     try {
-      console.log('Fetching public listings with filters:', { searchTerm, category, status, featured, limit });
       
       let query = supabase
         .from('listings')
@@ -59,7 +58,6 @@ export const usePublicListings = ({
         throw error;
       }
 
-      console.log('Public listings fetched:', data);
       setListings(data || []);
     } catch (error: any) {
       console.error('Error fetching public listings:', error);
@@ -85,7 +83,6 @@ export const usePublicListings = ({
           table: 'listings'
         },
         (payload) => {
-          console.log('Real-time update received:', payload);
           fetchListings();
         }
       )
