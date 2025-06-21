@@ -201,11 +201,11 @@ const ManageListings = () => {
                         <span className="text-lg font-bold text-blue-600">
                           ${listing.price} {listing.currency}
                         </span>
-                        <span className="text-sm text-gray-500 capitalize !m-0">
+                        {/* <span className="text-sm text-gray-500 capitalize !m-0">
                           {listing.category}
-                        </span>
+                        </span> */}
                         <span className="text-sm text-gray-500 !m-0">
-                          {new Date(listing.created_at).toLocaleDateString('es-AR')}
+                          Publicado: {new Date(listing.created_at).toLocaleDateString('es-AR')}
                         </span>
                       </div>
                     </div>

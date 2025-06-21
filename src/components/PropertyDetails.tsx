@@ -269,7 +269,7 @@ const PropertyDetails = () => {
                           {formatPrice(listing.price)} {listing.currency}
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
-                          Publicado {new Date(listing.created_at).toLocaleDateString('es-AR')}
+                          Publicado: {new Date(listing.created_at).toLocaleDateString('es-AR')}
                         </div>
                       </div>
                     </div>
