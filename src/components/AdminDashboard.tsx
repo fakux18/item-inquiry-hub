@@ -146,7 +146,7 @@ const AdminDashboard = () => {
           <CardTitle className="text-dark-charcoal">Listados recientes - Disponibles</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid sm:grid-cols-2 gap-6 md:grid-cols-1">
+          <div className="grid gap-6">
             {listings.map((listing) => (
               <div key={listing.id} className="flex flex-col md:flex-row items-center justify-between p-4 rounded-lg bg-slate-200/30 gap-4">
                 <div className="flex flex-col md:flex-row items-center !m-0 gap-4">
