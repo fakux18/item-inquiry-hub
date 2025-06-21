@@ -29,7 +29,6 @@ const PropertyDetails = () => {
       if (!id) return;
 
       try {
-        console.log('Fetching listing with id:', id);
         const { data, error } = await supabase
           .from('listings')
           .select('*')
@@ -41,7 +40,6 @@ const PropertyDetails = () => {
           return;
         }
 
-        console.log('Listing fetched:', data);
         setListing(data);
 
         // Fetch related listings from the same category
