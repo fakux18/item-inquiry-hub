@@ -24,7 +24,7 @@ const PublicFooter = () => {
             {/* <div className="flex space-x-4">
               <a
                 href="#"
-                className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
+                className="text-light-gray text-amber-200 hover:text-amber-400 transition-colors duration-200"
               >
                 Facebook
               </a>
@@ -141,16 +141,17 @@ const PublicFooter = () => {
         {/* Barra inferior */}
         <div className="border-t border-mid-gray-blue/30 mt-12 pt-8 text-center">
           <p className="text-light-gray">
-            &copy; 2025 MarketPlace. Todos los derechos reservados. |
-            <span className="hover:text-golden-yellow transition-colors duration-200 cursor-pointer">
-              {" "}
-              Política de Privacidad
-            </span>{" "}
-            |
-            <span className="hover:text-golden-yellow transition-colors duration-200 cursor-pointer">
-              {" "}
-              Términos de Servicio
-            </span>
+            &copy; 2025 MarketPlace. Desarrollado por. |
+            {" "}
+            <a target="_blank" rel="noopener noreferrer" href={"https://www.linkedin.com/in/facundo-anibal-martinez/"} className="text-amber-200 hover:text-amber-400 transition-colors duration-200 cursor-pointer">
+              FakuxDev
+            </a>
+            {" "}
+             | {" "}
+            <a target="_blank" rel="noopener noreferrer" href={"https://www.linkedin.com/in/leonel-gaspar-sleo99/"} className="text-amber-200 hover:text-amber-400 transition-colors duration-200 cursor-pointer">
+              SLeo99.
+            </a>{" "}
+            | {" "}
           </p>
         </div>
       </div>
