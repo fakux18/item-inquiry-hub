@@ -86,21 +86,21 @@ const PublicFooter = () => {
               Información de Contacto
             </h4>
             <div className="space-y-4">
-              {/* <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-golden-yellow mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-light-gray">Calle del Lapacho 456</p>
-                  <p className="text-light-gray">Posadas, N3300</p>
+                  <p className="text-light-gray">Calle Angela S/N</p>
+                  <p className="text-light-gray">San Vicente, Misiones</p>
                 </div>
-              </div> */}
+              </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-golden-yellow flex-shrink-0" />
                 <a
-                  href="https://wa.me/+5493775200964"
+                  href="https://wa.me/+5493755200964"
                   target="_blank"
                   className="text-light-gray hover:text-golden-yellow transition-colors duration-200 cursor-pointer"
                 >
-                  (3775) 20-0964
+                  (3755) 20-0964
                 </a>
               </div>
               <div className="flex items-center space-x-3">
@@ -131,10 +131,10 @@ const PublicFooter = () => {
             </div>
             <div
               className="bg-green-600 hover:bg-green-700 transition-colors duration-200 text-white p-4 rounded-lg text-center cursor-pointer"
-              onClick={() => window.open("https://wa.me/+5493775200964", "_blank")}
+              onClick={() => window.open("https://wa.me/+5493755200964", "_blank")}
             >
               <p className="font-semibold">WhatsApp 24/7</p>
-              <p className="text-sm opacity-90 mt-1">(3775) 20-0964</p>
+              <p className="text-sm opacity-90 mt-1">(3755) 20-0964</p>
             </div>
           </div>
         </div>

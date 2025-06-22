@@ -52,7 +52,7 @@ const WhyChooseUs = () => {
                 </p>
                 <div className="flex justify-center md:justify-start space-x-4">
                   <Button
-                    onClick={() => window.open('https://wa.me/+5493775200964', '_blank')}
+                    onClick={() => window.open('https://wa.me/+5493755200964', '_blank')}
                     className="bg-green-600 hover:bg-green-700"
                   >
                     WhatsApp

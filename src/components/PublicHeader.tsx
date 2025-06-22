@@ -36,11 +36,11 @@ const PublicHeader = () => {
         <div className="py-3 text-sm border-b flex flex-col sm:flex-row gap-5 items-center justify-between border-mid-gray-blue/30">
           <div className="flex flex-col gap-2 items-center sm:items-start">
             <a
-              href="https://wa.me/+5493775200964"
+              href="https://wa.me/+5493755200964"
               className="flex items-center text-light-gray hover:text-golden-yellow transition-colors group"
             >
               <Phone className="w-4 h-4 mr-2 group-hover:text-golden-yellow" />
-              (3775) 20-0964
+              (3755) 20-0964
             </a>
             <a
               href="mailto:infoakmisiones@gmail.com"
@@ -111,7 +111,7 @@ const PublicHeader = () => {
           {/* Buscador y contacto */}
           <div className="hidden xl:flex items-center space-x-4">
             <Button
-              onClick={() => window.open("https://wa.me/+5493775200964", "_blank")}
+              onClick={() => window.open("https://wa.me/+5493755200964", "_blank")}
               className="bg-[#16a34a] hover:bg-[#15803d]"
             >
               WhatsApp
@@ -181,7 +181,7 @@ const PublicHeader = () => {
               </form> */}
               <Button
                 onClick={() =>
-                  window.open("https://wa.me/+5493775200964", "_blank")
+                  window.open("https://wa.me/+5493755200964", "_blank")
                 }
                 className="btn-primary w-full"
               >
