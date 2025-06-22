@@ -47,12 +47,12 @@ const HeroSection = () => {
           {/* Información de contacto */}
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
             <Button
-              onClick={() => window.open("https://wa.me/+5493775200964", "_blank")}
+              onClick={() => window.open("https://wa.me/+5493755200964", "_blank")}
               className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium shadow-lg transition-all duration-200"
             >
-              WhatsApp: (3775) 20-0964
+              WhatsApp: (3755) 20-0964
             </Button>
-            <div className="text-lg text-light-gray">
+            <div className="text-lg flex flex-col sm:flex-row text-light-gray">
               <span className="opacity-75">o por email:</span>
               <a
                 href="mailto:infoakmisiones@gmail.com"

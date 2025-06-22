@@ -24,7 +24,7 @@ const PublicFooter = () => {
             {/* <div className="flex space-x-4">
               <a
                 href="#"
-                className="text-light-gray hover:text-golden-yellow transition-colors duration-200"
+                className="text-light-gray text-amber-200 hover:text-amber-400 transition-colors duration-200"
               >
                 Facebook
               </a>
@@ -86,21 +86,21 @@ const PublicFooter = () => {
               Información de Contacto
             </h4>
             <div className="space-y-4">
-              {/* <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-golden-yellow mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-light-gray">Calle del Lapacho 456</p>
-                  <p className="text-light-gray">Posadas, N3300</p>
+                  <p className="text-light-gray">Calle Angela S/N</p>
+                  <p className="text-light-gray">San Vicente, Misiones</p>
                 </div>
-              </div> */}
+              </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-golden-yellow flex-shrink-0" />
                 <a
-                  href="https://wa.me/+5493775200964"
+                  href="https://wa.me/+5493755200964"
                   target="_blank"
                   className="text-light-gray hover:text-golden-yellow transition-colors duration-200 cursor-pointer"
                 >
-                  (3775) 20-0964
+                  (3755) 20-0964
                 </a>
               </div>
               <div className="flex items-center space-x-3">
@@ -131,26 +131,27 @@ const PublicFooter = () => {
             </div>
             <div
               className="bg-green-600 hover:bg-green-700 transition-colors duration-200 text-white p-4 rounded-lg text-center cursor-pointer"
-              onClick={() => window.open("https://wa.me/+5493775200964", "_blank")}
+              onClick={() => window.open("https://wa.me/+5493755200964", "_blank")}
             >
               <p className="font-semibold">WhatsApp 24/7</p>
-              <p className="text-sm opacity-90 mt-1">(3775) 20-0964</p>
+              <p className="text-sm opacity-90 mt-1">(3755) 20-0964</p>
             </div>
           </div>
         </div>
         {/* Barra inferior */}
         <div className="border-t border-mid-gray-blue/30 mt-12 pt-8 text-center">
           <p className="text-light-gray">
-            &copy; 2025 MarketPlace. Todos los derechos reservados. |
-            <span className="hover:text-golden-yellow transition-colors duration-200 cursor-pointer">
-              {" "}
-              Política de Privacidad
-            </span>{" "}
-            |
-            <span className="hover:text-golden-yellow transition-colors duration-200 cursor-pointer">
-              {" "}
-              Términos de Servicio
-            </span>
+            &copy; 2025 MarketPlace. Desarrollado por. |
+            {" "}
+            <a target="_blank" rel="noopener noreferrer" href={"https://www.linkedin.com/in/facundo-anibal-martinez/"} className="text-amber-200 hover:text-amber-400 transition-colors duration-200 cursor-pointer">
+              FakuxDev
+            </a>
+            {" "}
+             | {" "}
+            <a target="_blank" rel="noopener noreferrer" href={"https://www.linkedin.com/in/leonel-gaspar-sleo99/"} className="text-amber-200 hover:text-amber-400 transition-colors duration-200 cursor-pointer">
+              SLeo99.
+            </a>{" "}
+            | {" "}
           </p>
         </div>
       </div>

@@ -43,7 +43,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
     const message = encodeURIComponent(
       `¡Hola! Estoy interesado en "${listing.title}" publicado por ${listing.price} ${listing.currency}. ¿Podrías brindarme más información?`
     );
-    window.open(`https://wa.me/+5493775200964?text=${message}`, "_blank");
+    window.open(`https://wa.me/+5493755200964?text=${message}`, "_blank");
   };
 
   const handleEmailContact = () => {

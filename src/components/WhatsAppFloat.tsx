@@ -7,7 +7,7 @@ const WhatsAppFloat = () => {
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent("¡Hola! Estoy interesado en uno de sus productos. ¿Podrían ayudarme a encontrar lo que busco?");
-    window.open(`https://wa.me/+5493775200964?text=${message}`, '_blank');
+    window.open(`https://wa.me/+5493755200964?text=${message}`, '_blank');
   };
 
   if (!isVisible) return null;

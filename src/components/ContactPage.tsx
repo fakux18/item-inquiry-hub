@@ -63,7 +63,7 @@ const ContactPage = () => {
     const message = encodeURIComponent(
       "¡Hola! Estoy interesado en sus publicaciones y me gustaría saber más sobre lo que tienen disponible."
     );
-    window.open(`https://wa.me/+5493775200964?text=${message}`, "_blank");
+    window.open(`https://wa.me/+5493755200964?text=${message}`, "_blank");
   };
 
   return (
@@ -103,7 +103,7 @@ const ContactPage = () => {
                     className="bg-green-600 hover:bg-green-700 text-white w-full"
                   >
                     <Phone className="w-4 h-4 mr-2" />
-                    Chatear ahora: (3775) 20-0964
+                    Chatear ahora: (3755) 20-0964
                   </Button>
                 </div>
                 {/* Otros métodos */}
@@ -128,10 +128,10 @@ const ContactPage = () => {
                     <div>
                       <h4 className="font-semibold text-gray-800">Teléfono</h4>
                       <a
-                        href="https://wa.me/+5493775200964"
+                        href="https://wa.me/+5493755200964"
                         className="text-blue-600 hover:text-blue-700"
                       >
-                        (3775) 20-0964
+                        (3755) 20-0964
                       </a>
                       <p className="text-sm text-gray-500">
                         Solo en horario laboral

@@ -102,7 +102,7 @@ const PropertyDetails = () => {
     const message = encodeURIComponent(
       `¡Hola! Estoy interesado en "${listing.title}" publicado por ${listing.price} ${listing.currency}. ¿Podrían brindarme más información?`
     );
-    window.open(`https://wa.me/+5493775200964?text=${message}`, '_blank');
+    window.open(`https://wa.me/+5493755200964?text=${message}`, '_blank');
   };
 
   const handleEmailContact = () => {
@@ -374,7 +374,7 @@ const PropertyDetails = () => {
                     className="w-full bg-green-600 hover:bg-green-700 text-white"
                   >
                     <Phone className="w-4 h-4 mr-2" />
-                    WhatsApp: (3775) 20-0964
+                    WhatsApp: (3755) 20-0964
                   </Button>
 
                   <Button
