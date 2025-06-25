@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import imageCompression from 'browser-image-compression';
 
 interface UploadProgress {
   [key: string]: number;
@@ -26,6 +26,21 @@ export const useImageUpload = () => {
     return null;
   };
 
+  const compressImageToWebP = async (file: File): Promise<File> => {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      fileType: 'image/webp',
+    };
+
+    const compressed = await imageCompression(file, options);
+    const originalName = file.name.split('.').slice(0, -1).join('.');
+    const newFileName = `${originalName}.webp`;
+
+    return new File([compressed], newFileName, { type: 'image/webp' });
+  };
+
   const uploadImage = async (file: File, folder = ''): Promise<string | null> => {
     const validation = validateFile(file);
     if (validation) {
@@ -34,7 +49,9 @@ export const useImageUpload = () => {
     }
 
     try {
-      const fileExt = file.name.split('.').pop();
+      const compressedFile = await compressImageToWebP(file);
+
+      const fileExt = 'webp';
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = folder ? `${folder}/${fileName}` : fileName;
 
@@ -42,7 +59,11 @@ export const useImageUpload = () => {
 
       const { error: uploadError } = await supabase.storage
         .from('marketplace-images')
-        .upload(filePath, file);
+        .upload(filePath, compressedFile, {
+          cacheControl: '3600',
+          upsert: true,
+          contentType: 'image/webp',
+        });
 
       if (uploadError) {
         throw uploadError;
@@ -84,7 +105,6 @@ export const useImageUpload = () => {
 
   const deleteImage = async (url: string): Promise<boolean> => {
     try {
-      // Extract file path from URL
       const urlParts = url.split('/marketplace-images/');
       if (urlParts.length !== 2) {
         throw new Error('Invalid image URL');
