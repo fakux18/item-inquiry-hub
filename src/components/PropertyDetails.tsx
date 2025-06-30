@@ -102,7 +102,7 @@ const PropertyDetails = () => {
                           <CarouselItem key={index}>
                             <div className="relative">
                               <img
-                                src={image + '?v=123'}
+                                src={image + '?v=1'}
                                 alt={`${lista[item].title} ${index + 1}`}
                                 className="w-full h-96 object-cover rounded-t-lg"
                               />
