@@ -4,6 +4,7 @@ export interface Listing {
   price: number;
   location: string;
   category: string;
+  currency: string;
   type: string;
   images: string[];
   featured: boolean;

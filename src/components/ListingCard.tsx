@@ -70,7 +70,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
       {/* Imagen */}
       <div className="relative overflow-hidden">
         <img
-          src={listing.images[0]}
+          src={listing.images[0] + '?v=1'}
           alt={listing.title}
           className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
             compact ? "h-48" : "h-64"
