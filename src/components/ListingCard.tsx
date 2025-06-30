@@ -49,9 +49,11 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
   const handleEmailContact = () => {
     const subject = encodeURIComponent(`Consulta sobre ${listing.title}`);
     const body = encodeURIComponent(
-      `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${(listing.price)} ${(listing.currency)}.\n\n¿Podrías brindarme más información?\n\n¡Gracias!`
+      `Hola,\n\nEstoy interesado en "${listing.title}" publicado por ${listing.price} ${listing.currency}.\n\n¿Podrías brindarme más información?\n\n¡Gracias!`
     );
-    window.open(`mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`);
+    window.open(
+      `mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`
+    );
   };
 
   const getStatusText = (status: string) => {
@@ -70,11 +72,13 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
       {/* Imagen */}
       <div className="relative overflow-hidden">
         <img
-          src={listing.images[0] + '?v=1'}
+          src={listing.images[0] + "?v=1"}
           alt={listing.title}
-          className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
+          loading="lazy"
+          className={`fade-in-img w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
             compact ? "h-48" : "h-64"
           }`}
+          onLoad={(e) => e.currentTarget.classList.add("loaded")}
         />
 
         {/* Estado */}

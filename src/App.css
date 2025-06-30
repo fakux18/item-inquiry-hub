@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+
+.fade-in-img {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fade-in-img.loaded {
+  opacity: 1;
+}

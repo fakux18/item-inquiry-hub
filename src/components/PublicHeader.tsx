@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoNavbar from "../images/akinmobiliaria.webp"
+import logoNavbar from "../images/akinmobiliaria.webp";
 
 const PublicHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,18 +16,18 @@ const PublicHeader = () => {
     }
   };
 
-//   const [count, setCount] = useState(0);
-//   const palAdmin = useNavigate()
+  //   const [count, setCount] = useState(0);
+  //   const palAdmin = useNavigate()
 
-//   const handleClick = () => {
-//     const newCount = count + 1
-//     if (newCount === 5) {
-//       palAdmin('/admin/login')
-//       setCount(0)
-//     } else {
-//       setCount(newCount)
-//   }
-// }
+  //   const handleClick = () => {
+  //     const newCount = count + 1
+  //     if (newCount === 5) {
+  //       palAdmin('/admin/login')
+  //       setCount(0)
+  //     } else {
+  //       setCount(newCount)
+  //   }
+  // }
 
   return (
     <header className="bg-deep-blue shadow-lg sticky top-0 z-50">
@@ -51,17 +51,27 @@ const PublicHeader = () => {
             </a>
           </div>
           <div>
-            <Link className="text-light-gray hover:text-golden-yellow" to="/admin">Admin Login</Link>
+            <Link
+              className="text-light-gray hover:text-golden-yellow"
+              to="/admin"
+            >
+              Admin Login
+            </Link>
           </div>
-
         </div>
         {/* Encabezado principal */}
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link to='/' className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-terracotta rounded-lg flex overflow-hidden items-center justify-center shadow-md">
               {/* <span className="text-white font-bold text-xl">M</span> */}
-              <img src={logoNavbar} alt="" />
+              <img
+                src={logoNavbar}
+                alt=""
+                loading="lazy"
+                className="fade-in-img"
+                onLoad={(e) => e.currentTarget.classList.add("loaded")}
+              />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">MarketPlace</h1>
@@ -111,7 +121,9 @@ const PublicHeader = () => {
           {/* Buscador y contacto */}
           <div className="hidden xl:flex items-center space-x-4">
             <Button
-              onClick={() => window.open("https://wa.me/+5493755200964", "_blank")}
+              onClick={() =>
+                window.open("https://wa.me/+5493755200964", "_blank")
+              }
               className="bg-[#16a34a] hover:bg-[#15803d]"
             >
               WhatsApp

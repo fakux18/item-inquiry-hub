@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import logoNavbar from "../images/akinmobiliaria.webp"
+import logoNavbar from "../images/akinmobiliaria.webp";
 import { useEffect, useState } from "react";
 import {
   MapPin,
@@ -14,27 +14,23 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Listing } from "@/hooks/useListings";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { useListingsStore } from "@/stores/useListingsStore";
 
-
 const PropertyDetails = () => {
-  const {lista}= useListingsStore()
+  const { lista } = useListingsStore();
   const { id } = useParams();
-  // const [lista[item], setListing] = useState<Listing | null>(null);
-  const item = lista.findIndex(i => i.id == id)
-  const filterCategory = lista.filter(i => i.category == lista[item].category)
-  const rel = filterCategory.filter(i => i.id !== lista[item].id)
-  // setRelatedListings(rel)
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-  //       <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-  //     </div>
-  //   );
-  // }
-
+  const item = lista.findIndex((i) => i.id == id);
+  const filterCategory = lista.filter(
+    (i) => i.category == lista[item].category
+  );
+  const rel = filterCategory.filter((i) => i.id !== lista[item].id);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-AR", {
@@ -48,15 +44,17 @@ const PropertyDetails = () => {
     const message = encodeURIComponent(
       `¡Hola! Estoy interesado en "${lista[item].title}" publicado por ${lista[item].price} ${lista[item].currency}. ¿Podrían brindarme más información?`
     );
-    window.open(`https://wa.me/+5493755200964?text=${message}`, '_blank');
+    window.open(`https://wa.me/+5493755200964?text=${message}`, "_blank");
   };
 
   const handleEmailContact = () => {
     const subject = encodeURIComponent(`Consulta sobre ${lista[item].title}`);
     const body = encodeURIComponent(
-      `Hola,\n\nEstoy interesado en "${lista[item].title}" publicado por ${(lista[item].price)} ${(lista[item].currency)}.\n\n¿Podrían brindarme más información?\n\n¡Gracias!`
+      `Hola,\n\nEstoy interesado en "${lista[item].title}" publicado por ${lista[item].price} ${lista[item].currency}.\n\n¿Podrían brindarme más información?\n\n¡Gracias!`
     );
-    window.open(`mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`);
+    window.open(
+      `mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`
+    );
   };
 
   const handleShare = () => {
@@ -95,32 +93,40 @@ const PropertyDetails = () => {
             <Card className="!border-none">
               <CardContent className="p-0">
                 <div className="relative">
-                  {lista[item].image_urls && lista[item].image_urls.length > 1 ? (
+                  {lista[item].image_urls &&
+                  lista[item].image_urls.length > 1 ? (
                     <Carousel className="w-full">
                       <CarouselContent>
                         {lista[item].image_urls.map((image, index) => (
                           <CarouselItem key={index}>
                             <div className="relative">
                               <img
-                                src={image + '?v=1'}
+                                src={image + "?v=1"}
                                 alt={`${lista[item].title} ${index + 1}`}
-                                className="w-full h-96 object-cover rounded-t-lg"
+                                loading="lazy"
+                                className="fade-in-img w-full h-96 object-cover rounded-t-lg"
+                                onLoad={(e) =>
+                                  e.currentTarget.classList.add("loaded")
+                                }
                               />
-                              
+
                               {/* Estado */}
-                              {lista[item].status !== "available" && index === 0 && (
-                                <div className="absolute top-4 left-4">
-                                  <span
-                                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                                      lista[item].status === "pending"
-                                        ? "bg-yellow-500 text-white"
-                                        : "bg-red-500 text-white"
-                                    }`}
-                                  >
-                                    {lista[item].status === "pending" ? "Pendiente" : "Vendido"}
-                                  </span>
-                                </div>
-                              )}
+                              {lista[item].status !== "available" &&
+                                index === 0 && (
+                                  <div className="absolute top-4 left-4">
+                                    <span
+                                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                                        lista[item].status === "pending"
+                                          ? "bg-yellow-500 text-white"
+                                          : "bg-red-500 text-white"
+                                      }`}
+                                    >
+                                      {lista[item].status === "pending"
+                                        ? "Pendiente"
+                                        : "Vendido"}
+                                    </span>
+                                  </div>
+                                )}
 
                               {/* Destacado */}
                               {lista[item].featured && index === 0 && (
@@ -150,9 +156,16 @@ const PropertyDetails = () => {
                   ) : (
                     <div className="relative">
                       <img
-                        src={lista[item].image_urls && lista[item].image_urls.length > 0 ? lista[item].image_urls[0] : "/placeholder.svg"}
+                        src={
+                          lista[item].image_urls &&
+                          lista[item].image_urls.length > 0
+                            ? lista[item].image_urls[0]
+                            : "/placeholder.svg"
+                        }
                         alt={lista[item].title}
-                        className="w-full h-96 object-cover rounded-t-lg"
+                        loading="lazy"
+                        className="fade-in-img w-full h-96 object-cover rounded-t-lg"
+                        onLoad={(e) => e.currentTarget.classList.add("loaded")}
                       />
 
                       {/* Estado */}
@@ -165,7 +178,9 @@ const PropertyDetails = () => {
                                 : "bg-red-500 text-white"
                             }`}
                           >
-                            {lista[item].status === "pending" ? "Pendiente" : "Vendido"}
+                            {lista[item].status === "pending"
+                              ? "Pendiente"
+                              : "Vendido"}
                           </span>
                         </div>
                       )}
@@ -210,10 +225,14 @@ const PropertyDetails = () => {
                       </div>
                       <div className="text-right">
                         <div className="text-3xl font-bold text-blue-600">
-                          {formatPrice(lista[item].price)} {lista[item].currency}
+                          {formatPrice(lista[item].price)}{" "}
+                          {lista[item].currency}
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
-                          Publicado: {new Date(lista[item].created_at).toLocaleDateString('es-AR')}
+                          Publicado:{" "}
+                          {new Date(lista[item].created_at).toLocaleDateString(
+                            "es-AR"
+                          )}
                         </div>
                       </div>
                     </div>
@@ -224,28 +243,38 @@ const PropertyDetails = () => {
                     {lista[item].bedrooms && (
                       <div className="text-center">
                         <Bed className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">{lista[item].bedrooms}</div>
-                        <div className="text-sm text-gray-500">Habitaciones</div>
+                        <div className="font-semibold">
+                          {lista[item].bedrooms}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          Habitaciones
+                        </div>
                       </div>
                     )}
                     {lista[item].bathrooms && (
                       <div className="text-center">
                         <Bath className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">{lista[item].bathrooms}</div>
+                        <div className="font-semibold">
+                          {lista[item].bathrooms}
+                        </div>
                         <div className="text-sm text-gray-500">Baños</div>
                       </div>
                     )}
                     {(lista[item].year || lista[item].year_built) && (
                       <div className="text-center">
                         <Calendar className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">{lista[item].year || lista[item].year_built}</div>
+                        <div className="font-semibold">
+                          {lista[item].year || lista[item].year_built}
+                        </div>
                         <div className="text-sm text-gray-500">Año</div>
                       </div>
                     )}
                     {lista[item].mileage && (
                       <div className="text-center">
                         <Gauge className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">{lista[item].mileage.toLocaleString()}</div>
+                        <div className="font-semibold">
+                          {lista[item].mileage.toLocaleString()}
+                        </div>
                         <div className="text-sm text-gray-500">Kilómetros</div>
                       </div>
                     )}
@@ -257,12 +286,17 @@ const PropertyDetails = () => {
                       Descripción
                     </h2>
                     <p className="text-gray-600 leading-relaxed">
-                      {lista[item].description || "No hay descripción disponible."}
+                      {lista[item].description ||
+                        "No hay descripción disponible."}
                     </p>
                   </div>
 
                   {/* Detalles adicionales */}
-                  {(lista[item].area || lista[item].transmission || lista[item].make || lista[item].model || lista[item].condition) && (
+                  {(lista[item].area ||
+                    lista[item].transmission ||
+                    lista[item].make ||
+                    lista[item].model ||
+                    lista[item].condition) && (
                     <div>
                       <h2 className="text-xl font-semibold text-gray-800 mb-3">
                         Detalles adicionales
@@ -271,31 +305,41 @@ const PropertyDetails = () => {
                         {lista[item].area && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Superficie:</span>
-                            <span className="font-medium">{lista[item].area.toLocaleString()} m²</span>
+                            <span className="font-medium">
+                              {lista[item].area.toLocaleString()} m²
+                            </span>
                           </div>
                         )}
                         {lista[item].make && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Marca:</span>
-                            <span className="font-medium">{lista[item].make}</span>
+                            <span className="font-medium">
+                              {lista[item].make}
+                            </span>
                           </div>
                         )}
                         {lista[item].model && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Modelo:</span>
-                            <span className="font-medium">{lista[item].model}</span>
+                            <span className="font-medium">
+                              {lista[item].model}
+                            </span>
                           </div>
                         )}
                         {lista[item].transmission && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Transmisión:</span>
-                            <span className="font-medium">{lista[item].transmission}</span>
+                            <span className="font-medium">
+                              {lista[item].transmission}
+                            </span>
                           </div>
                         )}
                         {lista[item].condition && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
                             <span className="text-gray-600">Condición:</span>
-                            <span className="font-medium">{lista[item].condition}</span>
+                            <span className="font-medium">
+                              {lista[item].condition}
+                            </span>
                           </div>
                         )}
                       </div>
@@ -400,9 +444,18 @@ const PropertyDetails = () => {
                       >
                         <div className="flex space-x-3">
                           <img
-                            src={similar.image_urls && similar.image_urls.length > 0 ? similar.image_urls[0] : "/placeholder.svg"}
+                            src={
+                              similar.image_urls &&
+                              similar.image_urls.length > 0
+                                ? similar.image_urls[0]
+                                : "/placeholder.svg"
+                            }
                             alt={similar.title}
-                            className="w-16 h-16 object-cover rounded-lg"
+                            loading="lazy"
+                            className="fade-in-img w-16 h-16 object-cover rounded-lg"
+                            onLoad={(e) =>
+                              e.currentTarget.classList.add("loaded")
+                            }
                           />
                           <div className="flex-1 min-w-0">
                             <h4 className="font-medium text-gray-800 truncate">
@@ -412,7 +465,8 @@ const PropertyDetails = () => {
                               {similar.location}
                             </p>
                             <p className="text-sm font-semibold text-blue-600">
-                              {formatPrice(similar.price)} {lista[item].currency}
+                              {formatPrice(similar.price)}{" "}
+                              {lista[item].currency}
                             </p>
                           </div>
                         </div>
