@@ -1,5 +1,5 @@
 
-import { usePublicListings } from "@/hooks/usePublicListings";
+import { useListingsStore } from "@/stores/useListingsStore";
 import ListingCard from "../ListingCard";
 
 // Transform Supabase listing to ListingCard format
@@ -29,35 +29,31 @@ const transformListing = (listing: any) => {
 };
 
 const FeaturedListings = () => {
-  const { listings, loading } = usePublicListings({
-    featured: true,
-    status: 'available',
-    // limit: 6
-  });
+  const {lista} = useListingsStore()
 
-  const transformedListings = listings.map(transformListing);
+  const transformedListings = lista.map(transformListing);
 
-  if (loading) {
-    return (
-      <section className="section-spacing">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-dark-charcoal mb-4">
-              Propiedades y Vehículos Destacados
-            </h2>
-            <p className="text-lg text-secondary max-w-2xl mx-auto leading-relaxed">
-              Publicaciones seleccionadas que ofrecen valor y calidad
-              excepcionales
-            </p>
-            <div className="w-24 h-1 bg-terracotta mx-auto mt-6 rounded-full"></div>
-          </div>
-          <div className="flex items-center justify-center min-h-[200px]">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-terracotta"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <section className="section-spacing">
+  //       <div className="container-custom">
+  //         <div className="text-center mb-12">
+  //           <h2 className="text-3xl md:text-4xl font-bold text-dark-charcoal mb-4">
+  //             Propiedades y Vehículos Destacados
+  //           </h2>
+  //           <p className="text-lg text-secondary max-w-2xl mx-auto leading-relaxed">
+  //             Publicaciones seleccionadas que ofrecen valor y calidad
+  //             excepcionales
+  //           </p>
+  //           <div className="w-24 h-1 bg-terracotta mx-auto mt-6 rounded-full"></div>
+  //         </div>
+  //         <div className="flex items-center justify-center min-h-[200px]">
+  //           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-terracotta"></div>
+  //         </div>
+  //       </div>
+  //     </section>
+  //   );
+  // }
 
   return (
     <section className="section-spacing">

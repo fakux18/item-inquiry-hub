@@ -12,7 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ListingCard from "./ListingCard";
-import { usePublicListings } from "@/hooks/usePublicListings";
+import { useListingsStore } from "@/stores/useListingsStore";
+
 
 // Transform Supabase listing to ListingCard format
 const transformListing = (listing: any) => {
@@ -46,16 +47,12 @@ const CategoryPage = () => {
   const [priceFilter, setPriceFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
 
-  const { listings, loading } = usePublicListings({
-    searchTerm,
-    category: category === 'all' ? '' : category,
-    status: 'available'
-  });
+  const { lista } = useListingsStore();
 
-  const transformedListings = listings.map(transformListing);
-
+  const transformedListings = lista.map(transformListing);
+  const categoryFilter = transformedListings.filter(i => i.category == category)
   // Apply additional filters and sorting
-  let filteredListings = [...transformedListings];
+  let filteredListings = [...categoryFilter];
 
   // Price filter
   if (priceFilter !== "all") {
@@ -110,13 +107,13 @@ const CategoryPage = () => {
     setSortBy("newest");
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+  //       <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-gray-50">

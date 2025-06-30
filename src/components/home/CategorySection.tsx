@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Home, Car, Tractor } from 'lucide-react';
-import { useListings } from "@/hooks/useListings";
+import { useListingsStore } from "@/stores/useListingsStore";
 
-const getCategoryCounts = (listings) => {
+
+const getCategoryCounts = (lista) => {
   const counts = {};
-  for (const listing of listings) {
+  for (const listing of lista) {
     const category = listing.category || "category-not-found";
     if (listing.status == 'available') {
       counts[category] = (counts[category] || 0) + 1;
@@ -14,8 +15,8 @@ const getCategoryCounts = (listings) => {
 };
 
 const CategorySection = () => {
-  const { listings } = useListings();
-  const categoryCounts = getCategoryCounts(listings);
+  const { lista } = useListingsStore();
+  const categoryCounts = getCategoryCounts(lista);
 
   const categories = [
     { key: "properties", name: "Propiedades", icon: Home, path: "/category/properties" },

@@ -27,9 +27,16 @@ export const useImageUpload = () => {
   };
 
   const compressImageToWebP = async (file: File): Promise<File> => {
+
+    const KB = 400 * 1024;
+    if (file.size <= KB) {
+      console.log('imagen < 0.4MB');
+      return file;
+    }
+
     const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 1920,
+      maxSizeMB: 0.3,
+      maxWidthOrHeight: 1080,
       useWebWorker: true,
       fileType: 'image/webp',
     };

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import logoNavbar from "../images/akinmobiliaria.png"
+import logoNavbar from "../images/akinmobiliaria.webp"
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePublicListings } from "@/hooks/usePublicListings";
+import { useListingsStore } from "@/stores/useListingsStore";
+
 
 const ContactPage = () => {
   const form = useRef();
@@ -58,7 +60,7 @@ const ContactPage = () => {
     });
   };
 
-  const { listings } = usePublicListings()
+  const {lista} = useListingsStore()
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent(
       "¡Hola! Estoy interesado en sus publicaciones y me gustaría saber más sobre lo que tienen disponible."
@@ -302,7 +304,7 @@ const ContactPage = () => {
                         <SelectItem value="general">
                           Consulta general
                         </SelectItem>
-                        {listings.map((listing) => (
+                        {lista.map((listing) => (
                           <SelectItem key={listing.id} value={listing.title}>
                             {listing.title}
                           </SelectItem>
