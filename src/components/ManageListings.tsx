@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash2, Eye, Plus, Search } from "lucide-react";
@@ -13,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useListings } from "@/hooks/useListings";
+import { getImageUrl } from "@/lib/cdn";
 
 const ManageListings = () => {
   const { listings, loading, updateListing, deleteListing } = useListings();
@@ -34,7 +34,9 @@ const ManageListings = () => {
   });
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("¿Estás seguro de que quieres eliminar esta publicación?")) {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar esta publicación?")
+    ) {
       await deleteListing(id);
     }
   };
@@ -180,7 +182,7 @@ const ManageListings = () => {
                     <div className="bg-gray-200 rounded-lg overflow-hidden !m-0">
                       {listing.image_urls && listing.image_urls.length > 0 ? (
                         <img
-                          src={listing.image_urls[0]}
+                          src={getImageUrl(listing.image_urls[0])}
                           alt={listing.title}
                           className="w-44 h-44 md:h-28 md:w-28 object-cover"
                         />
@@ -205,7 +207,10 @@ const ManageListings = () => {
                           {listing.category}
                         </span> */}
                         <span className="text-sm text-gray-500 !m-0">
-                          Publicado: {new Date(listing.created_at).toLocaleDateString('es-AR')}
+                          Publicado:{" "}
+                          {new Date(listing.created_at).toLocaleDateString(
+                            "es-AR"
+                          )}
                         </span>
                       </div>
                     </div>

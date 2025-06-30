@@ -1,9 +1,15 @@
-import { useCallback, useState } from "react";
+import React, {
+  useImperativeHandle,
+  forwardRef,
+  useCallback,
+  useState,
+} from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { Upload, X, Image as ImageIcon } from "lucide-react";
+import { getImageUrl } from "@/lib/cdn";
 
 interface ImageUploadProps {
   onImagesUploaded: (urls: string[]) => void;
@@ -12,50 +18,58 @@ interface ImageUploadProps {
   maxImages?: number;
 }
 
-const ImageUpload = ({
-  onImagesUploaded,
-  existingImages = [],
-  onImageRemoved,
-  maxImages = 10,
-}: ImageUploadProps) => {
+const ImageUpload = forwardRef(function ImageUpload(
+  {
+    onImagesUploaded,
+    existingImages = [],
+    onImageRemoved,
+    maxImages = 10,
+  }: ImageUploadProps,
+  ref
+) {
   const { uploadMultipleImages, deleteImage, uploading, progress } =
     useImageUpload();
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [pendingFiles, setPendingFiles] = useState<File[]>([]);
+  const [pendingPreviews, setPendingPreviews] = useState<string[]>([]);
 
   const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
-      const totalImages = existingImages.length + acceptedFiles.length;
-
+    (acceptedFiles: File[]) => {
+      const totalImages =
+        existingImages.length + pendingFiles.length + acceptedFiles.length;
       if (totalImages > maxImages) {
         alert(`Máximo ${maxImages} imágenes permitidas`);
         return;
       }
-
-      // Create previews
-      const newPreviews = acceptedFiles.map((file) =>
-        URL.createObjectURL(file)
-      );
-      setPreviews(newPreviews);
-
-      try {
-        const uploadedUrls = await uploadMultipleImages(
-          acceptedFiles,
-          "listings"
-        );
-        onImagesUploaded(uploadedUrls);
-
-        // Clean up previews
-        newPreviews.forEach(URL.revokeObjectURL);
-        setPreviews([]);
-      } catch (error) {
-        console.error("Upload failed:", error);
-        // Clean up previews on error
-        newPreviews.forEach(URL.revokeObjectURL);
-        setPreviews([]);
-      }
+      // Agrega archivos y previews locales
+      setPendingFiles((prev) => [...prev, ...acceptedFiles]);
+      setPendingPreviews((prev) => [
+        ...prev,
+        ...acceptedFiles.map((file) => URL.createObjectURL(file)),
+      ]);
     },
-    [uploadMultipleImages, onImagesUploaded, existingImages.length, maxImages]
+    [existingImages.length, maxImages, pendingFiles.length]
   );
+
+  const handleRemovePending = (index: number) => {
+    // Revoca el objeto URL y elimina el archivo de la lista
+    URL.revokeObjectURL(pendingPreviews[index]);
+    setPendingPreviews((prev) => prev.filter((_, i) => i !== index));
+    setPendingFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  // Llama esto desde el form principal al hacer submit
+  const uploadPendingImages = async (): Promise<string[]> => {
+    if (pendingFiles.length === 0) return [];
+    const urls = await uploadMultipleImages(pendingFiles, "listings");
+    if (urls.length > 0) {
+      onImagesUploaded(urls); // Llama al callback del padre con las nuevas URLs
+    }
+    // Limpia previews y archivos locales
+    pendingPreviews.forEach((url) => URL.revokeObjectURL(url));
+    setPendingPreviews([]);
+    setPendingFiles([]);
+    return urls;
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -68,14 +82,17 @@ const ImageUpload = ({
     disabled: uploading,
   });
 
-  const handleRemoveExisting = async (url: string) => {
+  const handleRemoveExisting = (url: string) => {
+    // No borra de Supabase aquí. Solo notifica al padre.
+    // La eliminación real se hará en el submit del formulario.
     if (onImageRemoved) {
-      const success = await deleteImage(url);
-      if (success) {
-        onImageRemoved(url);
-      }
+      onImageRemoved(url);
     }
   };
+
+  useImperativeHandle(ref, () => ({
+    uploadPendingImages,
+  }));
 
   return (
     <div className="space-y-4">
@@ -123,11 +140,11 @@ const ImageUpload = ({
         </div>
       )}
 
-      {/* Preview Images */}
-      {previews.length > 0 && (
+      {/* Preview Images (pendientes, aún no subidas) */}
+      {pendingPreviews.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {previews.map((preview, index) => (
-            <div key={index} className="relative">
+          {pendingPreviews.map((preview, index) => (
+            <div key={index} className="relative group">
               <img
                 src={preview}
                 alt={`Preview ${index + 1}`}
@@ -135,9 +152,17 @@ const ImageUpload = ({
                 className="fade-in-img w-full h-24 object-cover rounded-lg border"
                 onLoad={(e) => e.currentTarget.classList.add("loaded")}
               />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-                <span className="text-white text-sm">Subiendo...</span>
-              </div>
+              <Button
+                variant="destructive"
+                size="sm"
+                className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 h-auto bg-blue-600 hover:bg-blue-700"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleRemovePending(index);
+                }}
+              >
+                <X className="w-3 h-3 text-white" />
+              </Button>
             </div>
           ))}
         </div>
@@ -153,7 +178,7 @@ const ImageUpload = ({
             {existingImages.map((url, index) => (
               <div key={index} className="relative group">
                 <img
-                  src={url}
+                  src={getImageUrl(url)}
                   alt={`Imagen ${index + 1}`}
                   loading="lazy"
                   className="fade-in-img w-full h-24 object-cover rounded-lg"
@@ -179,6 +204,6 @@ const ImageUpload = ({
       )}
     </div>
   );
-};
+});
 
 export default ImageUpload;

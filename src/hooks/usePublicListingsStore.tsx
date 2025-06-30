@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useListingsStore } from '@/stores/useListingsStore';
+import { useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useListingsStore } from "@/stores/useListingsStore";
 
 interface UsePublicListingsProps {
   searchTerm?: string;
@@ -11,20 +11,16 @@ interface UsePublicListingsProps {
 }
 
 export const usePublicListingsStore = ({
-  status = 'available',
+  status = "available",
 }: UsePublicListingsProps = {}) => {
   const { lista, loading, setListings, setLoading } = useListingsStore();
 
   const fetchLista = async () => {
     try {
       setLoading(true);
-      console.log('wtf?')
-      let query = supabase
-        .from('listings')
-        .select('*')
-        .eq('status', status);
+      let query = supabase.from("listings").select("*").eq("status", status);
 
-      query = query.order('created_at', { ascending: false });
+      query = query.order("created_at", { ascending: false });
 
       const { data, error } = await query;
 
@@ -32,7 +28,7 @@ export const usePublicListingsStore = ({
 
       setListings(data || []);
     } catch (error: any) {
-      console.error('Error fetching public listings:', error);
+      console.error("Error fetching public listings:", error);
       setListings([]);
     } finally {
       setLoading(false);

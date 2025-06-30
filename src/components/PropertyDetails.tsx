@@ -1,6 +1,7 @@
-import { useParams, Link } from "react-router-dom";
-import logoNavbar from "../images/akinmobiliaria.webp";
 import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Listing } from "@/hooks/useListings";
 import {
   MapPin,
   Phone,
@@ -21,16 +22,79 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useListingsStore } from "@/stores/useListingsStore";
+import { getImageUrl } from "@/lib/cdn";
+import logoNavbar from "@/images/akinmobiliaria.webp";
 
 const PropertyDetails = () => {
-  const { lista } = useListingsStore();
-  const { id } = useParams();
-  const item = lista.findIndex((i) => i.id == id);
-  const filterCategory = lista.filter(
-    (i) => i.category == lista[item].category
+  const { id } = useParams<{ id: string }>();
+  const [item, setItem] = useState<Listing | null | undefined>(
+    undefined // undefined: loading, null: not found
   );
-  const rel = filterCategory.filter((i) => i.id !== lista[item].id);
+  const [relatedListings, setRelatedListings] = useState<Listing[]>([]);
+
+  useEffect(() => {
+    const findListing = async () => {
+      if (!id) {
+        setItem(null);
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from("listings")
+          .select("*")
+          .eq("id", id)
+          .single();
+
+        if (error) throw error;
+        setItem(data as Listing);
+
+        // Buscar listados relacionados de la misma categoría
+        const { data: relatedData } = await supabase
+          .from("listings")
+          .select("*")
+          .eq("category", data.category)
+          .neq("id", id)
+          .limit(3);
+
+        setRelatedListings((relatedData as Listing[]) || []);
+      } catch (error) {
+        console.error("Error fetching listing:", error);
+        setItem(null); // No encontrado
+      }
+    };
+
+    findListing();
+  }, [id]);
+
+  // Estado de carga inicial
+  if (item === undefined) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[40vh]">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-6"></div>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          Buscando publicación...
+        </h2>
+      </div>
+    );
+  }
+
+  // Estado de no encontrado
+  if (item === null) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[40vh]">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          Publicación no encontrada
+        </h2>
+        <p className="text-gray-600 mb-6 text-center max-w-md">
+          La publicación que buscas no existe o el enlace es incorrecto.
+        </p>
+        <Link to="/">
+          <Button>Volver al inicio</Button>
+        </Link>
+      </div>
+    );
+  }
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-AR", {
@@ -42,15 +106,15 @@ const PropertyDetails = () => {
 
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent(
-      `¡Hola! Estoy interesado en "${lista[item].title}" publicado por ${lista[item].price} ${lista[item].currency}. ¿Podrían brindarme más información?`
+      `¡Hola! Estoy interesado en "${item.title}" publicado por ${item.price} ${item.currency}. ¿Podrían brindarme más información?`
     );
     window.open(`https://wa.me/+5493755200964?text=${message}`, "_blank");
   };
 
   const handleEmailContact = () => {
-    const subject = encodeURIComponent(`Consulta sobre ${lista[item].title}`);
+    const subject = encodeURIComponent(`Consulta sobre ${item.title}`);
     const body = encodeURIComponent(
-      `Hola,\n\nEstoy interesado en "${lista[item].title}" publicado por ${lista[item].price} ${lista[item].currency}.\n\n¿Podrían brindarme más información?\n\n¡Gracias!`
+      `Hola,\n\nEstoy interesado en "${item.title}" publicado por ${item.price} ${item.currency}.\n\n¿Podrían brindarme más información?\n\n¡Gracias!`
     );
     window.open(
       `mailto:infoakmisiones@gmail.com?subject=${subject}&body=${body}`
@@ -60,8 +124,8 @@ const PropertyDetails = () => {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: lista[item].title,
-        text: `Mirá este listado de ${lista[item].category.toLowerCase()}`,
+        title: item.title,
+        text: `Mirá este listado de ${item.category.toLowerCase()}`,
         url: window.location.href,
       });
     } else {
@@ -93,59 +157,21 @@ const PropertyDetails = () => {
             <Card className="!border-none">
               <CardContent className="p-0">
                 <div className="relative">
-                  {lista[item].image_urls &&
-                  lista[item].image_urls.length > 1 ? (
+                  {item.image_urls && item.image_urls.length > 1 ? (
                     <Carousel className="w-full">
                       <CarouselContent>
-                        {lista[item].image_urls.map((image, index) => (
+                        {item.image_urls.map((image, index) => (
                           <CarouselItem key={index}>
                             <div className="relative">
                               <img
-                                src={image + "?v=1"}
-                                alt={`${lista[item].title} ${index + 1}`}
+                                src={getImageUrl(image)}
+                                alt={`${item.title} - Imagen ${index + 1}`}
                                 loading="lazy"
                                 className="fade-in-img w-full h-96 object-cover rounded-t-lg"
                                 onLoad={(e) =>
                                   e.currentTarget.classList.add("loaded")
                                 }
                               />
-
-                              {/* Estado */}
-                              {lista[item].status !== "available" &&
-                                index === 0 && (
-                                  <div className="absolute top-4 left-4">
-                                    <span
-                                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                                        lista[item].status === "pending"
-                                          ? "bg-yellow-500 text-white"
-                                          : "bg-red-500 text-white"
-                                      }`}
-                                    >
-                                      {lista[item].status === "pending"
-                                        ? "Pendiente"
-                                        : "Vendido"}
-                                    </span>
-                                  </div>
-                                )}
-
-                              {/* Destacado */}
-                              {lista[item].featured && index === 0 && (
-                                <div className="absolute top-4 right-4">
-                                  <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                    Destacado
-                                  </span>
-                                </div>
-                              )}
-
-                              {/* Compartir */}
-                              {index === 0 && (
-                                <button
-                                  onClick={handleShare}
-                                  className="absolute bottom-4 right-4 bg-white text-gray-700 p-2 rounded-full shadow-lg hover:bg-gray-50"
-                                >
-                                  <Share2 className="w-5 h-5" />
-                                </button>
-                              )}
                             </div>
                           </CarouselItem>
                         ))}
@@ -156,29 +182,28 @@ const PropertyDetails = () => {
                   ) : (
                     <div className="relative">
                       <img
-                        src={
-                          lista[item].image_urls &&
-                          lista[item].image_urls.length > 0
-                            ? lista[item].image_urls[0]
-                            : "/placeholder.svg"
-                        }
-                        alt={lista[item].title}
+                        src={getImageUrl(
+                          item.image_urls && item.image_urls.length > 0
+                            ? item.image_urls[0]
+                            : ""
+                        )}
+                        alt={item.title}
                         loading="lazy"
                         className="fade-in-img w-full h-96 object-cover rounded-t-lg"
                         onLoad={(e) => e.currentTarget.classList.add("loaded")}
                       />
 
                       {/* Estado */}
-                      {lista[item].status !== "available" && (
+                      {item.status !== "available" && (
                         <div className="absolute top-4 left-4">
                           <span
                             className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                              lista[item].status === "pending"
+                              item.status === "pending"
                                 ? "bg-yellow-500 text-white"
                                 : "bg-red-500 text-white"
                             }`}
                           >
-                            {lista[item].status === "pending"
+                            {item.status === "pending"
                               ? "Pendiente"
                               : "Vendido"}
                           </span>
@@ -186,7 +211,7 @@ const PropertyDetails = () => {
                       )}
 
                       {/* Destacado */}
-                      {lista[item].featured && (
+                      {item.featured && (
                         <div className="absolute top-4 right-4">
                           <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                             Destacado
@@ -216,21 +241,20 @@ const PropertyDetails = () => {
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                          {lista[item].title}
+                          {item.title}
                         </h1>
                         <div className="flex items-center text-gray-600 mb-2">
                           <MapPin className="w-5 h-5 mr-2" />
-                          {lista[item].location}
+                          {item.location}
                         </div>
                       </div>
                       <div className="text-right">
                         <div className="text-3xl font-bold text-blue-600">
-                          {formatPrice(lista[item].price)}{" "}
-                          {lista[item].currency}
+                          {formatPrice(item.price)} {item.currency}
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
-                          Publicado:{" "}
-                          {new Date(lista[item].created_at).toLocaleDateString(
+                          Publicado:
+                          {new Date(item.created_at).toLocaleDateString(
                             "es-AR"
                           )}
                         </div>
@@ -240,42 +264,34 @@ const PropertyDetails = () => {
 
                   {/* Detalles clave */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-gray-200">
-                    {lista[item].bedrooms && (
+                    {item.bedrooms && (
                       <div className="text-center">
                         <Bed className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {lista[item].bedrooms}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          Habitaciones
-                        </div>
+                        <p className="font-semibold">{item.bedrooms}</p>
+                        <p className="text-sm text-gray-500">Habitaciones</p>
                       </div>
                     )}
-                    {lista[item].bathrooms && (
+                    {item.bathrooms && (
                       <div className="text-center">
                         <Bath className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {lista[item].bathrooms}
-                        </div>
-                        <div className="text-sm text-gray-500">Baños</div>
+                        <p className="font-semibold">{item.bathrooms}</p>
+                        <p className="text-sm text-gray-500">Baños</p>
                       </div>
                     )}
-                    {(lista[item].year || lista[item].year_built) && (
+                    {(item.year || item.year_built) && (
                       <div className="text-center">
                         <Calendar className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {lista[item].year || lista[item].year_built}
-                        </div>
-                        <div className="text-sm text-gray-500">Año</div>
+                        <p className="font-semibold">
+                          {item.year || item.year_built}
+                        </p>
+                        <p className="text-sm text-gray-500">Año</p>
                       </div>
                     )}
-                    {lista[item].mileage && (
+                    {item.mileage && (
                       <div className="text-center">
                         <Gauge className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold">
-                          {lista[item].mileage.toLocaleString()}
-                        </div>
-                        <div className="text-sm text-gray-500">Kilómetros</div>
+                        <p className="font-semibold">{item.mileage} km</p>
+                        <p className="text-sm text-gray-500">Kilometraje</p>
                       </div>
                     )}
                   </div>
@@ -286,60 +302,49 @@ const PropertyDetails = () => {
                       Descripción
                     </h2>
                     <p className="text-gray-600 leading-relaxed">
-                      {lista[item].description ||
-                        "No hay descripción disponible."}
+                      {item.description || "No hay descripción disponible."}
                     </p>
                   </div>
 
                   {/* Detalles adicionales */}
-                  {(lista[item].area ||
-                    lista[item].transmission ||
-                    lista[item].make ||
-                    lista[item].model ||
-                    lista[item].condition) && (
+                  {(item.area ||
+                    item.transmission ||
+                    item.make ||
+                    item.model ||
+                    item.condition) && (
                     <div>
                       <h2 className="text-xl font-semibold text-gray-800 mb-3">
                         Detalles adicionales
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {lista[item].area && (
+                        {item.area && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
-                            <span className="text-gray-600">Superficie:</span>
-                            <span className="font-medium">
-                              {lista[item].area.toLocaleString()} m²
-                            </span>
+                            <span className="font-semibold">Superficie</span>
+                            <span>{item.area} m²</span>
                           </div>
                         )}
-                        {lista[item].make && (
+                        {item.transmission && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
-                            <span className="text-gray-600">Marca:</span>
-                            <span className="font-medium">
-                              {lista[item].make}
-                            </span>
+                            <span className="font-semibold">Transmisión</span>
+                            <span>{item.transmission}</span>
                           </div>
                         )}
-                        {lista[item].model && (
+                        {item.make && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
-                            <span className="text-gray-600">Modelo:</span>
-                            <span className="font-medium">
-                              {lista[item].model}
-                            </span>
+                            <span className="font-semibold">Marca</span>
+                            <span>{item.make}</span>
                           </div>
                         )}
-                        {lista[item].transmission && (
+                        {item.model && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
-                            <span className="text-gray-600">Transmisión:</span>
-                            <span className="font-medium">
-                              {lista[item].transmission}
-                            </span>
+                            <span className="font-semibold">Modelo</span>
+                            <span>{item.model}</span>
                           </div>
                         )}
-                        {lista[item].condition && (
+                        {item.condition && (
                           <div className="flex justify-between py-2 border-b border-gray-100">
-                            <span className="text-gray-600">Condición:</span>
-                            <span className="font-medium">
-                              {lista[item].condition}
-                            </span>
+                            <span className="font-semibold">Condición</span>
+                            <span>{item.condition}</span>
                           </div>
                         )}
                       </div>
@@ -434,9 +439,9 @@ const PropertyDetails = () => {
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
                   Listados similares
                 </h3>
-                {rel.length > 0 ? (
+                {relatedListings.length > 0 ? (
                   <div className="space-y-4">
-                    {rel.map((similar) => (
+                    {relatedListings.map((similar) => (
                       <Link
                         key={similar.id}
                         to={`/property/${similar.id}`}
@@ -444,12 +449,12 @@ const PropertyDetails = () => {
                       >
                         <div className="flex space-x-3">
                           <img
-                            src={
+                            src={getImageUrl(
                               similar.image_urls &&
-                              similar.image_urls.length > 0
+                                similar.image_urls.length > 0
                                 ? similar.image_urls[0]
-                                : "/placeholder.svg"
-                            }
+                                : ""
+                            )}
                             alt={similar.title}
                             loading="lazy"
                             className="fade-in-img w-16 h-16 object-cover rounded-lg"
@@ -457,16 +462,12 @@ const PropertyDetails = () => {
                               e.currentTarget.classList.add("loaded")
                             }
                           />
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-gray-800 truncate">
+                          <div>
+                            <h4 className="font-semibold text-gray-800 truncate">
                               {similar.title}
                             </h4>
-                            <p className="text-sm text-gray-600">
-                              {similar.location}
-                            </p>
-                            <p className="text-sm font-semibold text-blue-600">
-                              {formatPrice(similar.price)}{" "}
-                              {lista[item].currency}
+                            <p className="text-sm text-blue-600 font-bold">
+                              {formatPrice(similar.price)} {similar.currency}
                             </p>
                           </div>
                         </div>

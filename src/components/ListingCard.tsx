@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Bed, Bath, Calendar, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getImageUrl } from "@/lib/cdn";
 
 interface Listing {
   id: string;
@@ -72,7 +73,7 @@ const ListingCard = ({ listing, compact = false }: ListingCardProps) => {
       {/* Imagen */}
       <div className="relative overflow-hidden">
         <img
-          src={listing.images[0] + "?v=1"}
+          src={getImageUrl(listing.images[0]) + "?v=1"}
           alt={listing.title}
           loading="lazy"
           className={`fade-in-img w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
