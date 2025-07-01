@@ -199,20 +199,20 @@ const PropertyDetails = () => {
                   {/* Encabezado */}
                   <div>
                     <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                      <div className="">
+                        <h1 className="text-lg md:text-3xl font-bold text-gray-800 mb-2">
                           {lista[item].title}
                         </h1>
-                        <div className="flex items-center text-gray-600 mb-2">
+                        <div className="flex items-center text-xs md:text-xl text-gray-600 mb-2">
                           <MapPin className="w-5 h-5 mr-2" />
                           {lista[item].location}
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-3xl font-bold text-blue-600">
+                        <div className="text-sm md:text-xl font-bold text-blue-600">
                           {formatPrice(lista[item].price)} {lista[item].currency}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">
+                        <div className="text-xs md:text-lg text-gray-500 mt-1">
                           Publicado: {new Date(lista[item].created_at).toLocaleDateString('es-AR')}
                         </div>
                       </div>
@@ -304,6 +304,7 @@ const PropertyDetails = () => {
                 </div>
               </CardContent>
             </Card>
+            
           </div>
 
           {/* Barra lateral */}
@@ -404,15 +405,15 @@ const PropertyDetails = () => {
                             alt={similar.title}
                             className="w-16 h-16 object-cover rounded-lg"
                           />
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-gray-800 truncate">
+                          <div className="flex-1 min-w-0 w-full">
+                            <h4 className="font-medium text-gray-800 text-sm text-wrap">
                               {similar.title}
                             </h4>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-xs text-gray-600">
                               {similar.location}
                             </p>
-                            <p className="text-sm font-semibold text-blue-600">
-                              {formatPrice(similar.price)} {lista[item].currency}
+                            <p className="text-xs font-semibold text-blue-600">
+                              {similar.price} {similar.currency}
                             </p>
                           </div>
                         </div>
