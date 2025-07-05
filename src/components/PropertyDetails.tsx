@@ -463,10 +463,10 @@ const PropertyDetails = () => {
                             }
                           />
                           <div>
-                            <h4 className="font-semibold text-gray-800 truncate">
+                            <h4 className="font-semibold line-clamp-2 text-gray-800 text-sm md:text-base">
                               {similar.title}
                             </h4>
-                            <p className="text-sm text-blue-600 font-bold">
+                            <p className="text-xs text-blue-600 font-bold md:text-base">
                               {formatPrice(similar.price)} {similar.currency}
                             </p>
                           </div>
