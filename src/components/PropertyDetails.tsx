@@ -237,10 +237,10 @@ const PropertyDetails = () => {
               <CardContent className="p-6">
                 <div className="space-y-6">
                   {/* Encabezado */}
-                  <div>
+                  <div className="hidden sm:block">
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                        <h1 className="text-xl font-bold text-gray-800 mb-2">
                           {item.title}
                         </h1>
                         <div className="flex items-center text-gray-600 mb-2">
@@ -249,7 +249,7 @@ const PropertyDetails = () => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-3xl font-bold text-blue-600">
+                        <div className="text-xl font-bold text-blue-600">
                           {formatPrice(item.price)} {item.currency}
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
@@ -259,6 +259,31 @@ const PropertyDetails = () => {
                           )}
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  {/* Encabezado mobile */}
+                  <div className="sm:hidden">
+                    <div className="flex items-start justify-center mb-4">
+                      <div className="text-center">
+                        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                          {item.title}
+                        </h1>
+                        <div className="flex justify-center text-gray-400 mb-2">
+                          {item.location}
+                        </div>
+                        <div className="text-center">
+                          <div className="text-3xl font-bold text-blue-600">
+                            {formatPrice(item.price)} {item.currency}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">
+                            Publicado:
+                            {new Date(item.created_at).toLocaleDateString(
+                              "es-AR"
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                   </div>
 
